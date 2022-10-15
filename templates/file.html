@@ -7,11 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="{% static 'css/file.css' %}">
+    
 </head>
 <body>
     <form action="POST">
-        <textarea name="" id="" cols="30" rows="10"></textarea>
-        <button type="button">Save</button>
+        <textarea id="code" name="" id="" cols="30" rows="10">{{ code.code }}</textarea>
+        <button id="send" type="button">Save</button>
     </form>
+    <script src="{% static 'js/file.js' %}"></script>
 </body>
 </html>
