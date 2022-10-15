@@ -14,15 +14,17 @@
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/abbott.min.css"></link>
 </head>
 <body>
-    <div class="editor">
-        <textarea id="code" name="" id="" cols="30" rows="10">{{ code.code }}</textarea>
-        <button id="send" type="button">Save</button>
-    </div>
-    {% if difference %}
-        <div class="modified">
-            {{difference|safe}}
+    <div class="container">
+        <div class="editor">
+            <textarea id="code" name="" id="" cols="30" rows="10">{{ code.code }}</textarea>
+            <button id="send" type="button">Save</button>
         </div>
-    {% endif %}
+        {% if difference %}
+            <div class="modified">
+                {{difference|safe}}
+            </div>
+        {% endif %}
+    </div>
     <script src="{% static 'js/file.js' %}"></script>
 </body>
 </html>

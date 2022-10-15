@@ -29,4 +29,9 @@ sentCode.addEventListener("click", () =>{
     xhr.setRequestHeader("X-CSRFToken", csrftoken)
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
     xhr.send(`code=${editor.getValue()}`)
+    xhr.onreadystatechange = () => { 
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                location.reload();
+            }
+        }
 })

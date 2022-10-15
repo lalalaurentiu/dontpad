@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from pdb import line_prefix
+from django.shortcuts import render, HttpResponse
 from .models import *
 
 def new_file(request, slug):
@@ -23,12 +24,16 @@ def new_file(request, slug):
         result = list(d.compare(modified_code.code.splitlines(), last_code.code.splitlines()))
 
         differnce = ''
+        line_index = 0
         for line in range(len(result)):
-            print(result[line][0])
+            line_index += 1
             if result[line][0] == "+":
-                differnce += f"<div class='lineplus'> <span>+</span> {result[line].replace('+', '')} </div> \n"
+                line_index -= 1
+                differnce += f"<div class='lineplus'> {line_index} <span>+</span> {result[line].replace('+', '')} </div> \n"
             elif result[line][0] == "-":
-                differnce += f"<div class='lineminus'> <span>-</span> {result[line].replace('-', '')} </div> \n"
+                differnce += f"<div class='lineminus'>{line_index} <span>-</span> {result[line].replace('-', '')} </div> \n"
+            else:
+                differnce += f"<div> {line_index} {result[line]} </div> \n"
     except:
         differnce = None
 
@@ -40,6 +45,7 @@ def new_file(request, slug):
     if request.method == "POST":
         DontpadCode.objects.create(slug_id=obj[0].id,code = request.POST["code"])
         print(request.POST["code"])
+        return HttpResponse(status = 200)
 
     response = render(request, template_name, context)
     return response
