@@ -15,8 +15,11 @@ function getCookie(name) {
 }
 
 let sentCode = document.getElementById("send")
-let code = document.getElementById("code")
-console.log(code.value)
+let editor = CodeMirror.fromTextArea(document.getElementById('code'), {
+    lineNumbers: true,
+    mode: 'text/x-perl',
+});
+
 
 sentCode.addEventListener("click", () =>{
     const url = window.location.href
@@ -25,6 +28,5 @@ sentCode.addEventListener("click", () =>{
     xhr.open("POST", url, true)
     xhr.setRequestHeader("X-CSRFToken", csrftoken)
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
-    let code = document.getElementById("code")
-    xhr.send(`code=${code.value}`)
+    xhr.send(`code=${editor.getValue()}`)
 })

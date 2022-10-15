@@ -4,3 +4,17 @@ body{
     padding: 0;
     margin: 0;
 }
+
+textarea{
+    line-height: 21px;
+    overflow-y: hidden;
+    padding: 0;
+    border: 0;
+    max-width: 500px;
+    outline: none;
+    resize: none;
+}
+
+.editor{
+    max-width: 500px;
+}
