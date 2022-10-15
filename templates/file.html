@@ -18,11 +18,11 @@
         <textarea id="code" name="" id="" cols="30" rows="10">{{ code.code }}</textarea>
         <button id="send" type="button">Save</button>
     </div>
-    
-
-    <script>
-        
-    </script>
+    {% if difference %}
+        <div class="modified">
+            {{difference|safe}}
+        </div>
+    {% endif %}
     <script src="{% static 'js/file.js' %}"></script>
 </body>
 </html>

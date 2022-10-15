@@ -12,11 +12,29 @@ def new_file(request, slug):
     
 
     try:
-        code = code[0]
+        last_code = code[0]
     except:
-        code = None
+        last_code = None
+
+    try:
+        modified_code = code[1]
+        from difflib import Differ
+        d = Differ()
+        result = list(d.compare(modified_code.code.splitlines(), last_code.code.splitlines()))
+
+        differnce = ''
+        for line in range(len(result)):
+            print(result[line][0])
+            if result[line][0] == "+":
+                differnce += f"<div class='lineplus'> <span>+</span> {result[line].replace('+', '')} </div> \n"
+            elif result[line][0] == "-":
+                differnce += f"<div class='lineminus'> <span>-</span> {result[line].replace('-', '')} </div> \n"
+    except:
+        differnce = None
+
     context = {
-        "code": code
+        "code": last_code,
+        "difference":differnce
     }
 
     if request.method == "POST":

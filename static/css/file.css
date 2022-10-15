@@ -18,3 +18,25 @@ textarea{
 .editor{
     max-width: 500px;
 }
+
+.modified{
+    width: 500px;
+}
+
+.lineminus{
+    background-color: rgba(255,0,0,0.2);
+    margin: 5px;
+}
+
+.lineminus span {
+    color: red;
+}
+
+.lineplus{
+    background-color: rgba(0,255,0,0.2);
+    margin: 5px;
+}
+
+.lineplus {
+    color: green;
+}
