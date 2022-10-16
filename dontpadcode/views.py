@@ -2,6 +2,14 @@ from django.shortcuts import render, HttpResponse, redirect
 from .models import *
 from .forms import *
 
+CHARACTERS ={
+    " ":"&nbsp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    "&":"&amp;",
+    "\\t":"&nbsp; &nbsp; &nbsp; &nbsp;"
+}
+
 def new_file(request, slug):
     
     template_name = "file.html"
@@ -26,15 +34,24 @@ def new_file(request, slug):
 
         differnce = ''
         line_index = 0
+        
         for line in range(len(result)):
             line_index += 1
-            if result[line][0] == "+":
+            letters = ""
+            
+            for letter in result[line]:
+                try:
+                    letters += CHARACTERS[letter]
+                except KeyError:
+                    letters += letter
+
+            if letters[0] == "+":
                 line_index -= 1
-                differnce += f"<div class='lineplus'> {line_index} <span>+</span> {result[line].replace('+', '')} </div> \n"
-            elif result[line][0] == "-":
-                differnce += f"<div class='lineminus'>{line_index} <span>-</span> {result[line].replace('-', '')} </div> \n"
+                differnce += f"<div class='lineplus'> {line_index} <span>+</span> {letters.replace('+', '')} </div> \n"
+            elif letters[0] == "-":
+                differnce += f"<div class='lineminus'>{line_index} <span>-</span> {letters.replace('-', '')} </div> \n"
             else:
-                differnce += f"<div> {line_index} {result[line]} </div> \n"
+                differnce += f"<div> {line_index} {letters} </div> \n"
     except:
         differnce = None
 

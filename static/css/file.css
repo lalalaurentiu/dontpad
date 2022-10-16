@@ -16,11 +16,17 @@ textarea{
 }
 
 .editor{
-    width: 500px;
+    position: relative;
+    width: 50%;
+}
+.CodeMirror{
+    height: 100% !important;
 }
 
 .modified{
-    width: 500px;
+    width: 50%;
+    height: 100%;
+    overflow: auto;
 }
 
 .lineminus{
