@@ -4,5 +4,7 @@ from .views import *
 app_name = "code"
 
 urlpatterns = [
-    path("", new_file, name="newfile")
+    path("/upload", uploadFile, name="upload"),
+    path("", new_file, name="newfile"),
+    
 ]

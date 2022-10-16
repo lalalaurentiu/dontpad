@@ -1,3 +1,4 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -18,13 +19,22 @@
         <div class="editor">
             <textarea id="code" name="" id="" cols="30" rows="10">{{ code.code }}</textarea>
             <button id="send" type="button">Save</button>
+           <form method="POST" action="{{code.slug}}/upload" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ fileForm }}
+            <button type="submit">Upload</button>
+           </form>
         </div>
         {% if difference %}
             <div class="modified">
                 {{difference|safe}}
             </div>
         {% endif %}
+        <div>
+            
+        </div>
     </div>
+    
     <script src="{% static 'js/file.js' %}"></script>
 </body>
 </html>

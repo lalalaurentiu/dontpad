@@ -1,6 +1,6 @@
-from pdb import line_prefix
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from .models import *
+from .forms import *
 
 def new_file(request, slug):
     
@@ -10,6 +10,7 @@ def new_file(request, slug):
 
     obj = DontpadURL.objects.get_or_create(slug=file_name)
     code = DontpadCode.objects.filter(slug_id = obj[0].id).order_by("-id")
+    uploadFileForm = UploadFile()
     
 
     try:
@@ -39,7 +40,9 @@ def new_file(request, slug):
 
     context = {
         "code": last_code,
-        "difference":differnce
+        "difference":differnce,
+        "fileForm":uploadFileForm
+        
     }
 
     if request.method == "POST":
@@ -49,3 +52,12 @@ def new_file(request, slug):
 
     response = render(request, template_name, context)
     return response
+
+def uploadFile(request, slug):
+    if request.method == "POST":
+        url = request.path.replace("/upload", "").replace("/", "")
+        fileContent = request.FILES['file'].read().decode("utf-8")
+
+        obj = DontpadURL.objects.filter(slug = url)[0].id
+        DontpadCode.objects.create(slug_id = obj, code = fileContent)
+    return redirect(request.path.replace("/upload", ""))
