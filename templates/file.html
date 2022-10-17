@@ -9,30 +9,31 @@
     <title>Document</title>
     <link rel="stylesheet" href="{% static 'css/file.css' %}">
     <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
-<script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/perl/perl.min.js"></script>
+    <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/perl/perl.min.js"></script>
 
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css"></link>
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/abbott.min.css"></link>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css"></link>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/abbott.min.css"></link>
 </head>
 <body>
     <div class="container">
         <div class="editor">
             <textarea id="code" name="" id="" cols="30" rows="10">{{ code.code }}</textarea>
-            <button id="send" type="button">Save</button>
-           <form method="POST" action="{{code.slug}}/upload" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ fileForm }}
-            <button type="submit">Upload</button>
-           </form>
+            <div style="display: flex;">
+                <button id="send" type="button">Save</button>
+                <form method="POST" action="{{code.slug}}/upload" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ fileForm }}
+                    <button type="submit">Upload</button>
+                </form>
+                <button id="differences">Show differces</button>
+            </div>
+            
         </div>
         {% if difference %}
-            <div class="modified">
+            <div class="modified" style="display: none;">
                 {{difference|safe}}
             </div>
         {% endif %}
-        <div>
-            
-        </div>
     </div>
     
     <script src="{% static 'js/file.js' %}"></script>

@@ -47,11 +47,11 @@ def new_file(request, slug):
 
             if letters[0] == "+":
                 line_index -= 1
-                differnce += f"<div class='lineplus'> {line_index} <span>+</span> {letters.replace('+', '')} </div> \n"
+                differnce += f"<code class='lineplus'> {line_index} <span>+</span> {letters.replace('+', '')} </code> \n"
             elif letters[0] == "-":
-                differnce += f"<div class='lineminus'>{line_index} <span>-</span> {letters.replace('-', '')} </div> \n"
+                differnce += f"<code class='lineminus'>{line_index} <span>-</span> {letters.replace('-', '')} </code> \n"
             else:
-                differnce += f"<div> {line_index} {letters} </div> \n"
+                differnce += f"<code> {line_index} {letters} </code> \n"
     except:
         differnce = None
 

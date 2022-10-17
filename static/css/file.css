@@ -17,15 +17,16 @@ textarea{
 
 .editor{
     position: relative;
-    width: 50%;
+    width: 100%;
 }
 .CodeMirror{
-    height: 100% !important;
+    height: 90% !important;
 }
 
 .modified{
+    
     width: 50%;
-    height: 100%;
+    height: 90%;
     overflow: auto;
 }
 
@@ -53,3 +54,9 @@ textarea{
     display: flex;
 }
 
+button{
+    margin: 10px;
+}
+code{
+    display: block;
+}

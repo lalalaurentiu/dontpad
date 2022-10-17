@@ -36,4 +36,21 @@ sentCode.addEventListener("click", () =>{
         }
 })
 
+let differcesContainer = document.querySelector(".modified")
+let differencesButton = document.getElementById("differences")
+
+differencesButton.addEventListener("click", () =>{
+    let editor = document.querySelector(".editor")
+    if (differcesContainer.style.display == "none"){
+        editor.style.width = "50%"
+        differcesContainer.style.display = "initial"
+        differencesButton.innerHTML = "Hide differences"
+    }else {
+        editor.style.width = "100%"
+        differcesContainer.style.display = "none"
+        differencesButton.innerHTML = "Show differences"
+    }
+})
+console.log(differcesContainer.style.display)
+
 
