@@ -27,12 +27,12 @@ textarea{
     
     width: 50%;
     height: 90%;
-    overflow: auto;
+    overflow-x: auto;
 }
 
 .lineminus{
     background-color: rgba(255,0,0,0.2);
-    margin: 5px 0px 5px 0px;
+    padding: 5px 0px 5px 0px;
 }
 
 .lineminus span {
@@ -41,7 +41,7 @@ textarea{
 
 .lineplus{
     background-color: rgba(0,255,0,0.2);
-    margin: 5px 0px 5px 0px;
+    padding: 5px 0px 5px 0px;
 }
 
 .lineplus {

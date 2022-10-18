@@ -17,9 +17,10 @@ def new_file(request, slug):
     file_name = request.path.replace("/", "")
 
     obj = DontpadURL.objects.get_or_create(slug=file_name)
+
     code = DontpadCode.objects.filter(slug_id = obj[0].id).order_by("-id")
+
     uploadFileForm = UploadFile()
-    
 
     try:
         last_code = code[0]
@@ -64,7 +65,6 @@ def new_file(request, slug):
 
     if request.method == "POST":
         DontpadCode.objects.create(slug_id=obj[0].id,code = request.POST["code"])
-        print(request.POST["code"])
         return HttpResponse(status = 200)
 
     response = render(request, template_name, context)
