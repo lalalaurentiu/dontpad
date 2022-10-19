@@ -38,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "dontpadcode"
+    "dontpadcode",
+
+    #external module
+    "channels",
 ]
 
 MIDDLEWARE = [
@@ -70,6 +73,12 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'dontpad.wsgi.application'
+ASGI_APPLICATION = 'dontpad.asgi.application'
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    },
+}
 
 
 # Database
