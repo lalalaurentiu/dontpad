@@ -13,6 +13,7 @@ gunicorn==20.1.0
 hyperlink==21.0.0
 idna==3.4
 incremental==22.10.0
+psycopg2-binary==2.9.4
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pycparser==2.21
@@ -24,4 +25,3 @@ Twisted==22.8.0
 txaio==22.2.1
 typing_extensions==4.4.0
 zope.interface==5.5.0
-psycopg2==2.9.3
