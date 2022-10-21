@@ -58,7 +58,7 @@ let socket = new WebSocket("ws://" + window.location.host + "/ws/chat/" + chatRo
 socket.onmessage = (e) => {
     const data = JSON.parse(e.data)
     if (data.message) {
-        document.querySelector('#chat-log').value += (data.message )
+        document.querySelector('#chat-log').value += (data.message + "\n")
     }
     if (data.code) {
         editor.setValue(data.code)
