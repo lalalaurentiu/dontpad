@@ -51,6 +51,39 @@ differencesButton.addEventListener("click", () =>{
         differencesButton.innerHTML = "Show differences"
     }
 })
-console.log(differcesContainer.style.display)
+
+let chatRoom = location.pathname.split('/')[1]
+let socket = new WebSocket("ws://" + window.location.host + "/ws/chat/" + chatRoom + "/");
+
+socket.onmessage = (e) => {
+    const data = JSON.parse(e.data)
+    if (data.message) {
+        document.querySelector('#chat-log').value += (data.message )
+    }
+    if (data.code) {
+        editor.setValue(data.code)
+        differcesContainer.innerHTML = data.differnce
+    }
+}
+
+socket.onclose = function(e) {
+    console.error('Chat socket closed unexpectedly');
+};
+
+document.querySelector('#chat-message-input').focus();
+document.querySelector('#chat-message-input').onkeyup = function(e) {
+    if (e.keyCode === 13) {  // enter, return
+        document.querySelector('#chat-message-submit').click();
+    }
+};
+
+document.querySelector('#chat-message-submit').onclick = function(e) {
+    const messageInputDom = document.querySelector('#chat-message-input');
+    const message = messageInputDom.value;
+    socket.send(JSON.stringify({
+        'message': message
+    }));
+    messageInputDom.value = '';
+};
 
 
