@@ -45,24 +45,37 @@ class ChatConsumer(WebsocketConsumer):
     # Receive message from WebSocket
     def receive(self, text_data):
         text_data_json = json.loads(text_data)
-        message = text_data_json["message"]
-        code = text_data_json["code"]
-
-        # Send message to room group
-        async_to_sync(self.channel_layer.group_send)(
-            self.room_group_name, {"type": "chat_message", "message": message}
-        )
-        async_to_sync(self.channel_layer.group_send)(
-            self.room_group_name, {"type": "chat_code", "code": code}
-        )
+        message = text_data_json.get("message")
+        code = text_data_json.get("code")
+        if message:
+            # Send message to room group
+            async_to_sync(self.channel_layer.group_send)(
+                self.room_group_name,
+                {
+                    "type": "chat_message",
+                    "message": message,
+                },
+            )
+        elif code:
+            # Send message to room group
+            async_to_sync(self.channel_layer.group_send)(
+                self.room_group_name,
+                {
+                    "type": "chat_code",
+                    "code": code,
+                },
+            )
 
     # Receive message from room group
     def chat_message(self, event):
         message = event.get("message")
-        code = event.get("code")
 
         # Send message to WebSocket
         self.send(text_data=json.dumps({"message": message}))
+    def chat_code(self, event):
+        code = event.get("code")
+
+        # Send message to WebSocket
         self.send(text_data=json.dumps({"code": code}))
 
 @receiver(post_save, sender=DontpadCode)
@@ -72,5 +85,5 @@ def post_code_receiver(sender, **kwargs):
         channel_layer = get_channel_layer()
         async_to_sync(channel_layer.group_send)(
             "chat_%s" % kwargs["instance"].slug.slug,
-            {"type": "chat_message", "code": kwargs["instance"].code},
+            {"type": "chat_code", "code": kwargs["instance"].code},
         )
