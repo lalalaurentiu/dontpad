@@ -75,13 +75,13 @@ TEMPLATES = [
 WSGI_APPLICATION = 'dontpad.wsgi.application'
 ASGI_APPLICATION = 'dontpad.asgi.application'
 CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            # in tutorial it says: "hosts": [('127.0.0.1', 6379)],
-            "hosts": [os.environ.get('REDIS_URL', 'redis://redis:6379')],
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [(str(os.environ.get('REDIS_URL')))],
         },
     },
+    'ROUTING': 'dontpad.routing.application',
 }
 
 
