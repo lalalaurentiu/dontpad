@@ -53,7 +53,7 @@ differencesButton.addEventListener("click", () =>{
 })
 
 let chatRoom = location.pathname.split('/')[1]
-let socket = new WebSocket("wss://" + window.location.host + "/ws/chat/" + chatRoom + "/");
+let socket = new WebSocket("ws://" + window.location.host + "/ws/chat/" + chatRoom + "/");
 
 socket.onmessage = (e) => {
     const data = JSON.parse(e.data)
