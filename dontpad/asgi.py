@@ -17,7 +17,7 @@ from dontpadcode.routing import websocket_urlpatterns
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'dontpad.settings')
 
 application = ProtocolTypeRouter({
-  'http': get_asgi_application(),
+  'https': get_asgi_application(),
   'websocket': URLRouter(
       websocket_urlpatterns
     ),
