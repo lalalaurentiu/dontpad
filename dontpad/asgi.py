@@ -20,6 +20,10 @@ from django.core.asgi import get_asgi_application
 from channels.auth import AuthMiddlewareStack
 from dontpadcode.routing import websocket_urlpatterns
 
+from channels.layers import get_channel_layer
+
+channel_layer = get_channel_layer()
+
 application = ProtocolTypeRouter({
   'http': get_asgi_application(),
   'websocket': AuthMiddlewareStack(
