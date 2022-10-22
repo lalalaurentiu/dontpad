@@ -9,9 +9,6 @@ https://docs.djangoproject.com/en/4.1/howto/deployment/asgi/
 
 import os, django
 
-
-
-
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'dontpad.settings')
 django.setup()
 

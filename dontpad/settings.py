@@ -81,7 +81,6 @@ CHANNEL_LAYERS = {
             "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
         },
     },
-    'ROUTING': 'dontpadcode.routing.application',
 }
 
 
