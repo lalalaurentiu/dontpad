@@ -13,8 +13,8 @@ from .views import CHARACTERS
 
 from channels.consumer import AsyncConsumer
 
+# metoda pentru trimiterea de mesaje asincrone
 class EchoConsumer(AsyncConsumer):
-
     async def websocket_connect(self, event):
         self.send({
             "type": "websocket.accept",
@@ -26,6 +26,7 @@ class EchoConsumer(AsyncConsumer):
             "text": event["text"],
         })
 
+#metoda prin care acceptam, deconectam, primim mesaje, trimitem mesaje prin protocolul websokets
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.room_name = self.scope["url_route"]["kwargs"]["room_name"]
@@ -81,6 +82,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         # Send message to WebSocket
         await self.send(text_data=json.dumps({"code": code, "differnce": diferrence}))
 
+#metoda prin care trimitem diferentele de cod prin protocolul websokets
 @receiver(post_save, sender=DontpadCode)
 def post_code_receiver(sender, **kwargs):
     code = DontpadCode.objects.filter(slug_id = kwargs["instance"].slug.id).order_by("-id")

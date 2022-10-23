@@ -1,10 +1,10 @@
+// functia pentru prealuarea csrf_token din cookie
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
         const cookies = document.cookie.split(';');
         for (let i = 0; i < cookies.length; i++) {
             const cookie = cookies[i].trim();
-            // Does this cookie string begin with the name we want?
             if (cookie.substring(0, name.length + 1) === (name + '=')) {
                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                 break;
@@ -13,14 +13,17 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+//
 
+// schimbarea textarea intr-un obiect codemirror
 let sentCode = document.getElementById("send")
 let editor = CodeMirror.fromTextArea(document.getElementById('code'), {
     lineNumbers: true,
     mode: 'text/x-perl',
 });
+//
 
-
+// preluarea valorii din obiectul codemirror si trimiterea catre server
 sentCode.addEventListener("click", () =>{
     const url = window.location.href
     const csrftoken = getCookie("csrftoken")
@@ -29,13 +32,10 @@ sentCode.addEventListener("click", () =>{
     xhr.setRequestHeader("X-CSRFToken", csrftoken)
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
     xhr.send(`code=${editor.getValue()}`)
-    // xhr.onreadystatechange = () => { 
-    //     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-    //             location.reload();
-    //         }
-    //     }
 })
+//
 
+// afisarea si ascunderea diferentelor din cod
 let differcesContainer = document.querySelector(".modified")
 let differencesButton = document.getElementById("differences")
 
@@ -51,9 +51,19 @@ differencesButton.addEventListener("click", () =>{
         differencesButton.innerHTML = "Show differences"
     }
 })
+//
 
+// schimbare websoket protocol 
+let wsProtocol = "ws://"
+
+if (window.location.protocol === "https:"){
+    wsProtocol = "wss://" 
+}
+//
+
+// deschiderea conexiune websoket
 let chatRoom = location.pathname.split('/')[1]
-let socket = new WebSocket("wss://" + window.location.host + "/ws/chat/" + chatRoom + "/");
+let socket = new WebSocket(wsProtocol + window.location.host + "/ws/chat/" + chatRoom + "/");
 
 socket.onmessage = (e) => {
     const data = JSON.parse(e.data)
@@ -85,5 +95,5 @@ document.querySelector('#chat-message-submit').onclick = function(e) {
     }));
     messageInputDom.value = '';
 };
-
+//
 

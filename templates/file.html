@@ -20,7 +20,6 @@
             <textarea id="code" cols="30" rows="10">{{ code.code }}</textarea>
             <div style="display: flex;">
                 <button id="send" type="button">Save</button>
-                {{code.slug}}
                 <form method="POST" action="{% url 'code:upload' code.slug %}" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ fileForm }}
