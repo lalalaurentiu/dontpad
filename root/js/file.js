@@ -20,6 +20,7 @@ let sentCode = document.getElementById("send")
 let editor = CodeMirror.fromTextArea(document.getElementById('code'), {
     lineNumbers: true,
     mode: 'text/x-perl',
+    theme: 'abbott',
 });
 //
 
@@ -46,7 +47,7 @@ differencesButton.addEventListener("click", () =>{
         differcesContainer.style.display = "initial"
         differencesButton.innerHTML = "Hide differences"
     }else {
-        editor.style.width = "100%"
+        editor.style.width = "90%"
         differcesContainer.style.display = "none"
         differencesButton.innerHTML = "Show differences"
     }
