@@ -69,7 +69,14 @@ let socket = new WebSocket(wsProtocol + window.location.host + "/ws/chat/" + cha
 socket.onmessage = (e) => {
     const data = JSON.parse(e.data)
     if (data.message) {
-        document.querySelector('#chat-log').value += (data.message + "\n")
+        let chatLogContainer = document.querySelector('#chat-log')
+        let breakContainer = document.createElement("div")
+        let chatMessage = document.createElement("span")
+        chatMessage.setAttribute("class", "chat-message")
+        chatMessage.innerHTML = data.message
+        breakContainer.appendChild(chatMessage)
+        chatLogContainer.appendChild(breakContainer)
+        document.getElementById('chat').scrollTop = 9999999;
     }
     if (data.code) {
         editor.setValue(data.code)

@@ -68,8 +68,8 @@ def new_file(request, slug):
     context = {
         "code": last_code,
         "difference":differnce,
-        "fileForm":uploadFileForm
-        
+        "fileForm":uploadFileForm,
+        "slug":slug
     }
 
     #metoda prin care salvam un nou code

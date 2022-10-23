@@ -28,7 +28,7 @@
     </div>
     <div class="actionContainer" style="display: flex;">
         <button id="send" type="button">Save</button>
-        <form method="POST" action="{% url 'code:upload' code.slug %}" enctype="multipart/form-data">
+        <form method="POST" action="{% url 'code:upload' slug %}" enctype="multipart/form-data">
             {% csrf_token %}
             {{ fileForm }}
             <button type="submit">Upload</button>
@@ -36,13 +36,12 @@
         <button id="differences">Show differces</button>
     </div>
     <div id="chat">
-        <textarea id="chat-log" cols="100" rows="20"></textarea><br>
-    <input id="chat-message-input" type="text" size="100"><br>
-    <input id="chat-message-submit" type="button" value="Send">
+        <div id="chat-log"></div>   
     </div>
-    <script>
-        
-    </script>
+    <div id="chatAction">
+        <input id="chat-message-input" type="text" size="100">
+        <input id="chat-message-submit" type="button" value="Send">
+    </div>
     <script src="{% static 'js/file.js' %}"></script>
 </body>
 </html>
