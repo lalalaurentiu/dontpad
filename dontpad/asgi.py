@@ -18,10 +18,6 @@ from channels.auth import AuthMiddlewareStack
 from dontpadcode.routing import websocket_urlpatterns
 from channels.security.websocket import AllowedHostsOriginValidator
 
-from channels.layers import get_channel_layer
-
-channel_layer = get_channel_layer()
-
 django_asgi_app = get_asgi_application()
 application = ProtocolTypeRouter({
   'http': django_asgi_app,

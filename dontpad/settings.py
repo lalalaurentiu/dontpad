@@ -75,19 +75,22 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'dontpad.wsgi.application'
 ASGI_APPLICATION = 'dontpad.asgi.application'
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
+#         'CONFIG': {
+#             "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+#         },
+#     },
+# }
 CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": ["redis://:p42a596bebcb626adaec7fbe36902b651cde98c64edf98a89e1dca996886918aa@ec2-52-49-245-124.eu-west-1.compute.amazonaws.com:17309"],
         },
     },
 }
-# CHANNEL_LAYERS = {
-#     "default": {
-#         "BACKEND": "channels.layers.InMemoryChannelLayer"
-#     }
-# }
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
