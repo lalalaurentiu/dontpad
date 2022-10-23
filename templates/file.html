@@ -18,22 +18,22 @@
     <div class="container">
         <div class="editor">
             <textarea id="code" cols="30" rows="10">{{ code.code }}</textarea>
-            <div style="display: flex;">
-                <button id="send" type="button">Save</button>
-                <form method="POST" action="{% url 'code:upload' code.slug %}" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ fileForm }}
-                    <button type="submit">Upload</button>
-                </form>
-                <button id="differences">Show differces</button>
-            </div>
-            
         </div>
         {% if difference %}
             <div class="modified" style="display: none;">
                 {{difference|safe}}
             </div>
         {% endif %}
+        
+    </div>
+    <div class="actionContainer" style="display: flex;">
+        <button id="send" type="button">Save</button>
+        <form method="POST" action="{% url 'code:upload' code.slug %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ fileForm }}
+            <button type="submit">Upload</button>
+        </form>
+        <button id="differences">Show differces</button>
     </div>
     <div id="chat">
         <textarea id="chat-log" cols="100" rows="20"></textarea><br>
