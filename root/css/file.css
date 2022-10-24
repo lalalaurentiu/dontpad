@@ -28,33 +28,16 @@ textarea{
 }
 
 .modified{
-    position: relative;
+    position: absolute;
     background-color: #000;
     color: white;
-    width: 50%;
+    width: 100%;
     height: 100%;
     overflow-x: auto;
     border-radius: 10px;
     top: 10px;
 }
 
-.lineminus{
-    background-color: rgba(255,0,0,0.2);
-    padding: 5px 0px 5px 0px;
-}
-
-.lineminus span {
-    color: red;
-}
-
-.lineplus{
-    background-color: rgba(0,255,0,0.2);
-    padding: 5px 0px 5px 0px;
-}
-
-.lineplus span {
-    color: white;
-}
 .container{
     position: relative;
     width: 100%;
@@ -107,3 +90,9 @@ code{
     background-color: rgba(0,0,0,0.2);
 }
 
+.CodeMirror-merge-pane, .CodeMirror-merge-gap{
+    height: 80vh !important;
+}
+.CodeMirror-wrap{
+    border-radius: 0 !important;
+}

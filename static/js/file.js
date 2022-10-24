@@ -22,7 +22,7 @@ let editor = CodeMirror.fromTextArea(document.getElementById('code'), {
     mode: 'text/x-perl',
     theme: 'abbott',
 });
-//
+
 
 // preluarea valorii din obiectul codemirror si trimiterea catre server
 sentCode.addEventListener("click", () =>{
@@ -37,17 +37,35 @@ sentCode.addEventListener("click", () =>{
 //
 
 // afisarea si ascunderea diferentelor din cod
+function codeMirrorMergeUI(target,historic,original){
+    diff = CodeMirror.MergeView(
+        target, {
+            value: historic.value,
+            origLeft: original,
+            lineNumbers: true,
+            mode: "text/x-perl",
+            highlightDifferences: true,
+            showDifferences: true,
+            lineWrapping : true,
+            revertButtons : false,
+            collapseIdentical: true,
+            theme: 'abbott',
+            readOnly:true,
+            });
+}
 let differcesContainer = document.querySelector(".modified")
 let differencesButton = document.getElementById("differences")
-
+let original = editor.getValue();
+let historic = document.getElementById("difference");
+let target = document.getElementById("editor2");
+console.log(target)
+codeMirrorMergeUI(target,historic,original)
+differcesContainer.style.display = "none"
 differencesButton.addEventListener("click", () =>{
-    let editor = document.querySelector(".editor")
     if (differcesContainer.style.display == "none"){
-        editor.style.width = "50%"
         differcesContainer.style.display = "initial"
         differencesButton.innerHTML = "Hide differences"
     }else {
-        editor.style.width = "90%"
         differcesContainer.style.display = "none"
         differencesButton.innerHTML = "Show differences"
     }
@@ -80,7 +98,11 @@ socket.onmessage = (e) => {
     }
     if (data.code) {
         editor.setValue(data.code)
-        differcesContainer.innerHTML = data.differnce
+        historic.value = data.differnce
+        target.innerHTML = ""
+        differcesContainer.style.display = "initial"
+        codeMirrorMergeUI(document.getElementById("editor2"),document.getElementById("difference"),editor.getValue())
+        differcesContainer.style.display = "none"
     }
 }
 

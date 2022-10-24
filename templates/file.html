@@ -13,19 +13,27 @@
 
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css"></link>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/abbott.min.css"></link>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/diff_match_patch/20121119/diff_match_patch.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/merge/merge.min.css"></link>
+    <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/merge/merge.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/search/search.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/search/searchcursor.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/search/jump-to-line.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/dialog/dialog.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/dialog/dialog.min.js"></script>
 </head>
 <body>
     <div class="container">
         <div class="editor">
             <textarea id="code" cols="30" rows="10">{{ code.code }}</textarea>
         </div>
-        {% if difference %}
-            <div class="modified" style="display: none;">
-                {{difference|safe}}
-            </div>
-        {% endif %}
-        
+        <div class="modified">
+            <textarea id="difference" style="display: none;">{{difference}}</textarea>
+            <div id="editor2"></div>
+        </div>
     </div>
+    
     <div class="actionContainer" style="display: flex;">
         <button id="send" type="button">Save</button>
         <form method="POST" action="{% url 'code:upload' slug %}" enctype="multipart/form-data">
@@ -44,4 +52,4 @@
     </div>
     <script src="{% static 'js/file.js' %}"></script>
 </body>
-</html>
+</html

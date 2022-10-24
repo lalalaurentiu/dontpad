@@ -88,32 +88,9 @@ def post_code_receiver(sender, **kwargs):
     code = DontpadCode.objects.filter(slug_id = kwargs["instance"].slug.id).order_by("-id")
     try:
         modified_code = code[1]
-        from difflib import Differ
-        d = Differ()
-        result = list(d.compare(modified_code.code.splitlines(), code[0].code.splitlines()))
-
-        differnce = ''
-        line_index = 0
-        
-        for line in range(len(result)):
-            line_index += 1
-            letters = ""
-            
-            for letter in result[line]:
-                try:
-                    letters += CHARACTERS[letter]
-                except KeyError:
-                    letters += letter
-
-            if letters[0] == "+":
-                line_index -= 1
-                differnce += f"<code class='lineplus'> {line_index} <span>+</span> {letters.replace('+', '')} </code> \n"
-            elif letters[0] == "-":
-                differnce += f"<code class='lineminus'>{line_index} <span>-</span> {letters.replace('-', '')} </code> \n"
-            else:
-                differnce += f"<code> {line_index} {letters} </code> \n"
+        differnce = modified_code.code
     except:
-        differnce = None
+        differnce = ""
 
     channel_layer = get_channel_layer()
     async_to_sync(channel_layer.group_send)(
