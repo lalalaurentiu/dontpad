@@ -22,6 +22,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/search/jump-to-line.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/dialog/dialog.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/dialog/dialog.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/keymap/sublime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/edit/closebrackets.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -47,7 +49,7 @@
         <div id="chat-log"></div>   
     </div>
     <div id="chatAction">
-        <input id="chat-message-input" type="text" size="100">
+        <input id="chat-message-input" type="text" size="80">
         <input id="chat-message-submit" type="button" value="Send">
     </div>
     <script src="{% static 'js/file.js' %}"></script>

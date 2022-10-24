@@ -21,6 +21,8 @@ let editor = CodeMirror.fromTextArea(document.getElementById('code'), {
     lineNumbers: true,
     mode: 'text/x-perl',
     theme: 'abbott',
+    keyMap:"sublime",
+    autoCloseBrackets: true,
 });
 
 

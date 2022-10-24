@@ -17,14 +17,12 @@ textarea{
 
 .editor{
     position: relative;
-    width: 90%;
-    margin-right: 10px;
-    top: 10px;
+    width: 100%;
+    height: 100%;
 
 }
 .CodeMirror{
     height: 100% !important;
-    border-radius: 10px;
 }
 
 .modified{
@@ -33,17 +31,14 @@ textarea{
     color: white;
     width: 100%;
     height: 100%;
-    overflow-x: auto;
-    border-radius: 10px;
-    top: 10px;
+    top: 0;
+    z-index: 10 ;
 }
 
 .container{
     position: relative;
     width: 100%;
     height: 80%;
-    display: flex;
-    justify-content: center;
 }
 
 button{
@@ -93,6 +88,6 @@ code{
 .CodeMirror-merge-pane, .CodeMirror-merge-gap{
     height: 80vh !important;
 }
-.CodeMirror-wrap{
-    border-radius: 0 !important;
+.CodeMirror-merge{
+    border: 0 !important;
 }
