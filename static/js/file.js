@@ -23,8 +23,55 @@ let editor = CodeMirror.fromTextArea(document.getElementById('code'), {
     theme: 'abbott',
     keyMap:"sublime",
     autoCloseBrackets: true,
+    styleSelectedText:true,
 });
 
+// marcajul codului demo
+let lineStart , lineEnd 
+let mark = document.getElementById("mark")
+mark.onclick = function() {
+    console.log(lineStart, lineEnd)
+    let color = document.getElementById("markColor").value
+    editor.markText({line: lineStart, ch: 0}, {line: lineEnd + 1, ch: 0}, {css: 'color: '+color+';'});
+}
+
+editor.on('cursorActivity', function (selected) {
+    lineStart = selected.getCursor(true).line
+    lineEnd = selected.getCursor(false).line
+  });
+
+// trimiterea codului in chat demo
+function createChatCodeMessages(target, lineNumber){
+    let editor = CodeMirror.fromTextArea(target, {
+        lineNumbers: true,
+        mode: 'text/x-perl',
+        theme: 'abbott',
+        keyMap:"sublime",
+        autoCloseBrackets: true,
+        styleSelectedText:true,
+        firstLineNumber:lineNumber,
+        readOnly:true,
+    })
+}
+
+let sendCode = document.getElementById("sendChat")
+sendCode.onclick = function() {
+    let breakContainer = document.createElement("div")
+    let chatMessage = document.createElement("div")
+    chatMessage.setAttribute("class", "chat-message")
+    breakContainer.appendChild(chatMessage)
+    let chatCodeContainer = document.createElement("textarea")
+    var doc = editor.getDoc();
+    let code = `${doc.getRange({line: lineStart, ch: 0}, {line: lineEnd + 1, ch: 0})}`
+    chatCodeContainer.value = code
+    chatMessage.appendChild(chatCodeContainer)
+    
+    document.getElementById("chat-log").appendChild(breakContainer)
+    createChatCodeMessages(chatCodeContainer, lineStart + 1)
+    chatMessage.onclick = function() {
+        editor.setCursor(lineStart, 0)
+    }
+}
 
 // preluarea valorii din obiectul codemirror si trimiterea catre server
 sentCode.addEventListener("click", () =>{
@@ -112,7 +159,6 @@ socket.onclose = function(e) {
     console.error('Chat socket closed unexpectedly');
 };
 
-document.querySelector('#chat-message-input').focus();
 document.querySelector('#chat-message-input').onkeyup = function(e) {
     if (e.keyCode === 13) {  // enter, return
         document.querySelector('#chat-message-submit').click();

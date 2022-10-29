@@ -24,9 +24,58 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/dialog/dialog.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/keymap/sublime.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/edit/closebrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/selection/mark-selection.min.js"></script>
+
+    <style>
+        .versioning {
+            position: relative;
+            margin-left: 5px;
+        }
+        .version{
+            width: 30px;
+            height: 30px;
+        }
+        .version::before{
+            position: absolute;
+            display: block;
+            content: "";
+            top:0;
+            left: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: rgb(0, 132, 255);
+        }
+        input[type="radio"]{
+            position: absolute;
+            left: -5px;
+            margin: 0;
+            padding: 0;
+            z-index: 10;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
+        <div class="versioning">
+            <div class="version">
+                <input type="radio">
+            </div>
+            <div class="version">
+                <input type="radio">
+            </div>
+            <div class="version">
+                <input type="radio">
+            </div>
+            <div class="version">
+                <input type="radio">
+            </div>
+            <div class="version">
+                <input type="radio">
+            </div>
+            <div class="version">
+                <input type="radio">
+            </div>
+        </div>
         <div class="editor">
             <textarea id="code" cols="30" rows="10">{{ code.code }}</textarea>
         </div>
@@ -44,14 +93,34 @@
             <button type="submit">Upload</button>
         </form>
         <button id="differences">Show differces</button>
+        <div>
+            <button id="mark">Mark code</button>
+            <input id="markColor" type="color">
+        </div>
+        <div>
+            <button id="sendChat">Send code</button>
+        </div>
     </div>
     <div id="chat">
-        <div id="chat-log"></div>   
+        <div id="chat-log"></div>  
     </div>
     <div id="chatAction">
+        
         <input id="chat-message-input" type="text">
         <input id="chat-message-submit" type="button" value="Send">
     </div>
+    
+    <script>
+        // let test = document.querySelectorAll('.chat-message');
+
+        // test.forEach(element => {
+        //     console.log(element.getElementsByTagName("textarea"))
+        //     createChatCodeMessages(element.getElementsByTagName("textarea")[0])
+        // });
+
+
+    
+    </script>
     <script src="{% static 'js/file.js' %}"></script>
 </body>
 </html
