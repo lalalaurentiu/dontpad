@@ -46,7 +46,8 @@ def new_file(request, slug):
         "code": last_code,
         "difference":differnce,
         "fileForm":uploadFileForm,
-        "slug":slug
+        "slug":slug,
+        "versions":code
     }
 
     #metoda prin care salvam un nou code

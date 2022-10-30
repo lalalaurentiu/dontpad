@@ -73,6 +73,16 @@ sendCode.onclick = function() {
     }
 }
 
+// afisarea versionarii codului
+let versions = document.querySelectorAll('input[name="version"]');
+versions.forEach(version => {
+    version.addEventListener('change', (e) => {
+        console.log(e.target.checked);
+        if(e.target.checked){
+            editor.setValue(e.target.value);
+        } 
+    })
+})
 // preluarea valorii din obiectul codemirror si trimiterea catre server
 sentCode.addEventListener("click", () =>{
     const url = window.location.href
