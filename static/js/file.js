@@ -28,12 +28,6 @@ let editor = CodeMirror.fromTextArea(document.getElementById('code'), {
 
 // marcajul codului demo
 let lineStart , lineEnd 
-let mark = document.getElementById("mark")
-mark.onclick = function() {
-    console.log(lineStart, lineEnd)
-    let color = document.getElementById("markColor").value
-    editor.markText({line: lineStart, ch: 0}, {line: lineEnd + 1, ch: 0}, {css: 'color: '+color+';'});
-}
 
 editor.on('cursorActivity', function (selected) {
     lineStart = selected.getCursor(true).line
@@ -145,6 +139,7 @@ let socket = new WebSocket(wsProtocol + window.location.host + "/ws/chat/" + cha
 
 socket.onmessage = (e) => {
     const data = JSON.parse(e.data)
+    // afisarea mesajelor
     if (data.message) {
         let chatLogContainer = document.querySelector('#chat-log')
         let breakContainer = document.createElement("div")
@@ -155,6 +150,7 @@ socket.onmessage = (e) => {
         chatLogContainer.appendChild(breakContainer)
         document.getElementById('chat').scrollTop = 9999999;
     }
+    // afisarea codului
     if (data.code) {
         editor.setValue(data.code)
         historic.value = data.differnce
@@ -162,6 +158,16 @@ socket.onmessage = (e) => {
         differcesContainer.style.display = "initial"
         codeMirrorMergeUI(document.getElementById("editor2"),document.getElementById("difference"),editor.getValue())
         differcesContainer.style.display = "none"
+    }
+    // afisarea markarii codului
+    if ( data.color && data.lineStart && data.lineEnd && document.getElementById("showMarkers").checked){
+        let color = data.color
+        let lineStart = data.lineStart
+        let lineEnd = data.lineEnd
+        let doc = editor.getDoc();
+        let from = {line: lineStart, ch: 0};
+        let to = {line: lineEnd + 1, ch: 0};
+        let mark = doc.markText(from, to, {css: `color: ${color};`});
     }
 }
 
@@ -185,3 +191,13 @@ document.querySelector('#chat-message-submit').onclick = function(e) {
 };
 //
 
+// marcajul codului demo
+let mark = document.getElementById("mark")
+mark.onclick = function() {
+    let color = document.getElementById("markColor").value
+    socket.send(JSON.stringify({
+        "color": color,
+        "lineStart": lineStart,
+        "lineEnd": lineEnd,
+    }))
+}

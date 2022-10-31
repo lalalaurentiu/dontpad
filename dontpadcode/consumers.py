@@ -50,6 +50,13 @@ class ChatConsumer(AsyncWebsocketConsumer):
         text_data_json = json.loads(text_data)
         message = text_data_json.get("message")
         code = text_data_json.get("code")
+
+        # send mark code
+        color = text_data_json.get("color")
+        lineStart = text_data_json.get("lineStart")
+        lineEnd = text_data_json.get("lineEnd")
+
+
         if message:
             # Send message to room group
             await self.channel_layer.group_send(
@@ -69,6 +76,18 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 },
             )
 
+        elif color and lineStart and lineEnd:
+            # Send message to room group
+            await self.channel_layer.group_send(
+                self.room_group_name,
+                {
+                    "type": "chat_mark",
+                    "color": color,
+                    "lineStart": lineStart,
+                    "lineEnd": lineEnd,
+                },
+            )
+
     # Receive message from room group
     async def chat_message(self, event):
         message = event.get("message")
@@ -81,6 +100,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         # Send message to WebSocket
         await self.send(text_data=json.dumps({"code": code, "differnce": diferrence}))
+
+    async def chat_mark(self, event):
+        color = event.get("color")
+        lineStart = event.get("lineStart")
+        lineEnd = event.get("lineEnd")
+        await self.send(text_data=json.dumps({"color": color, "lineStart": lineStart, "lineEnd": lineEnd}))
 
 #metoda prin care trimitem diferentele de cod prin protocolul websokets
 @receiver(post_save, sender=DontpadCode)
