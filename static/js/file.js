@@ -160,7 +160,7 @@ socket.onmessage = (e) => {
         differcesContainer.style.display = "none"
     }
     // afisarea markarii codului
-    if ( data.color && data.lineStart && data.lineEnd && document.getElementById("showMarkers").checked){
+    if ( data.color && data.lineStart.toString() && data.lineEnd.toString() && document.getElementById("showMarkers").checked){
         let color = data.color
         let lineStart = data.lineStart
         let lineEnd = data.lineEnd

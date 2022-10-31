@@ -66,7 +66,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                     "message": message,
                 },
             )
-        elif code:
+        if code:
             # Send message to room group
             await self.channel_layer.group_send(
                 self.room_group_name,
@@ -76,15 +76,17 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 },
             )
 
-        elif color and lineStart and lineEnd:
+        if str(color) and str(lineStart) and str(lineEnd):
             # Send message to room group
             await self.channel_layer.group_send(
                 self.room_group_name,
                 {
                     "type": "chat_mark",
+                    "data": {
                     "color": color,
                     "lineStart": lineStart,
                     "lineEnd": lineEnd,
+                    }
                 },
             )
 
@@ -102,9 +104,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.send(text_data=json.dumps({"code": code, "differnce": diferrence}))
 
     async def chat_mark(self, event):
-        color = event.get("color")
-        lineStart = event.get("lineStart")
-        lineEnd = event.get("lineEnd")
+        data = event.get("data")
+        color = data.get("color")
+        lineStart = data.get("lineStart")
+        lineEnd = data.get("lineEnd")
+
         await self.send(text_data=json.dumps({"color": color, "lineStart": lineStart, "lineEnd": lineEnd}))
 
 #metoda prin care trimitem diferentele de cod prin protocolul websokets
