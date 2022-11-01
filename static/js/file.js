@@ -15,6 +15,20 @@ function getCookie(name) {
 }
 //
 
+//functia pentru crearea unui codeMirror in chat
+function createChatCodeMessages(target, lineNumber){
+    let editor = CodeMirror.fromTextArea(target, {
+        lineNumbers: true,
+        mode: 'text/x-perl',
+        theme: 'abbott',
+        keyMap:"sublime",
+        autoCloseBrackets: true,
+        styleSelectedText:true,
+        firstLineNumber:lineNumber,
+        readOnly:true,
+    })
+}
+
 // schimbarea textarea intr-un obiect codemirror
 let sentCode = document.getElementById("send")
 let editor = CodeMirror.fromTextArea(document.getElementById('code'), {
@@ -33,39 +47,6 @@ editor.on('cursorActivity', function (selected) {
     lineStart = selected.getCursor(true).line
     lineEnd = selected.getCursor(false).line
   });
-
-// trimiterea codului in chat demo
-function createChatCodeMessages(target, lineNumber){
-    let editor = CodeMirror.fromTextArea(target, {
-        lineNumbers: true,
-        mode: 'text/x-perl',
-        theme: 'abbott',
-        keyMap:"sublime",
-        autoCloseBrackets: true,
-        styleSelectedText:true,
-        firstLineNumber:lineNumber,
-        readOnly:true,
-    })
-}
-
-let sendCode = document.getElementById("sendChat")
-sendCode.onclick = function() {
-    let breakContainer = document.createElement("div")
-    let chatMessage = document.createElement("div")
-    chatMessage.setAttribute("class", "chat-message")
-    breakContainer.appendChild(chatMessage)
-    let chatCodeContainer = document.createElement("textarea")
-    var doc = editor.getDoc();
-    let code = `${doc.getRange({line: lineStart, ch: 0}, {line: lineEnd + 1, ch: 0})}`
-    chatCodeContainer.value = code
-    chatMessage.appendChild(chatCodeContainer)
-    
-    document.getElementById("chat-log").appendChild(breakContainer)
-    createChatCodeMessages(chatCodeContainer, lineStart + 1)
-    chatMessage.onclick = function() {
-        editor.setCursor(lineStart, 0)
-    }
-}
 
 // afisarea versionarii codului
 let versions = document.querySelectorAll('input[name="version"]');
@@ -169,6 +150,25 @@ socket.onmessage = (e) => {
         let to = {line: lineEnd + 1, ch: 0};
         let mark = doc.markText(from, to, {css: `color: ${color};`});
     }
+    // afisarea codului in chat
+    if (data.chatCode && data.lineStart.toString()){
+       
+        let code = data.chatCode
+        let lineStart = data.lineStart
+        let breakContainer = document.createElement("div")
+        let chatMessage = document.createElement("div")
+        chatMessage.setAttribute("class", "chat-message")
+        breakContainer.appendChild(chatMessage)
+        let chatCodeContainer = document.createElement("textarea")
+        chatCodeContainer.value = code
+        chatMessage.appendChild(chatCodeContainer)
+        
+        document.getElementById("chat-log").appendChild(breakContainer)
+        createChatCodeMessages(chatCodeContainer, lineStart + 1)
+        chatMessage.onclick = function() {
+            editor.setCursor(lineStart, 0)
+        }
+    }
 }
 
 socket.onclose = function(e) {
@@ -199,5 +199,21 @@ mark.onclick = function() {
         "color": color,
         "lineStart": lineStart,
         "lineEnd": lineEnd,
+    }))
+}
+
+// trimiterea codului in chat demo
+
+
+let sendCode = document.getElementById("sendChat")
+sendCode.onclick = function() {
+    
+    var doc = editor.getDoc();
+    let code = `${doc.getRange({line: lineStart, ch: 0}, {line: lineEnd + 1, ch: 0})}`
+    
+    socket.send(JSON.stringify({
+        "chatCode": {"code":code,
+                    "lineStart":lineStart,
+                }
     }))
 }

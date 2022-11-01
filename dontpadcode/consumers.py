@@ -51,11 +51,13 @@ class ChatConsumer(AsyncWebsocketConsumer):
         message = text_data_json.get("message")
         code = text_data_json.get("code")
 
-        # send mark code
+        # data for mark code
         color = text_data_json.get("color")
         lineStart = text_data_json.get("lineStart")
         lineEnd = text_data_json.get("lineEnd")
 
+        #data for chat code
+        chatCode = text_data_json.get("chatCode")
 
         if message:
             # Send message to room group
@@ -67,7 +69,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 },
             )
         if code:
-            # Send message to room group
+            # Send code to room group
             await self.channel_layer.group_send(
                 self.room_group_name,
                 {
@@ -77,7 +79,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             )
 
         if str(color) and str(lineStart) and str(lineEnd):
-            # Send message to room group
+            # Send mark to room group
             await self.channel_layer.group_send(
                 self.room_group_name,
                 {
@@ -87,6 +89,16 @@ class ChatConsumer(AsyncWebsocketConsumer):
                     "lineStart": lineStart,
                     "lineEnd": lineEnd,
                     }
+                },
+            )
+
+        if chatCode:
+            # Send chat code to room group
+            await self.channel_layer.group_send(
+                self.room_group_name,
+                {
+                    "type": "chat_codeChat",
+                    "data": chatCode,
                 },
             )
 
@@ -110,6 +122,14 @@ class ChatConsumer(AsyncWebsocketConsumer):
         lineEnd = data.get("lineEnd")
 
         await self.send(text_data=json.dumps({"color": color, "lineStart": lineStart, "lineEnd": lineEnd}))
+
+    async def chat_codeChat(self, event):
+        data = event.get("data")
+        code = data.get("code")
+        lineStart = data.get("lineStart")
+
+        # Send message to WebSocket
+        await self.send(text_data=json.dumps({"chatCode": code, "lineStart": lineStart}))
 
 #metoda prin care trimitem diferentele de cod prin protocolul websokets
 @receiver(post_save, sender=DontpadCode)
