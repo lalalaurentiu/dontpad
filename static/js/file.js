@@ -49,10 +49,31 @@ editor.on('cursorActivity', function (selected) {
   });
 
 // afisarea versionarii codului
-let versions = document.querySelectorAll('input[name="version"]');
+function createVersions(lst, target, code, editor){
+    let versionsContainer = document.createElement("div")
+    versionsContainer.setAttribute("class", "version")
+    let inputContainer = document.createElement("input")
+    inputContainer.setAttribute("type", "radio")
+    inputContainer.setAttribute("name", "version")
+    inputContainer.setAttribute("value", `${code}`)
+    inputContainer.setAttribute("checked", "checked")
+    inputContainer.setAttribute("id", `version${lst.length + 1}`)
+    versionsContainer.appendChild(inputContainer)
+    let labelContainer = document.createElement("label")
+    labelContainer.setAttribute("for", `version${lst.length + 1}`)
+    labelContainer.innerHTML = `V${lst.length + 1}`
+    versionsContainer.appendChild(labelContainer)
+    target.prepend(versionsContainer)
+    this.addEventListener("change", function(e){
+        if(e.target.checked){
+            editor.setValue(e.target.value);
+        } 
+    })
+}
+let versions = [...document.querySelectorAll('input[name="version"]')];
+
 versions.forEach(version => {
     version.addEventListener('change', (e) => {
-        console.log(e.target.checked);
         if(e.target.checked){
             editor.setValue(e.target.value);
         } 
@@ -92,7 +113,6 @@ let differencesButton = document.getElementById("differences")
 let original = editor.getValue();
 let historic = document.getElementById("difference");
 let target = document.getElementById("editor2");
-console.log(target)
 codeMirrorMergeUI(target,historic,original)
 differcesContainer.style.display = "none"
 differencesButton.addEventListener("click", () =>{
@@ -139,6 +159,8 @@ socket.onmessage = (e) => {
         differcesContainer.style.display = "initial"
         codeMirrorMergeUI(document.getElementById("editor2"),document.getElementById("difference"),editor.getValue())
         differcesContainer.style.display = "none"
+        // afisarea versiunilor
+        versions.push(createVersions(versions, document.querySelector(".versioning"), data.code, editor))
     }
     // afisarea markarii codului
     if ( data.color && data.lineStart.toString() && data.lineEnd.toString() && document.getElementById("showMarkers").checked){
@@ -203,8 +225,6 @@ mark.onclick = function() {
 }
 
 // trimiterea codului in chat demo
-
-
 let sendCode = document.getElementById("sendChat")
 sendCode.onclick = function() {
     
