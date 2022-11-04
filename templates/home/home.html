@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <title>Home</title>
+</head>
+<body>
+    <div>
+        <h1>CodePan</h1>
+        
+    </div>
+    <div>
+        <span id="location"></span>
+        <input type="text">
+        <button type="button" id="go">GO</button>
+    </div>
+    <div>
+        <ul>
+            <li>Update in timp real</li>
+            <li>Chat in timp real</li>
+            <li>Versionarea codului</li>
+            <li>Afisare diferente</li>
+            <li>Marcarea codului cu comentarii interactive //demo</li>
+            <li>Marcarea codului in culori</li>
+            <li>Trimiterea codului in chat</li>
+            <li>Inserare fisiere TXT</li>
+        </ul>
+    </div>
+    <script src="{% static 'js/home.js' %}"></script>
+</body>
+</html>

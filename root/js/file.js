@@ -237,3 +237,29 @@ sendCode.onclick = function() {
                 }
     }))
 }
+let obj = {
+    13:"coment la linia 13",
+    14:"comment la linia 14",
+    15:"comment la linia 15",
+}
+let test = document.getElementById("btn")
+let button = document.querySelector(".right")
+
+var scroller = editor.getScrollerElement();
+scroller.addEventListener('mousemove', function(e) { // or mousemove
+    var pos = editor.coordsChar({left: e.clientX, top: e.clientY}, "window");
+    let line = pos.line + 1
+    
+
+        if (obj[line]){
+            button.style.display = "block"
+            button.innerHTML = obj[line] + "<i></i>" 
+            let lineArrow = button.getElementsByTagName("i")[0]
+            lineArrow.style.top = e.clientY +  "px"
+            
+        }else{
+            // button.style.display = "none"
+            
+        }
+
+}); 

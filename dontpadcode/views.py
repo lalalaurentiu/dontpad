@@ -10,6 +10,11 @@ CHARACTERS ={
     "&":"&amp;",
     "\\t":"&nbsp; &nbsp; &nbsp; &nbsp;"
 }
+#view-ul pentru home page
+def home(request):
+    template_name = "home/home.html"
+
+    return render(request, template_name)
 
 # view-ul pentru o noua ruta
 def new_file(request, slug):
