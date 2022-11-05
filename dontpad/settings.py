@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "dontpadcode",
-    # "accounts",
+    "accounts",
 
     #external module
     "channels",
@@ -143,4 +143,4 @@ STATICFILES_DIRS = ( os.path.join('static'), )
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# AUTH_USER_MODEL = 'accounts.CustomUser'
+AUTH_USER_MODEL = 'accounts.CustomUser'
