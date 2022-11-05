@@ -5,35 +5,46 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
+    <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/perl/perl.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css"></link>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/abbott.min.css"></link>
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/background.css' %}">
     <title>Home</title>
 </head>
 <body>
-    <div>
-        <h1>CodePan</h1>
-    </div>
-    <div>
-        <span id="location"></span>
-        <input type="text">
-        <button type="button" id="go">GO</button>
-    </div>
-    <div>
-        <ul>
-            <li>Update in timp real</li>
-            <li>Chat in timp real</li>
-            <li>Versionarea codului</li>
-            <li>Afisare diferente</li>
-            <li>Marcarea codului cu comentarii interactive //demo</li>
-            <li>Marcarea codului in culori</li>
-            <li>Trimiterea codului in chat</li>
-            <li>Inserare fisiere TXT</li>
-        </ul>
-    </div>
-    <div>
-        Pentru utilizarea anumitor functii este nevoie de &nbsp; <a href="">Logare</a>
-    </div>
-    <div>
-        Daca nu ai cont te poti &nbsp; <a href="">Inregistra</a> &nbsp; gratuit
+    {% include 'background.html' %}
+    <div class="container">
+        <div>
+            <h1>CodePan</h1>
+        </div>
+        <div class="card">
+            <div>
+                <span id="location"></span>
+                <input type="text" id="path">
+                <button type="button" id="go">GO</button>
+            </div>
+            <div>
+                <ul>
+                    <li>Update in timp real</li>
+                    <li>Chat in timp real</li>
+                    <li>Versionarea codului</li>
+                    <li>Afisare diferente</li>
+                    <li>Marcarea codului cu comentarii interactive //demo</li>
+                    <li>Marcarea codului in culori</li>
+                    <li>Trimiterea codului in chat</li>
+                    <li>Inserare fisiere TXT</li>
+                </ul>
+            </div>
+            <div>
+                Pentru utilizarea anumitor functii este nevoie de &nbsp; <a href="">Autentificare</a>
+            </div>
+            <div>
+                Daca nu ai cont te poti &nbsp; <a href="">Inregistra</a> &nbsp; gratuit
+            </div>
+        </div>
     </div>
     <script src="{% static 'js/home.js' %}"></script>
 </body>

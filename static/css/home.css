@@ -1,8 +1,42 @@
-div {
+body{
+    padding: 0;
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.container {
+    position:absolute;
+    top:0;
+    width:100%;
+    height:100%;
+    color:white;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction: column;
+}
+.card {
+    background-color: rgba(255, 255, 255, 0.2);
+    border:1px solid rgba(0, 0, 0, 0.4);
+    padding:10px; 
+    border-radius: 10px;
+}
+
+.card div {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 li {
     font-size: large;
+}
+a{
+    color: white;
+    text-decoration: underline;
+}
+a:hover{
+    color: rgb(253, 117, 117);
+    text-decoration: none;
 }
