@@ -79,11 +79,9 @@ code{
     position: relative;
     padding: 10px;
     border: 2px solid white;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    color: white;
-    background-color: rgba(0,0,0,0.2);
+    border-radius: 10px;
+    color: black;
+    background-color: white;
 }
 
 .CodeMirror-merge-pane, .CodeMirror-merge-gap{
@@ -91,4 +89,40 @@ code{
 }
 .CodeMirror-merge{
     border: 0 !important;
+}
+
+.chat-message-container{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+}
+
+.user-banner{
+    position: relative;
+    background-color: rgb(0, 125, 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 2px solid white;
+    margin-right: 10px;
+    font-size: small;
+    padding: 10px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.chat-message i::after{
+    content:'';
+    position:absolute;
+    width:12px;
+    height:12px;
+    left:-12px;
+    top:50%;
+    transform:translate(50%,-50%) rotate(-45deg);
+    border-top:2px solid white;
+    border-left:2px solid white;
+    background-color: white;
+    
 }
