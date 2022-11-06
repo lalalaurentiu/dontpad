@@ -20,13 +20,15 @@
         <h1>CodePan</h1>
         <h3>Logare</h3>
         <div>
-            <form action="" >
+            <form method="post" >
                 {% csrf_token %}
                 <div>
-                    <input type="email" name="email" id="email" placeholder="Email">
+                    {{ form.username }}
+                    {{ form.email.errors }}
                 </div>
                 <div>
-                    <input type="password" name="password1" id="password1" placeholder="Parola">
+                    {{ form.password }}
+                    {{ form.password.errors }}
                 </div>
                 <div>
                     <button type="submit">Login</button>

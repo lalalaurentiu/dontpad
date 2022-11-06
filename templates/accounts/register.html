@@ -20,22 +20,22 @@
         <h1>CodePan</h1>
         <h3>Inregistrare</h3>
         <div>
-            <form action="" >
+            <form method="post" >
                 {% csrf_token %}
                 <div>
-                    <input type="text" name="username" id="username" placeholder="Nume">
+                    {{ form.email }}
                 </div>
                 <div>
-                    <input type="text" name="username" id="username" placeholder="Prenume">
+                    {{ form.first_name }}
                 </div>
                 <div>
-                    <input type="email" name="email" id="email" placeholder="Email">
+                    {{ form.last_name }}
                 </div>
                 <div>
-                    <input type="password" name="password1" id="password1" placeholder="Parola">
+                    {{ form.password1 }}
                 </div>
                 <div>
-                    <input type="password" name="password2" id="password2" placeholder="Confirma Parola">
+                    {{ form.password2 }}
                 </div>
                 <div>
                     <button type="submit">Register</button>

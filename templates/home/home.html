@@ -38,12 +38,18 @@
                     <li>Inserare fisiere TXT</li>
                 </ul>
             </div>
+            {% if user.is_authenticated %}
             <div>
-                Pentru utilizarea anumitor functii este nevoie de &nbsp; <a href="">Autentificare</a>
+                <a href="{% url 'accounts:logout' %}">Delogare</a>
+            </div>
+            {% else %}
+            <div>
+                Pentru utilizarea anumitor functii este nevoie de &nbsp; <a href="{% url 'accounts:login' %}">Autentificare</a>
             </div>
             <div>
-                Daca nu ai cont te poti &nbsp; <a href="">Inregistra</a> &nbsp; gratuit
+                Daca nu ai cont te poti &nbsp; <a href="{% url 'accounts:register' %}">Inregistra</a> &nbsp; gratuit
             </div>
+            {% endif %}
         </div>
     </div>
     <script src="{% static 'js/home.js' %}"></script>

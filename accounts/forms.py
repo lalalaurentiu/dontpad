@@ -11,7 +11,7 @@ from django import forms
 class CustomUserCreationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(CustomUserCreationForm, self).__init__(*args, **kwargs)  
-        self.fields['email'] = forms.CharField(widget=forms.TextInput(attrs={"placeholder":"name@example.com"}))
+        self.fields['email'] = forms.CharField(widget=forms.TextInput(attrs={"placeholder":"Email"}))
         self.fields['first_name'] = forms.CharField(widget=forms.TextInput(attrs={"placeholder":"Nume"}))
         self.fields['last_name'] = forms.CharField(widget=forms.TextInput(attrs={"placeholder":"Prenume"}))
         self.fields['password1'] = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder":"Parola"}))
@@ -28,5 +28,5 @@ class CustomUserChangeForm(UserChangeForm):
         fields = ('email',)
 
 class CustomAuthentificationForm(AuthenticationForm):
-    username = forms.CharField(widget=forms.TextInput(attrs={"placeholder":"name@example.com"}))
-    password = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder":"Password"}))
+    username = forms.CharField(widget=forms.TextInput(attrs={"placeholder":"Email"}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder":"Parola"}))
