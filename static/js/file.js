@@ -134,21 +134,37 @@ if (window.location.protocol === "https:"){
 }
 //
 
+function createUserBanner(obj){
+    let userBanner = document.createElement("div")
+    userBanner.setAttribute("class", "user-banner")
+    let userBannerName = document.createElement("div")
+    userBannerName.setAttribute("class", "user-banner-name")
+    userBannerName.innerHTML = obj.first_name + " " + obj.last_name
+    userBanner.appendChild(userBannerName)
+    return userBanner
+}
+
 // deschiderea conexiune websoket
 let chatRoom = location.pathname.split('/')[1]
 let socket = new WebSocket(wsProtocol + window.location.host + "/ws/chat/" + chatRoom + "/");
 
 socket.onmessage = (e) => {
     const data = JSON.parse(e.data)
+    console.log(data)
     // afisarea mesajelor
     if (data.message) {
         let chatLogContainer = document.querySelector('#chat-log')
+        let chatMessageContainer = document.createElement("div")
+        chatMessageContainer.setAttribute("class", "chat-message-container")
+        chatLogContainer.appendChild(chatMessageContainer)
         let breakContainer = document.createElement("div")
         let chatMessage = document.createElement("span")
         chatMessage.setAttribute("class", "chat-message")
-        chatMessage.innerHTML = data.message
+        chatMessage.innerHTML = "<i></i>" + data.message
         breakContainer.appendChild(chatMessage)
-        chatLogContainer.appendChild(breakContainer)
+        chatMessageContainer.appendChild(createUserBanner(data.user))
+        chatMessageContainer.appendChild(breakContainer)
+        
         document.getElementById('chat').scrollTop = 9999999;
     }
     // afisarea codului
