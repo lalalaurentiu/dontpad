@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 from .models import *
 from .forms import *
+import json
 
 
 CHARACTERS ={
@@ -74,3 +75,21 @@ def uploadFile(request, slug):
         obj = DontpadURL.objects.filter(slug = url)[0].id
         DontpadCode.objects.create(slug_id = obj, code = fileContent)
     return redirect(request.path.replace("/upload", ""))
+
+#view-ul pentru commenturi
+def comment(request, slug):
+    print(slug)
+    obj = DontpadURL.objects.filter(slug = slug)[0].id
+    comments = DontpadComment.objects.filter(slug_id = obj)
+    comments = [comment.data() for comment in comments]
+
+    # if request.method == "POST":
+    #     url = request.path.replace("/comment", "").replace("/", "")
+    #     #citim din fisier
+    #     comment = request.POST["comment"]
+
+    #     #il salvam in baza de date 
+    #     obj = DontpadURL.objects.filter(slug = url)[0].id
+    #     DontpadComment.objects.create(slug_id = obj, comment = comment)
+
+    return HttpResponse(json.dumps({"comments":comments}), content_type="application/json")

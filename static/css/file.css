@@ -25,6 +25,13 @@ textarea{
     height: 100% !important;
 }
 
+.CodeMirror-merge-pane, .CodeMirror-merge-gap{
+    height: 80vh !important;
+}
+.CodeMirror-merge{
+    border: 0 !important;
+}
+
 .modified{
     position: absolute;
     background-color: #000;
@@ -84,13 +91,6 @@ code{
     background-color: white;
 }
 
-.CodeMirror-merge-pane, .CodeMirror-merge-gap{
-    height: 80vh !important;
-}
-.CodeMirror-merge{
-    border: 0 !important;
-}
-
 .chat-message-container{
     display: flex;
     align-items: center;
@@ -126,3 +126,16 @@ code{
     background-color: white;
     
 }
+
+/* --comentarii-- */
+.comment-container{
+    padding: 5px;
+}
+.comment-user{
+    font-weight: bold;
+    color: rgb(0, 125, 0);
+}
+.comment-text{
+    font-size: medium;
+}
+/* -------------------------- */

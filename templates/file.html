@@ -154,7 +154,7 @@
         </div>
     </div>
     
-    <div class="actionContainer" style="display: flex;">
+    <div class="actionContainer">
         <button id="send" type="button">Save</button>
         <form method="POST" action="{% url 'code:upload' slug %}" enctype="multipart/form-data">
             {% csrf_token %}
@@ -170,6 +170,9 @@
         <div>
             <button id="sendChat">Send code</button>
         </div>
+        <div>
+            <button id="comment">Comenteaza</button>
+        </div>
     </div>
     <div id="chat">
         <div id="chat-log"></div>  
@@ -179,11 +182,9 @@
         <input id="chat-message-submit" type="button" value="Send">
     </div>
 
-
-
     <script src="{% static 'js/file.js' %}"></script>
     <script>
-
+        
     </script>
     
 </body>
