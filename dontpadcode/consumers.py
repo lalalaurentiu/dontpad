@@ -49,7 +49,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         )
 
         await self.accept()
-        await self.send(text_data=json.dumps({"message": f"{self.user.first_name} {self.user.last_name} sa conectat!", "user": {"first_name": "Server", "last_name": " "}}))
+        await self.send(text_data=json.dumps({"message": f"{self.user.first_name} {self.user.last_name} s-a conectat!", "user": {"first_name": "Server", "last_name": " "}}))
 
     async def disconnect(self, close_code):
         # Leave room group

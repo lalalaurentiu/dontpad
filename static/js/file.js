@@ -266,12 +266,15 @@ let comments = getComments()
 
 let test = document.getElementById("btn")
 let button = document.querySelector(".right")
+let i = document.getElementById("i")
 
 var scroller = editor.getScrollerElement();
 scroller.addEventListener('mousemove', function(e) { // or mousemove
+    let isActive
     var pos = editor.coordsChar({left: e.clientX, top: e.clientY}, "window");
     let line = pos.line + 1;
     button.innerHTML = "";
+
     comments.then(function(result) {
         obj = result
         obj.comments.forEach(function(comment) {
@@ -288,11 +291,20 @@ scroller.addEventListener('mousemove', function(e) { // or mousemove
             let coommentUser = document.createElement("div")
             coommentUser.setAttribute("class", "comment-user")
             coommentUser.innerHTML = comment.user.first_name + " " + comment.user.last_name
+            
             commentContainer.prepend(coommentUser)
             if (comment.line == line){
+                let ipos = editor.charCoords({line: line - 1, ch: 0}, "local");
                 button.appendChild(commentContainer)
                 button.style.display = "initial"
+                i.style.display = "initial"
+                i.style.top = ipos.top + 10 + "px"
+                isActive = true
             }
         });
+        if (!isActive){
+            button.style.display = "none"
+            i.style.display = "none"
+        }
     });
 }, false);
