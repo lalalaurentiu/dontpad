@@ -150,7 +150,6 @@ let socket = new WebSocket(wsProtocol + window.location.host + "/ws/chat/" + cha
 
 socket.onmessage = (e) => {
     const data = JSON.parse(e.data)
-    console.log(data)
     // afisarea mesajelor
     if (data.message) {
         let chatLogContainer = document.querySelector('#chat-log')
@@ -253,29 +252,59 @@ sendCode.onclick = function() {
                 }
     }))
 }
-let obj = {
-    13:"coment la linia 13",
-    14:"comment la linia 14",
-    15:"comment la linia 15",
+
+// afisarea comentariilor interactive
+
+async function getComments (){
+    const url = window.location.href
+    let data = await fetch(url + "comment");
+    let comments = await data.json();
+    return comments 
 }
+    
+let comments = getComments()
+
 let test = document.getElementById("btn")
 let button = document.querySelector(".right")
+let i = document.getElementById("i")
 
 var scroller = editor.getScrollerElement();
 scroller.addEventListener('mousemove', function(e) { // or mousemove
+    let isActive
     var pos = editor.coordsChar({left: e.clientX, top: e.clientY}, "window");
-    let line = pos.line + 1
-    
+    let line = pos.line + 1;
+    button.innerHTML = "";
 
-        if (obj[line]){
-            button.style.display = "block"
-            button.innerHTML = obj[line] + "<i></i>" 
-            let lineArrow = button.getElementsByTagName("i")[0]
-            lineArrow.style.top = e.clientY +  "px"
+    comments.then(function(result) {
+        obj = result
+        obj.comments.forEach(function(comment) {
+            let commentContainer = document.createElement("div")
+            commentContainer.setAttribute("class", "comment-container")
+            let commentText = document.createElement("div")
+            commentText.setAttribute("class", "comment-text")
+            commentText.innerHTML = comment.comment
+            commentContainer.appendChild(commentText)
+            let commentDate = document.createElement("div")
+            commentDate.setAttribute("class", "comment-date")
+            commentDate.innerHTML = comment.date
+            commentContainer.prepend(commentDate)
+            let coommentUser = document.createElement("div")
+            coommentUser.setAttribute("class", "comment-user")
+            coommentUser.innerHTML = comment.user.first_name + " " + comment.user.last_name
             
-        }else{
-            // button.style.display = "none"
-            
+            commentContainer.prepend(coommentUser)
+            if (comment.line == line){
+                let ipos = editor.charCoords({line: line - 1, ch: 0}, "local");
+                button.appendChild(commentContainer)
+                button.style.display = "initial"
+                i.style.display = "initial"
+                i.style.top = ipos.top + 10 + "px"
+                isActive = true
+            }
+        });
+        if (!isActive){
+            button.style.display = "none"
+            i.style.display = "none"
         }
-
-}); 
+    });
+}, false);
