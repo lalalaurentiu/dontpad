@@ -243,7 +243,7 @@ mark.onclick = function() {
 let sendCode = document.getElementById("sendChat")
 sendCode.onclick = function() {
     
-    var doc = editor.getDoc();
+    let doc = editor.getDoc();
     let code = `${doc.getRange({line: lineStart, ch: 0}, {line: lineEnd + 1, ch: 0})}`
     
     socket.send(JSON.stringify({
@@ -308,3 +308,33 @@ scroller.addEventListener('mousemove', function(e) { // or mousemove
         }
     });
 }, false);
+
+// trimite comentariul
+let commentButton = document.getElementById('comment');
+let commentMessage = document.getElementById('commentMessage');
+commentButton.addEventListener('click', function(){
+    console.log(commentButton.value)
+    if (commentMessage.value && lineStart){
+        const csrftoken = getCookie("csrftoken");
+        const url = window.location.href
+        fetch(url + "comment/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrftoken,
+            },
+            body: JSON.stringify({
+                "comment": commentMessage.value,
+                "line": lineStart + 1,
+            })
+        })
+        commentMessage.value = ""
+    }
+    if(commentMessage.style.width == '0px'){
+        commentMessage.style.width = 'initial';
+        commentMessage.style.display = 'initial';
+    }else{
+        commentMessage.style.width = '0px';
+        commentMessage.style.display = 'none';
+    }
+});

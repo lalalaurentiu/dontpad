@@ -53,6 +53,9 @@
 .btn {
     height: 80vh;
 }
-i{
+#i{
     display: none;
+}
+#commentMessage {
+    transition: all 0.5s;
 }
