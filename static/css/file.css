@@ -61,11 +61,12 @@ code{
 .actionContainer{
     position: absolute;
     bottom: 0;
+    left: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 5px;
-    transform: translateX(calc(50% - 25%));
+    transform: translateX(-50%);
     z-index: 10;
     margin-bottom: 10px;
 }
@@ -83,6 +84,7 @@ form,
     border: 1px solid white;
     color:white;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 #send{
@@ -96,7 +98,6 @@ form,
 form,
 .mark-code-container,
 .commentContainer{
-    padding: 0px 5px 0px 5px;
     margin: 10px;
 }
 
@@ -135,6 +136,27 @@ form{
     cursor: pointer;
 }
 
+input[type="color"]::-webkit-color-swatch-wrapper {
+	padding: 0;
+    width: 15px;
+    height: 15px;
+
+    border-radius: 50%;
+
+}
+input[type="color"]::-webkit-color-swatch {
+	border: none;
+}
+ input[type="color"]{
+    width: 15px;
+    height: 15px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    margin-left: 5px;
+}
 /* ------------------------- */
 
 /* chat */
