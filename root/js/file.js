@@ -118,10 +118,10 @@ differcesContainer.style.display = "none"
 differencesButton.addEventListener("click", () =>{
     if (differcesContainer.style.display == "none"){
         differcesContainer.style.display = "initial"
-        differencesButton.innerHTML = "Hide differences"
+        differencesButton.innerHTML = "Ascunde diferentele"
     }else {
         differcesContainer.style.display = "none"
-        differencesButton.innerHTML = "Show differences"
+        differencesButton.innerHTML = "Diferente"
     }
 })
 //
@@ -194,13 +194,18 @@ socket.onmessage = (e) => {
         let lineStart = data.lineStart
         let breakContainer = document.createElement("div")
         let chatMessage = document.createElement("div")
+        let chatElements = document.querySelector(".chat-elements")
         chatMessage.setAttribute("class", "chat-message")
         breakContainer.appendChild(chatMessage)
         let chatCodeContainer = document.createElement("textarea")
         chatCodeContainer.value = code
         chatMessage.appendChild(chatCodeContainer)
-        
+        chatElements.setAttribute("class", "show-chat")
         document.getElementById("chat-log").appendChild(breakContainer)
+        setTimeout(() => {
+            
+        chatElements.setAttribute("class", "chat-elements")
+        }, 10);
         createChatCodeMessages(chatCodeContainer, lineStart + 1)
         chatMessage.onclick = function() {
             editor.setCursor(lineStart, 0)
@@ -314,7 +319,7 @@ let commentButton = document.getElementById('comment');
 let commentMessage = document.getElementById('commentMessage');
 commentButton.addEventListener('click', function(){
     console.log(commentButton.value)
-    if (commentMessage.value && lineStart){
+    if (commentMessage.value && lineStart + 1){
         const csrftoken = getCookie("csrftoken");
         const url = window.location.href
         fetch(url + "comment/", {

@@ -34,22 +34,22 @@
 <body>
     {% include 'comments.html' %}
     <div class="container">
-        <div style="position: relative; overflow-y:auto;overflow-x: hidden;">
+        <div style="position: relative; overflow-y:auto;overflow-x: hidden; background-color: #231c14;color: white; padding-top: 10px;">
             <div class="versioning">
-            {% for version in versions %}
-                {% if forloop.first %}
-                <div class="version">
-                    <input type="radio" name="version" id="version{{forloop.revcounter}}" value="{{ version.code }}" checked>
-                    <label for="version{{forloop.counter}}">V{{forloop.revcounter}}</label>
-                </div>
-                {% else %}
-                <div class="version">
-                    <input type="radio" name="version" id="version{{forloop.revcounter}}" value="{{ version.code }}">
-                    <label for="version{{forloop.counter}}">V{{forloop.revcounter}}</label>
-                </div>
-                {% endif %}
-            {% endfor %}
-        </div>
+                {% for version in versions %}
+                    {% if forloop.first %}
+                    <div class="version">
+                        <input type="radio" name="version" id="version{{forloop.revcounter}}" value="{{ version.code }}" checked>
+                        <label for="version{{forloop.counter}}">V{{forloop.revcounter}}</label>
+                    </div>
+                    {% else %}
+                    <div class="version">
+                        <input type="radio" name="version" id="version{{forloop.revcounter}}" value="{{ version.code }}">
+                        <label for="version{{forloop.counter}}">V{{forloop.revcounter}}</label>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
         </div>
         
         <div class="editor">
@@ -62,34 +62,45 @@
     </div>
     
     <div class="actionContainer">
-        <button id="send" type="button">Save</button>
+        <button id="send" type="button">Salvare</button>
+        <button id="differences">Diferente</button>
         <form method="POST" action="{% url 'code:upload' slug %}" enctype="multipart/form-data">
             {% csrf_token %}
             {{ fileForm }}
-            <button type="submit">Upload</button>
+            <button type="submit" style="margin: 0; background-color: transparent; border: 0; color: white;cursor: pointer;">Upload</button>
         </form>
-        <button id="differences">Show differces</button>
-        <div>
+        
+        <div class="mark-code-container" >
             <input id="showMarkers" type="checkbox" checked>
-            <button id="mark">Mark code</button>
+            <button id="mark">Marcheaza Codul</button>
             <input id="markColor" type="color">
         </div>
         <div>
-            <button id="sendChat">Send code</button>
+            <button id="sendChat">Trimite codul</button>
         </div>
-        <div>
-            <input type="button" id="comment" value="Comenteaza">
+        <div class="commentContainer">
+            <input type="button" id="comment" value="Comenteaza" style="background-color: transparent;border:0;cursor:pointer;color:white;">
             <input type="text" id="commentMessage" placeholder="Scrie un comentariu" style="width: 0px; display: none;">
         </div>
     </div>
-    <div id="chat">
-        <div id="chat-log"></div>  
+    <div class="chat-container">
+        <div class="messages-count">
+            Mesaje
+        </div>
+        <div class="chat-elements">
+            <div id="chat">
+                <div id="chat-log"></div>  
+            </div>
+            <div id="chatAction">
+                <input id="chat-message-input" type="text" placeholder="Scrie un mesaj">
+                <button id="chat-message-submit" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                        <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
+                      </svg>
+                </button>
+            </div>
+        </div>
     </div>
-    <div id="chatAction">
-        <input id="chat-message-input" type="text">
-        <input id="chat-message-submit" type="button" value="Send">
-    </div>
-
     <script src="{% static 'js/file.js' %}"></script>
     <script>
         
