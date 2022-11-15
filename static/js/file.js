@@ -318,7 +318,6 @@ scroller.addEventListener('mousemove', function(e) { // or mousemove
 let commentButton = document.getElementById('comment');
 let commentMessage = document.getElementById('commentMessage');
 commentButton.addEventListener('click', function(){
-    console.log(commentButton.value)
     if (commentMessage.value && lineStart + 1){
         const csrftoken = getCookie("csrftoken");
         const url = window.location.href
@@ -343,3 +342,51 @@ commentButton.addEventListener('click', function(){
         commentMessage.style.display = 'none';
     }
 });
+
+// crearea unei imagini din cod
+let node = document.querySelector('#whatsapp');
+let showImage = document.getElementById("showImage")
+let image 
+
+showImage.onclick = function() {
+    let textarea = document.createElement("textarea")
+    let doc = editor.getDoc();
+    let code = `${doc.getRange({line: lineStart, ch: 0}, {line: lineEnd + 1, ch: 0})}`
+    textarea.value = code
+    node.appendChild(textarea)
+    createChatCodeMessages(textarea, lineStart + 1)
+
+    let imgNode = document.querySelector('#whatsapp .CodeMirror')
+    htmlToImage.toJpeg(imgNode, { quality: 1, height: node.clientHeight, width: node.clientWidth })
+        .then(function (dataUrl) {
+            let img = new Image();
+            img.id = "img";
+            img.src = dataUrl;
+            image = img
+        })
+        .catch(function (error) {
+            console.error('oops, something went wrong!', error);
+        });
+}
+
+
+
+let whatsapp = document.getElementById("whatsappBtn")
+whatsapp.onclick = function() {
+    const csrftoken = getCookie("csrftoken");
+    const url = window.location.href
+    fetch(image.src)
+    .then(res => res.blob())
+    .then(blob => {
+        let image = new File([blob], "image.png", {type: "image/png"})
+        let formData = new FormData();
+        formData.append("image", image);
+        fetch(url + "whatsapp/", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": csrftoken,
+            },
+            body: formData
+        })
+    })
+}

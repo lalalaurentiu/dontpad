@@ -26,10 +26,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/keymap/sublime.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/edit/closebrackets.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/selection/mark-selection.min.js"></script>
-
-    <style>
-
-    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.10.8/html-to-image.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.10.8/html-to-image.min.js"></script>
 </head>
 <body>
     {% include 'comments.html' %}
@@ -101,6 +99,14 @@
             </div>
         </div>
     </div>
+    <button id="showImage">showImage</button>
+    <div id="whatsapp">
+        <input id="number" type="numeric" placeholder="phone 966506666666" >
+        <input id="name" type="text" placeholder="name" >
+        <input id="msg" type="text" placeholder="type msg" >
+        <button id="whatsappBtn">send</button>
+    </div>
+    
     <script src="{% static 'js/file.js' %}"></script>
     <script>
         

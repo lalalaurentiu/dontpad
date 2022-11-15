@@ -35,3 +35,7 @@ class DontpadComment(models.Model):
             "date": self.date.strftime("%d/%m/%Y %H:%M:%S"),
         }
         return dct
+
+#Modelul pemntru imaginele whatsapp
+class DontpadImage(models.Model):
+    image = models.ImageField(upload_to = "images/")

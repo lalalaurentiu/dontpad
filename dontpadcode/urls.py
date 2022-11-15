@@ -5,6 +5,8 @@ app_name = "code"
 
 urlpatterns = [
     #ruta pentru incarcarea fisierelor
+    path("whatsapp/", whatsapp, name="whatsapp"),
+    #ruta pentru incarcarea fisierelor
     path("upload", uploadFile, name="upload"),
     #ruta pentru comment
     path("comment/", comment, name="comment"),

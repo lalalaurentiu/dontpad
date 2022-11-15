@@ -138,6 +138,9 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join('root')
 STATICFILES_DIRS = ( os.path.join('static'), )
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join('media')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
@@ -148,3 +151,6 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 LOGIN_URL = "accounts:login"
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
+
+TWILIO_ACCOUNT_SID = "AC0b3fb620691a47b06729afa3f81f13f0"
+TWILIO_AUTH_TOKEN = "c25bdd4a273672be1af84ef90a57b047"

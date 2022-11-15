@@ -87,3 +87,12 @@ def comment(request, slug):
         return HttpResponse(status = 201)
 
     return HttpResponse(json.dumps({"comments":comments}), content_type="application/json")
+
+#view+ul pentru imagini
+def whatsapp(request, slug):
+    if request.method == "POST":
+        image = request.FILES["image"]
+        image = DontpadImage.objects.create(image = image)
+        print(request.get_host() + image.image.url)
+        return HttpResponse(status = 201)
+    return HttpResponse(status = 400)
