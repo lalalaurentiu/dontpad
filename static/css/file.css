@@ -384,3 +384,15 @@ input[type="radio"]{
     margin-bottom: 10px;
     overflow-y: auto;
 }
+
+.message-whatsapp > a{
+    text-decoration: none;
+    color: red;
+    margin-top: 10px;
+    font-size: small;
+}
+
+.message-whatsapp{
+    font-size: small;
+    color: white;
+}
