@@ -77,7 +77,8 @@ form,
 .mark-code-container,
 #mark,
 #sendChat,
-.commentContainer{
+.commentContainer,
+#share{
     border:0;
     padding:5px;
     border-radius:5px;
@@ -156,6 +157,10 @@ input[type="color"]::-webkit-color-swatch {
     background-color: transparent;
     cursor: pointer;
     margin-left: 5px;
+}
+
+#share{
+    background-color: rgb(62, 196, 0);
 }
 /* ------------------------- */
 
@@ -336,3 +341,46 @@ input[type="radio"]{
     justify-content: end;
 }
 /* -------------------------- */
+
+/* whatsapp container */
+.whatsapp-container{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+}
+#whatsapp{
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.2);
+    width: 300px;
+    border:1px solid rgba(0, 0, 0, 0.4);
+    padding:10px; 
+    border-radius: 10px;
+}
+
+#whatsapp > input{
+    border-radius: 10px;
+}
+
+#whatsapp-close{
+    position: relative;
+    left: 100%;
+    transform: translate(-100%, -100%);
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    color: white;
+    border: 0;
+    margin-top: 5px;
+}
+
+#whatsapp-image-container{
+    max-height: 200px;
+    margin-bottom: 10px;
+    overflow-y: auto;
+}

@@ -318,7 +318,6 @@ scroller.addEventListener('mousemove', function(e) { // or mousemove
 let commentButton = document.getElementById('comment');
 let commentMessage = document.getElementById('commentMessage');
 commentButton.addEventListener('click', function(){
-    console.log(commentButton.value)
     if (commentMessage.value && lineStart + 1){
         const csrftoken = getCookie("csrftoken");
         const url = window.location.href
@@ -343,3 +342,81 @@ commentButton.addEventListener('click', function(){
         commentMessage.style.display = 'none';
     }
 });
+
+// ---crearea unei imagini din cod sitrimiterii catre server---
+let node = document.querySelector('.whatsapp-container');
+let share = document.getElementById("share")
+let whatsapp_image_container = document.getElementById("whatsapp-image-container")
+let image 
+
+let whatsapp_container_btn = document.getElementById("whatsapp-close")
+let whatsapp_send_btn = document.getElementById("whatsapp-end-btn")
+let buttons = [whatsapp_container_btn, whatsapp_send_btn]
+
+share.onclick = function() {
+    node.style.display = "flex"
+    
+    let textarea = document.createElement("textarea")
+    let doc = editor.getDoc();
+    let code = `${doc.getRange({line: lineStart, ch: 0}, {line: lineEnd + 1, ch: 0})}`
+    textarea.value = code
+    whatsapp_image_container.appendChild(textarea)
+    createChatCodeMessages(textarea, lineStart + 1)
+
+    let imgNode = document.querySelector('#whatsapp .CodeMirror')
+    imgNode.setAttribute("style", "height: 100vh; width: 100vw;position:absolute; top:0; left:0; z-index: -1;")
+    htmlToImage.toJpeg(imgNode, { quality: 1, height: imgNode.clientHeight, width: imgNode.clientWidth })
+        .then(function (dataUrl) {
+            let img = new Image();
+            img.id = "img";
+            img.src = dataUrl;
+            image = img
+        })
+        .catch(function (error) {
+            console.error('oops, something went wrong!', error);
+        });
+
+    setTimeout(function(){
+        imgNode.removeAttribute("style")
+    }, 10)
+}
+
+whatsapp_send_btn.onclick = function() {
+    const csrftoken = getCookie("csrftoken");
+    const url = window.location.href
+    const number = document.getElementById("number").value
+    const message = document.getElementById("msg").value
+    const name = document.getElementById("name").value
+
+    fetch(image.src)
+    .then(res => res.blob())
+    .then(blob => {
+        let image = new File([blob], "image.jpg", {type: "image/jpg"})
+        let formData = new FormData();
+        formData.append("image", image);
+        formData.append("number", number);
+        formData.append("message", message);
+        formData.append("name", name);
+        fetch(url + "whatsapp/", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": csrftoken,
+            },
+            body: formData
+        })
+        .then( () => {
+            number.value = ""
+            message.value = ""
+            name.value = ""
+        })
+    })
+}
+
+buttons.forEach(function(button){
+    button.addEventListener("click", function(){
+        node.style.display = "none"
+        whatsapp_image_container.innerHTML = ""
+    })
+})
+
+// ----------------------------------
