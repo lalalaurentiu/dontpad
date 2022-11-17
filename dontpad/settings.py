@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     #external module
     "channels",
+    "storages",
 ]
 
 MIDDLEWARE = [
@@ -138,8 +139,16 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join('root')
 STATICFILES_DIRS = ( os.path.join('static'), )
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join('media')
+AWS_ACCESS_KEY_ID = str(os.environ.get('AWS_ACCESS_KEY_ID'))
+AWS_SECRET_ACCESS_KEY = str(os.environ.get('AWS_SECRET_ACCESS_KEY'))
+AWS_STORAGE_BUCKET_NAME = "codepan"
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+AWS_QUERYSTRING_AUTH = False
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage' 
+
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join('media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -152,5 +161,6 @@ LOGIN_URL = "accounts:login"
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
 
-TWILIO_ACCOUNT_SID = "AC0b3fb620691a47b06729afa3f81f13f0"
-TWILIO_AUTH_TOKEN = "c25bdd4a273672be1af84ef90a57b047"
+TWILIO_ACCOUNT_SID = str(os.environ.get("TWILIO_ACCOUNT_SID"))
+TWILIO_AUTH_TOKEN = str(os.environ.get("TWILIO_AUTH_TOKEN"))
+

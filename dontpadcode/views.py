@@ -1,8 +1,23 @@
 from django.shortcuts import render, HttpResponse, redirect
+from twilio.rest import Client
+from dontpad import settings
 from .models import *
 from .forms import *
 import json
 
+def send_whatsapp(image_url, number, message =" ", name=" "):
+     # Your Account SID from twilio.com/console
+        account_sid = settings.TWILIO_ACCOUNT_SID
+        # Your Auth Token from twilio.com/console
+        auth_token  = settings.TWILIO_AUTH_TOKEN
+
+        client = Client(account_sid, auth_token)
+        message = client.messages.create(
+                                    body=f"{name}: {message}",
+                                    from_='whatsapp:+14155238886',
+                                    to=f"whatsapp:+4{number}",
+                                    media_url = str(image_url)
+                                )
 
 CHARACTERS ={
     " ":"&nbsp;",
@@ -92,7 +107,13 @@ def comment(request, slug):
 def whatsapp(request, slug):
     if request.method == "POST":
         image = request.FILES["image"]
-        image = DontpadImage.objects.create(image = image)
-        print(request.get_host() + image.image.url)
-        return HttpResponse(status = 201)
+        number = request.POST.get("number")
+        message = request.POST.get("message")
+        name = request.POST.get("name")
+        if number and image:
+            print(number, message, name)
+            image = DontpadImage.objects.create(image = image)
+            send_whatsapp(image.image.url, number, message, name) 
+            
+            return HttpResponse(status = 201)
     return HttpResponse(status = 400)

@@ -80,6 +80,11 @@
             <input type="button" id="comment" value="Comenteaza" style="background-color: transparent;border:0;cursor:pointer;color:white;">
             <input type="text" id="commentMessage" placeholder="Scrie un comentariu" style="width: 0px; display: none;">
         </div>
+        <button id="share">
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-share" viewBox="0 0 16 16">
+                <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
+              </svg> Share
+        </button>
     </div>
     <div class="chat-container">
         <div class="messages-count">
@@ -99,13 +104,21 @@
             </div>
         </div>
     </div>
-    <button id="showImage">showImage</button>
-    <div id="whatsapp">
-        <input id="number" type="numeric" placeholder="phone 966506666666" >
-        <input id="name" type="text" placeholder="name" >
-        <input id="msg" type="text" placeholder="type msg" >
-        <button id="whatsappBtn">send</button>
+    <div class="whatsapp-container">
+        <div id="whatsapp">
+            <div id="whatsapp-close-container">
+                <button id="whatsapp-close">X</button>
+            </div>
+            <div id="whatsapp-image-container">
+
+            </div>
+            <input id="number" type="numeric" placeholder="Telefon 0722222222" >
+            <input id="name" type="text" placeholder="Nume" >
+            <input id="msg" type="text" placeholder="Mesaj" >
+            <button id="whatsapp-end-btn">send</button>
+        </div>
     </div>
+    
     
     <script src="{% static 'js/file.js' %}"></script>
     <script>
