@@ -34,6 +34,7 @@ let sentCode = document.getElementById("send")
 let editor = CodeMirror.fromTextArea(document.getElementById('code'), {
     mode: 'text/x-perl',
     keyMap:"sublime",
+    theme: 'abbott',
     autoCloseBrackets: true,
     styleSelectedText:true,
 });
