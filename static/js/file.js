@@ -32,9 +32,7 @@ function createChatCodeMessages(target, lineNumber){
 // schimbarea textarea intr-un obiect codemirror
 let sentCode = document.getElementById("send")
 let editor = CodeMirror.fromTextArea(document.getElementById('code'), {
-    lineNumbers: true,
     mode: 'text/x-perl',
-    theme: 'abbott',
     keyMap:"sublime",
     autoCloseBrackets: true,
     styleSelectedText:true,
@@ -262,7 +260,7 @@ sendCode.onclick = function() {
 
 async function getComments (){
     const url = window.location.href
-    let data = await fetch(url + "comment");
+    let data = await fetch(url + "exercises");
     let comments = await data.json();
     return comments 
 }

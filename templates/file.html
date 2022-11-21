@@ -89,6 +89,18 @@
     <div class="chat-container">
         <div class="messages-count">
             Mesaje
+            <style>
+                
+            </style>
+            <i data-count="0" class="fa fa-shopping-cart fa-5x fa-border icon-grey badge"></i>
+        <script>
+            let messagesCount = document.querySelector('.messages-count > i');
+            let messagesCountValue = messagesCount.getAttribute('data-count');
+            messagesCountValue = parseInt(messagesCountValue);  
+            messagesCountValue += 1;    
+            messagesCount.setAttribute('data-count', messagesCountValue);   
+
+        </script>
         </div>
         <div class="chat-elements">
             <div id="chat">
@@ -117,7 +129,9 @@
             <input id="msg" type="text" placeholder="Mesaj" >
             <button id="whatsapp-end-btn">send</button>
             <div class="message-whatsapp">
-                Pentru a putea trimite imagini este nevoie sa trimiti un mesaj cu textul "join four-nou" <a href="https://api.whatsapp.com/send?phone=+14155238886&text=join four-now">aici</a> si sa dai send
+                Pentru a putea trimite imagini este nevoie sa trimiti un mesaj cu textul "join four-nou" 
+                <a href="https://api.whatsapp.com/send?phone=+14155238886&text=join four-now">aici</a> 
+                si sa dai send
             </div>
         </div>
     </div>
