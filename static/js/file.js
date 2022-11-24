@@ -33,13 +33,14 @@ function createChatCodeMessages(target, lineNumber){
 let sentCode = document.getElementById("send")
 let editor = CodeMirror.fromTextArea(document.getElementById('code'), {
     mode: 'text/x-perl',
+    lineNumbers: true,
     keyMap:"sublime",
     theme: 'abbott',
     autoCloseBrackets: true,
     styleSelectedText:true,
 });
 
-// marcajul codului demo
+// marcajul codului
 let lineStart , lineEnd 
 
 editor.on('cursorActivity', function (selected) {
@@ -261,7 +262,7 @@ sendCode.onclick = function() {
 
 async function getComments (){
     const url = window.location.href
-    let data = await fetch(url + "exercises");
+    let data = await fetch(url + "comment");
     let comments = await data.json();
     return comments 
 }

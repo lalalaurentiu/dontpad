@@ -1,0 +1,32 @@
+#screenRecorder {
+    position: fixed;
+    top: 0;
+    right: 0;
+    transform: translateX(100%);
+    background: white;
+    z-index: 999999;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+#screenRecorder i::after{
+    content: '';
+    position: absolute;
+    height: 12px;
+    width: 12px;
+    left:0;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    border-top:2px solid white;
+    border-left:2px solid white;
+    background: white; 
+}
+
+#screenRecorder:hover, #screenRecorder > i:hover{
+    transform: translate(0);
+}
+
+#screenRecorder > button{
+    border: none;
+    background-color: transparent;
+}

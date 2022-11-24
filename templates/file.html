@@ -9,6 +9,8 @@
     <title>CodePan</title>
     <link rel="stylesheet" href="{% static 'css/file.css' %}">
     <link rel="stylesheet" href="{% static 'css/comments.css' %}">
+    <link rel="stylesheet" href="{% static 'css/videoRecorder.css' %}">
+
     <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
     <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/perl/perl.min.js"></script>
 
@@ -135,11 +137,8 @@
             </div>
         </div>
     </div>
-    
-    
+       {% include 'videoRecorder.html' %} 
     <script src="{% static 'js/file.js' %}"></script>
-    <script>
-        
-    </script>
+    <script src="{% static 'js/videoRecorder.js'%}"></script>
 </body>
 </html
