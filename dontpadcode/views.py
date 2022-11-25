@@ -50,6 +50,8 @@ def new_file(request, slug):
     #formularul pentru incarcarea de fisiere
     uploadFileForm = UploadFile()
 
+    videos = DontpadVideo.objects.filter(url_id = obj[0].id)
+
     #daca exista code pentru acel path il returnam pe ultimul
     try:
         last_code = code[0]
@@ -68,7 +70,8 @@ def new_file(request, slug):
         "difference":differnce,
         "fileForm":uploadFileForm,
         "slug":slug,
-        "versions":code
+        "versions":code,
+        "videos":videos
     }
 
     #metoda prin care salvam un nou code
@@ -117,3 +120,16 @@ def whatsapp(request, slug):
             
             return HttpResponse(status = 201)
     return HttpResponse(status = 400)
+
+#view-ul pentru incarcarea video-urilor
+def uploadVideo(request, slug):
+    url_id = DontpadURL.objects.filter(slug = slug)[0].id
+    videos = DontpadVideo.objects.filter(url_id = url_id)
+    if request.method == "POST":
+        video = request.FILES["video"]
+        name = request.POST["name"]
+        
+        if video:
+            video = DontpadVideo.objects.create(video = video, url_id = url_id, name = name)
+            return HttpResponse(status = 201, content = json.dumps({"video":video.video.url, "name":video.name}))
+    return HttpResponse(status = 200, content = json.dumps({"videos":[video.data() for video in videos]}))

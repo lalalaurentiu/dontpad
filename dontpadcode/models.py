@@ -39,3 +39,18 @@ class DontpadComment(models.Model):
 #Modelul pemntru imaginele whatsapp
 class DontpadImage(models.Model):
     image = models.ImageField(upload_to = "images/")
+
+#Modelul pentru video
+class DontpadVideo(models.Model):
+    url = models.ForeignKey(DontpadURL, on_delete = models.CASCADE)
+    video = models.FileField(upload_to = "videos/")
+    name = models.CharField(max_length = 100, blank = True, null = True)
+
+    def __str__(self):
+        return self.name
+
+    def data(self):
+        return {
+            "name": self.name,
+            "video": self.video.url,
+        }

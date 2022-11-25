@@ -26,4 +26,5 @@ urlpatterns = [
     path('', include('accounts.urls')),
     path("<str:slug>/", include("dontpadcode.urls", namespace="code")),
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}, name='static'),
+    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}, name='media'),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -4,6 +4,7 @@ from .views import *
 app_name = "code"
 
 urlpatterns = [
+    path('uploadVideo/', uploadVideo, name = "uploadVideo"),
     #ruta pentru incarcarea fisierelor
     path("whatsapp/", whatsapp, name="whatsapp"),
     #ruta pentru incarcarea fisierelor
