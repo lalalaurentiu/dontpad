@@ -4,12 +4,12 @@
     right: 0;
     transform: translateX(100%);
     background: white;
-    z-index: 999999;
+    z-index: 30;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
 }
 
-#screenRecorder i::after{
+/* #screenRecorder i::after{
     content: '';
     position: absolute;
     height: 12px;
@@ -20,7 +20,7 @@
     border-top:2px solid white;
     border-left:2px solid white;
     background: white; 
-}
+} */
 
 #screenRecorder:hover, #screenRecorder > i:hover{
     transform: translate(0);

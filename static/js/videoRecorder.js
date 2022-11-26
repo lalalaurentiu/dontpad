@@ -7,6 +7,9 @@ let stream
 
 let videoContainer = document.getElementById('videosContainer');
 
+let videoBtn = document.getElementById('videoBtn');
+let screenRecorder = document.getElementById('screenRecorder');
+
 function createVideoElement(node ,video, name){
   let videoName= document.createElement('button');
 
@@ -33,6 +36,10 @@ function playVideo(button){
   
 
 start.addEventListener('click', recordScreen)
+
+start.addEventListener('click', function(){
+  screenRecorder.style.transform = 'translateX(100%)';
+})
 
 stop.addEventListener('click', function(){
     stream.stream.getTracks().forEach(track => track.stop());
@@ -149,5 +156,15 @@ videoClose.addEventListener('click', function(){
   video.src = '';
   videoPlayer.style.display = 'none';
 })
+
+
+videoBtn.addEventListener('click', function(){
+  if (screenRecorder.style.transform == 'translateX(100%)'){
+    screenRecorder.style.transform = 'translateX(0%)';
+  }else{
+    screenRecorder.style.transform = 'translateX(100%)';
+  }
+})
+
 
 

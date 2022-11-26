@@ -78,7 +78,8 @@ form,
 #mark,
 #sendChat,
 .commentContainer,
-#share{
+#share,
+#videoBtn{
     border:0;
     padding:5px;
     border-radius:5px;
@@ -161,6 +162,10 @@ input[type="color"]::-webkit-color-swatch {
 
 #share{
     background-color: rgb(62, 196, 0);
+}
+
+#videoBtn{
+    background-color: rgb(207, 198, 18);
 }
 /* ------------------------- */
 
