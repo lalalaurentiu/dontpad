@@ -76,7 +76,12 @@ def new_file(request, slug):
 
     #metoda prin care salvam un nou code
     if request.method == "POST":
-        DontpadCode.objects.create(slug_id=obj[0].id,code = request.POST["code"])
+        print(request.POST)
+        if request.user.is_professor:
+            DontpadCode.objects.create(slug_id=obj[0].id,code = request.POST["code"])
+        else:
+            versionId = request.POST["versionId"]
+            DontpadUserCode.objects.create(slug_id=obj[0].id,code = request.POST["code"], user_id = request.user.id, proffesor_code_id = versionId)
         return HttpResponse(status = 200)
 
     response = render(request, template_name, context)

@@ -13,6 +13,16 @@ class DontpadCode(models.Model):
     slug = models.ForeignKey(DontpadURL, on_delete = models.CASCADE, related_name = "url")
     code = models.TextField()
 
+#Modelul pentru user code
+class DontpadUserCode(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete = models.CASCADE, related_name = "user")
+    slug = models.ForeignKey(DontpadURL, on_delete = models.CASCADE, related_name = "user_url")
+    proffesor_code = models.ForeignKey(DontpadCode, on_delete = models.CASCADE, related_name = "proffesor_code")
+    code = models.TextField()
+
+    class Meta:
+        ordering = ["-id"]
+
 #modelul pentru comentarii
 class DontpadComment(models.Model):
     slug = models.ForeignKey(DontpadURL, on_delete = models.CASCADE)

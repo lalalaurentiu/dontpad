@@ -41,11 +41,29 @@
                     <div class="version">
                         <input type="radio" name="version" id="version{{forloop.revcounter}}" value="{{ version.code }}" checked>
                         <label for="version{{forloop.counter}}">V{{forloop.revcounter}}</label>
+                        
+                        <div class="studentVersion" >
+                            {% for sversion in version.proffesor_code.all %}
+                                <input type="radio" name="version" id="studentVersion{{forloop.revcounter}}" value="{{ sversion.code }}"
+                                style="display: block; position: relative;{% if forloop.first %}{else}margin-top: 10px;{%endif%};top:-7px;"
+                                >
+                                <label for="studentVersion{{forloop.counter}}"></label>
+                            {% endfor %}
+                        </div>
                     </div>
+                    
                     {% else %}
                     <div class="version">
                         <input type="radio" name="version" id="version{{forloop.revcounter}}" value="{{ version.code }}">
                         <label for="version{{forloop.counter}}">V{{forloop.revcounter}}</label>
+                        <div class="studentVersion" >
+                            {% for sversion in version.proffesor_code.all %}
+                                <input type="radio" name="version" id="studentVersion{{forloop.revcounter}}" value="{{ sversion.code }}"
+                                style="display: block; position: relative;{% if forloop.first %}{else}margin-top: 10px;{%endif%};top:-7px;"
+                                >
+                                <label for="studentVersion{{forloop.counter}}"></label>
+                            {% endfor %}
+                        </div>
                     </div>
                     {% endif %}
                 {% endfor %}
@@ -62,7 +80,12 @@
     </div>
     
     <div class="actionContainer">
-        <button id="send" type="button">Salvare</button>
+        {% if request.user.is_professor %}
+            <button id="send" type="button" onclick="proffesorSendCode()">Salvare</button>
+        {% elif request.user.is_authenticated %}
+            <button id="send" type="button" onclick="studentSendCode()">Salvare</button>
+        {% else %}
+        {% endif %}
         <button id="differences">Diferente</button>
         <form method="POST" action="{% url 'code:upload' slug %}" enctype="multipart/form-data">
             {% csrf_token %}

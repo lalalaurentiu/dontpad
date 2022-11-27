@@ -35,14 +35,15 @@ function playVideo(button){
 }
   
 
-start.addEventListener('click', recordScreen)
+start.addEventListener('click', () => {recordScreen; screenRecorder.style.transform = 'translateX(100%)'; cosole.log('start')});
 
 start.addEventListener('click', function(){
-  screenRecorder.style.transform = 'translateX(100%)';
+  
 })
 
 stop.addEventListener('click', function(){
     stream.stream.getTracks().forEach(track => track.stop());
+    cosole.log('stop')
 })
 
 async function recordScreen(){

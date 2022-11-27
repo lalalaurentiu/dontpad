@@ -71,6 +71,7 @@ function createVersions(lst, target, code, editor){
     })
 }
 let versions = [...document.querySelectorAll('input[name="version"]')];
+let userVersion = document.querySelectorAll('.version');
 
 versions.forEach(version => {
     version.addEventListener('change', (e) => {
@@ -79,8 +80,24 @@ versions.forEach(version => {
         } 
     })
 })
+
+userVersion.forEach((element) => {
+    let studentVersion = element.querySelector('.studentVersion');
+    if (studentVersion.querySelector('input[name="version"]')) {
+    element.addEventListener("mousemove", () => {
+        let position = element.getBoundingClientRect();
+        studentVersion.style.top = position.top + "px";
+        studentVersion.style.display = "block";
+    });
+    element.addEventListener("mouseout", () => {
+        studentVersion.style.display = "none";
+    });
+    }
+});
 // preluarea valorii din obiectul codemirror si trimiterea catre server
-sentCode.addEventListener("click", () =>{
+
+// trimiterea codului catre server de catre profesor
+function proffesorSendCode(){
     const url = window.location.href
     const csrftoken = getCookie("csrftoken")
     const xhr = new XMLHttpRequest()
@@ -88,8 +105,23 @@ sentCode.addEventListener("click", () =>{
     xhr.setRequestHeader("X-CSRFToken", csrftoken)
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
     xhr.send(`code=${editor.getValue()}`)
-})
-//
+}
+
+// trimiterea codului catre server de catre student
+function studentSendCode(){
+    versions.forEach(version => {
+        if (version.checked){
+            let versionId = version.id.split("version")[1]
+            const url = window.location.href
+            const csrftoken = getCookie("csrftoken")
+            const xhr = new XMLHttpRequest()
+            xhr.open("POST", url, true)
+            xhr.setRequestHeader("X-CSRFToken", csrftoken)
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+            xhr.send(`versionId=${versionId}&code=${editor.getValue()}`)
+        }
+    })
+}
 
 // afisarea si ascunderea diferentelor din cod
 function codeMirrorMergeUI(target,historic,original){
