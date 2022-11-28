@@ -81,7 +81,10 @@ def new_file(request, slug):
             DontpadCode.objects.create(slug_id=obj[0].id,code = request.POST["code"])
         else:
             versionId = request.POST["versionId"]
-            DontpadUserCode.objects.create(slug_id=obj[0].id,code = request.POST["code"], user_id = request.user.id, proffesor_code_id = versionId)
+            DontpadUserCode.objects.create(
+                                    slug_id=obj[0].id,code = request.POST["code"],
+                                    user_id = request.user.id,
+                                    proffesor_code_id = versionId)
         return HttpResponse(status = 200)
 
     response = render(request, template_name, context)
@@ -106,7 +109,11 @@ def comment(request, slug):
     comments = [comment.data() for comment in comments]
 
     if request.method == "POST" and request.user.is_authenticated:
-        DontpadComment.objects.create(slug_id = obj, comment = json.loads(request.body)["comment"], line = json.loads(request.body)["line"], user_id = request.user.id)
+        DontpadComment.objects.create(
+                                    slug_id = obj, 
+                                    comment = json.loads(request.body)["comment"], 
+                                    line = json.loads(request.body)["line"], 
+                                    user_id = request.user.id)
         return HttpResponse(status = 201)
 
     return HttpResponse(json.dumps({"comments":comments}), content_type="application/json")
@@ -136,5 +143,6 @@ def uploadVideo(request, slug):
         
         if video:
             video = DontpadVideo.objects.create(video = video, url_id = url_id, name = name)
-            return HttpResponse(status = 201, content = json.dumps({"video":video.video.url, "name":video.name}))
+            return HttpResponse(status = 201, 
+            content = json.dumps({"video":video.video.url, "name":video.name}))
     return HttpResponse(status = 200, content = json.dumps({"videos":[video.data() for video in videos]}))

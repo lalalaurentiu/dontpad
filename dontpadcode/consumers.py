@@ -140,7 +140,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
         lineStart = data.get("lineStart")
         lineEnd = data.get("lineEnd")
 
-        await self.send(text_data=json.dumps({"color": color, "lineStart": lineStart, "lineEnd": lineEnd}))
+        await self.send(text_data=json.dumps(
+                        {"color": color,
+                        "lineStart": lineStart,
+                        "lineEnd": lineEnd
+                        }))
 
     async def chat_codeChat(self, event):
         data = event.get("data")

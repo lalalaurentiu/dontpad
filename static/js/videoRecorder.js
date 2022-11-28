@@ -12,18 +12,19 @@ let screenRecorder = document.getElementById('screenRecorder');
 
 function createVideoElement(node ,video, name){
   let videoName= document.createElement('button');
-
       videoName.value = video;
       videoName.innerHTML = name;
-      let playBtn = document.createElement('div');
+
+  let playBtn = document.createElement('div');
       playBtn.innerHTML = `
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
           <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
         </svg>
       `;
-      videoName.appendChild(playBtn);
-      node.appendChild(videoName);
-      playVideo(videoName);
+
+  videoName.appendChild(playBtn);
+  node.appendChild(videoName);
+  playVideo(videoName);
 }
 
 function playVideo(button){
@@ -35,11 +36,7 @@ function playVideo(button){
 }
   
 
-start.addEventListener('click', () => {recordScreen; screenRecorder.style.transform = 'translateX(100%)'; cosole.log('start')});
-
-start.addEventListener('click', function(){
-  
-})
+start.addEventListener('click', recordScreen);
 
 stop.addEventListener('click', function(){
     stream.stream.getTracks().forEach(track => track.stop());
@@ -62,27 +59,31 @@ async function recordScreen(){
             channelCount: 2
         }
     });
+
     const audioStream = await navigator.mediaDevices.getUserMedia({audio: true});
 
     let tracks = [...displayStream.getTracks(), ...audioStream.getTracks()];
+
     const Stream = new MediaStream(tracks);
+
     stream = createRecorder(Stream, mimeType);
 }
 
 function createRecorder (stream, mimeType) {
   // the stream data is stored in this array
   let recordedChunks = []; 
+
   const mediaRecorder = new MediaRecorder(stream);
-  mediaRecorder.ondataavailable = function (e) {
-    if (e.data.size > 0) {
-      recordedChunks.push(e.data);
-    }  
-  };
-  mediaRecorder.onstop = function () {
-     saveFile(recordedChunks);
-     recordedChunks = [];
-  };
-  mediaRecorder.start(200); 
+        mediaRecorder.ondataavailable = function (e) {
+          if (e.data.size > 0) {
+            recordedChunks.push(e.data);
+          }  
+        };
+        mediaRecorder.onstop = function () {
+          saveFile(recordedChunks);
+          recordedChunks = [];
+        };
+        mediaRecorder.start(200); 
   return mediaRecorder;
 }
 
@@ -100,21 +101,20 @@ function saveFile(recordedChunks){
                   date.getSeconds() + '.mp4';
     
     let video = document.createElement('video');
-    video.width = 400;
-    video.height = 300;
-    video.controls = true;
-    video.src = URL.createObjectURL(blob);
-    URL.revokeObjectURL(blob); 
+        video.width = 400;
+        video.height = 300;
+        video.controls = true;
+        video.src = URL.createObjectURL(blob);
 
-    
+    URL.revokeObjectURL(blob); 
 
     fetch(video.src)
     .then(res => res.blob())
     .then(blob => {
         let video = new File([blob], fileName , {type: 'video/mp4'});
         let formData = new FormData();
-        formData.append('video', video);
-        formData.append('name', fileName);
+          formData.append('video', video);
+          formData.append('name', fileName);
         fetch(url + 'uploadVideo/', {
             method: 'POST',
             headers: {
@@ -153,6 +153,7 @@ let video = videoPlayer.querySelector('video');
 
 let videoControls = document.getElementById('videoControls');
 let videoClose = videoControls.getElementsByTagName('button')[0];
+
 videoClose.addEventListener('click', function(){
   video.src = '';
   videoPlayer.style.display = 'none';

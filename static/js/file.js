@@ -12,7 +12,7 @@ function getCookie(name) {
         }
     }
     return cookieValue;
-}
+};
 //
 
 //functia pentru crearea unui codeMirror in chat
@@ -51,19 +51,24 @@ editor.on('cursorActivity', function (selected) {
 // afisarea versionarii codului
 function createVersions(lst, target, code, editor){
     let versionsContainer = document.createElement("div")
-    versionsContainer.setAttribute("class", "version")
+        versionsContainer.setAttribute("class", "version")
+
     let inputContainer = document.createElement("input")
-    inputContainer.setAttribute("type", "radio")
-    inputContainer.setAttribute("name", "version")
-    inputContainer.setAttribute("value", `${code}`)
-    inputContainer.setAttribute("checked", "checked")
-    inputContainer.setAttribute("id", `version${lst.length + 1}`)
+        inputContainer.setAttribute("type", "radio")
+        inputContainer.setAttribute("name", "version")
+        inputContainer.setAttribute("value", `${code}`)
+        inputContainer.setAttribute("checked", "checked")
+        inputContainer.setAttribute("id", `version${lst.length + 1}`)
+
     versionsContainer.appendChild(inputContainer)
+
     let labelContainer = document.createElement("label")
-    labelContainer.setAttribute("for", `version${lst.length + 1}`)
-    labelContainer.innerHTML = `V${lst.length + 1}`
+        labelContainer.setAttribute("for", `version${lst.length + 1}`)
+        labelContainer.innerHTML = `V${lst.length + 1}`
+
     versionsContainer.appendChild(labelContainer)
     target.prepend(versionsContainer)
+
     this.addEventListener("change", function(e){
         if(e.target.checked){
             editor.setValue(e.target.value);
@@ -168,10 +173,12 @@ if (window.location.protocol === "https:"){
 
 function createUserBanner(obj){
     let userBanner = document.createElement("div")
-    userBanner.setAttribute("class", "user-banner")
+        userBanner.setAttribute("class", "user-banner")
+
     let userBannerName = document.createElement("div")
-    userBannerName.setAttribute("class", "user-banner-name")
-    userBannerName.innerHTML = obj.first_name + " " + obj.last_name
+        userBannerName.setAttribute("class", "user-banner-name")
+        userBannerName.innerHTML = obj.first_name + " " + obj.last_name
+
     userBanner.appendChild(userBannerName)
     return userBanner
 }
@@ -186,12 +193,15 @@ socket.onmessage = (e) => {
     if (data.message) {
         let chatLogContainer = document.querySelector('#chat-log')
         let chatMessageContainer = document.createElement("div")
-        chatMessageContainer.setAttribute("class", "chat-message-container")
+            chatMessageContainer.setAttribute("class", "chat-message-container")
+
         chatLogContainer.appendChild(chatMessageContainer)
+        
         let breakContainer = document.createElement("div")
         let chatMessage = document.createElement("span")
-        chatMessage.setAttribute("class", "chat-message")
-        chatMessage.innerHTML = "<i></i>" + data.message
+            chatMessage.setAttribute("class", "chat-message")
+            chatMessage.innerHTML = "<i></i>" + data.message
+
         breakContainer.appendChild(chatMessage)
         chatMessageContainer.appendChild(createUserBanner(data.user))
         chatMessageContainer.appendChild(breakContainer)
@@ -227,18 +237,22 @@ socket.onmessage = (e) => {
         let breakContainer = document.createElement("div")
         let chatMessage = document.createElement("div")
         let chatElements = document.querySelector(".chat-elements")
+        
         chatMessage.setAttribute("class", "chat-message")
         breakContainer.appendChild(chatMessage)
         let chatCodeContainer = document.createElement("textarea")
-        chatCodeContainer.value = code
+            chatCodeContainer.value = code
+
         chatMessage.appendChild(chatCodeContainer)
         chatElements.setAttribute("class", "show-chat")
         document.getElementById("chat-log").appendChild(breakContainer)
+
         setTimeout(() => {
-            
-        chatElements.setAttribute("class", "chat-elements")
+            chatElements.setAttribute("class", "chat-elements")
         }, 10);
+
         createChatCodeMessages(chatCodeContainer, lineStart + 1)
+
         chatMessage.onclick = function() {
             editor.setCursor(lineStart, 0)
         }
@@ -316,20 +330,26 @@ scroller.addEventListener('mousemove', function(e) { // or mousemove
         obj = result
         obj.comments.forEach(function(comment) {
             let commentContainer = document.createElement("div")
-            commentContainer.setAttribute("class", "comment-container")
+                commentContainer.setAttribute("class", "comment-container")
+
             let commentText = document.createElement("div")
-            commentText.setAttribute("class", "comment-text")
-            commentText.innerHTML = comment.comment
+                commentText.setAttribute("class", "comment-text")
+                commentText.innerHTML = comment.comment
+
             commentContainer.appendChild(commentText)
+
             let commentDate = document.createElement("div")
-            commentDate.setAttribute("class", "comment-date")
-            commentDate.innerHTML = comment.date
+                commentDate.setAttribute("class", "comment-date")
+                commentDate.innerHTML = comment.date
+
             commentContainer.prepend(commentDate)
+
             let coommentUser = document.createElement("div")
-            coommentUser.setAttribute("class", "comment-user")
-            coommentUser.innerHTML = comment.user.first_name + " " + comment.user.last_name
+                coommentUser.setAttribute("class", "comment-user")
+                coommentUser.innerHTML = comment.user.first_name + " " + comment.user.last_name
             
             commentContainer.prepend(coommentUser)
+
             if (comment.line == line){
                 let ipos = editor.charCoords({line: line - 1, ch: 0}, "local");
                 button.appendChild(commentContainer)
@@ -349,6 +369,7 @@ scroller.addEventListener('mousemove', function(e) { // or mousemove
 // trimite comentariul
 let commentButton = document.getElementById('comment');
 let commentMessage = document.getElementById('commentMessage');
+
 commentButton.addEventListener('click', function(){
     if (commentMessage.value && lineStart + 1){
         const csrftoken = getCookie("csrftoken");
@@ -366,6 +387,7 @@ commentButton.addEventListener('click', function(){
         })
         commentMessage.value = ""
     }
+
     if(commentMessage.style.width == '0px'){
         commentMessage.style.width = 'initial';
         commentMessage.style.display = 'initial';
@@ -391,13 +413,17 @@ share.onclick = function() {
     let textarea = document.createElement("textarea")
     let doc = editor.getDoc();
     let code = `${doc.getRange({line: lineStart, ch: 0}, {line: lineEnd + 1, ch: 0})}`
+
     textarea.value = code
     whatsapp_image_container.appendChild(textarea)
+
     createChatCodeMessages(textarea, lineStart + 1)
 
     let imgNode = document.querySelector('#whatsapp .CodeMirror')
-    imgNode.setAttribute("style", "height: 100vh; width: 100vw;position:absolute; top:0; left:0; z-index: -1;")
+        imgNode.setAttribute("style", "height: 100vh; width: 100vw;position:absolute; top:0; left:0; z-index: -1;")
+
     htmlToImage.toJpeg(imgNode, { quality: 1, height: imgNode.clientHeight, width: imgNode.clientWidth })
+
         .then(function (dataUrl) {
             let img = new Image();
             img.id = "img";
@@ -425,10 +451,11 @@ whatsapp_send_btn.onclick = function() {
     .then(blob => {
         let image = new File([blob], "image.jpg", {type: "image/jpg"})
         let formData = new FormData();
-        formData.append("image", image);
-        formData.append("number", number);
-        formData.append("message", message);
-        formData.append("name", name);
+            formData.append("image", image);
+            formData.append("number", number);
+            formData.append("message", message);
+            formData.append("name", name);
+            
         fetch(url + "whatsapp/", {
             method: "POST",
             headers: {
