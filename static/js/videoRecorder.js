@@ -44,6 +44,8 @@ stop.addEventListener('click', function(){
 })
 
 async function recordScreen(){
+  screenRecorder.style.transform = "translateX(100%)";
+
     const mimeType = 'mp4';
     const displayStream = await navigator.mediaDevices.getDisplayMedia({
         video: {

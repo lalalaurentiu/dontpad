@@ -37,15 +37,16 @@
         <div style="position: relative; overflow-y:auto;overflow-x: hidden; background-color: #231c14;color: white; padding-top: 10px;">
             <div class="versioning">
                 {% for version in versions %}
+                
                     {% if forloop.first %}
                     <div class="version">
-                        <input type="radio" name="version" id="version{{forloop.revcounter}}" value="{{ version.code }}" checked>
+                        <input type="radio" name="version" id="version{{version.id}}" value="{{ version.code }}" checked>
                         <label for="version{{forloop.counter}}">V{{forloop.revcounter}}</label>
                         
                         <div class="studentVersion" >
                             {% for sversion in version.proffesor_code.all %}
-                                <input type="radio" name="version" id="studentVersion{{forloop.revcounter}}" value="{{ sversion.code }}"
-                                style="display: block; position: relative;{% if forloop.first %}{else}margin-top: 10px;{%endif%};top:-7px;"
+                                <input type="radio" name="version" id="studentVersion{{version.id}}" value="{{ sversion.code }}"
+                                style="display: block; position: relative;{% if forloop.first %}{% else %}margin-top: 10px;{%endif%};top:-7px;"
                                 >
                                 <label for="studentVersion{{forloop.counter}}"></label>
                             {% endfor %}
@@ -54,12 +55,12 @@
                     
                     {% else %}
                     <div class="version">
-                        <input type="radio" name="version" id="version{{forloop.revcounter}}" value="{{ version.code }}">
+                        <input type="radio" name="version" id="version{{version.id}}" value="{{ version.code }}">
                         <label for="version{{forloop.counter}}">V{{forloop.revcounter}}</label>
                         <div class="studentVersion" >
                             {% for sversion in version.proffesor_code.all %}
-                                <input type="radio" name="version" id="studentVersion{{forloop.revcounter}}" value="{{ sversion.code }}"
-                                style="display: block; position: relative;{% if forloop.first %}{else}margin-top: 10px;{%endif%};top:-7px;"
+                                <input type="radio" name="version" id="studentVersion{{version.id}}" value="{{ sversion.code }}"
+                                style="display: block; position: relative;{% if forloop.first %}{% else %}margin-top: 10px;{%endif%};top:-7px;"
                                 >
                                 <label for="studentVersion{{forloop.counter}}"></label>
                             {% endfor %}

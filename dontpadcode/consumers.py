@@ -7,7 +7,7 @@ from channels.db import database_sync_to_async
 from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 from django.db.models.signals import post_save
-from .models import DontpadCode, DontpadURL
+from .models import *
 from django.dispatch import receiver
 from difflib import Differ
 from .views import CHARACTERS
@@ -130,9 +130,16 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def chat_code(self, event):
         code = event.get("code")
         diferrence = event.get("differnce")
+        user = event.get("user")
+        parrentId = event.get("parrentId")
 
         # Send message to WebSocket
-        await self.send(text_data=json.dumps({"code": code, "differnce": diferrence}))
+        await self.send(text_data=json.dumps({
+            "code": code, 
+            "differnce": diferrence, 
+            "user": user,
+            "parrentId": parrentId
+            }))
 
     async def chat_mark(self, event):
         data = event.get("data")
@@ -182,4 +189,16 @@ def post_code_receiver(sender, **kwargs):
     async_to_sync(channel_layer.group_send)(
         "chat_%s" % kwargs["instance"].slug.slug,
         {"type": "chat_code", "code": kwargs["instance"].code, "differnce": differnce},
+    )
+
+@receiver(post_save, sender=DontpadUserCode)
+def post_user_code_receiver(sender, **kwargs):
+    channel_layer = get_channel_layer()
+    async_to_sync(channel_layer.group_send)(
+        "chat_%s" % kwargs["instance"].slug.slug,
+        {"type": "chat_code", 
+        "code": kwargs["instance"].code, 
+        "user": kwargs["instance"].user.first_name,
+        "parrentId": kwargs["instance"].proffesor_code.id
+        },
     )

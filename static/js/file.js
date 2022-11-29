@@ -50,6 +50,7 @@ editor.on('cursorActivity', function (selected) {
 
 // afisarea versionarii codului
 function createVersions(lst, target, code, editor){
+    
     let versionsContainer = document.createElement("div")
         versionsContainer.setAttribute("class", "version")
 
@@ -75,7 +76,55 @@ function createVersions(lst, target, code, editor){
         } 
     })
 }
+
+function createUserVersion (obj, lst, ){
+    let parrent = document.getElementById(`version${obj.parrentId}`).parentElement
+    let studentVersion
+    if (parrent.querySelector(".studentVersion")){
+        studentVersion = parrent.querySelector(".studentVersion")
+    } else {
+        studentVersion = document.createElement("div")
+        studentVersion.setAttribute("class", "studentVersion")
+    }
+
+    let input = document.createElement("input")
+        input.setAttribute("type", "radio")
+        input.setAttribute("name", "version")
+        input.setAttribute("value", `${obj.code}`)
+        input.setAttribute("id", `studentVersion${obj.parrentId}`)
+        input.setAttribute("style", "margin-bottom:10px;top:-7px;display:block;position:relative;")
+        input.setAttribute("checked", "checked")
+
+    let label = document.createElement("label")
+        label.setAttribute("for", `studentVersion${obj.parrentId}`)
+        
+    parrent.addEventListener("mousemove", () => {
+        let position = parrent.getBoundingClientRect();
+        studentVersion.style.top = position.top + "px";
+        studentVersion.style.display = "block";
+    });
+    parrent.addEventListener("mouseout", () => {
+        studentVersion.style.display = "none";
+    });
+    
+    studentVersion.prepend(label)
+    studentVersion.prepend(input)
+    
+    parrent.appendChild(studentVersion)
+
+    lst.push(input)
+}
+
 let versions = [...document.querySelectorAll('input[name="version"]')];
+versions.push = function(){
+    Array.prototype.push.apply(this, arguments);
+    arguments[0].addEventListener("change", function(e){
+        if(e.target.checked){
+            editor.setValue(e.target.value);
+        }
+    })
+}
+
 let userVersion = document.querySelectorAll('.version');
 
 versions.forEach(version => {
@@ -116,7 +165,12 @@ function proffesorSendCode(){
 function studentSendCode(){
     versions.forEach(version => {
         if (version.checked){
-            let versionId = version.id.split("version")[1]
+            let versionId
+            if (version.id.includes("studentVersion")){
+                versionId = version.id.split("studentVersion")[1]
+            } else {
+                versionId = version.id.split("version")[1]
+            }
             const url = window.location.href
             const csrftoken = getCookie("csrftoken")
             const xhr = new XMLHttpRequest()
@@ -210,14 +264,18 @@ socket.onmessage = (e) => {
     }
     // afisarea codului
     if (data.code) {
-        editor.setValue(data.code)
-        historic.value = data.differnce
-        target.innerHTML = ""
-        differcesContainer.style.display = "initial"
-        codeMirrorMergeUI(document.getElementById("editor2"),document.getElementById("difference"),editor.getValue())
-        differcesContainer.style.display = "none"
-        // afisarea versiunilor
-        versions.push(createVersions(versions, document.querySelector(".versioning"), data.code, editor))
+        if (data.user){
+            createUserVersion(data, versions)
+        } else {
+            editor.setValue(data.code)
+            historic.value = data.differnce
+            target.innerHTML = ""
+            differcesContainer.style.display = "initial"
+            codeMirrorMergeUI(document.getElementById("editor2"),document.getElementById("difference"),editor.getValue())
+            differcesContainer.style.display = "none"
+            // afisarea versiunilor
+            versions.push(createVersions(versions, document.querySelector(".versioning"), data.code, editor))
+        } 
     }
     // afisarea markarii codului
     if ( data.color && data.lineStart.toString() && data.lineEnd.toString() && document.getElementById("showMarkers").checked){

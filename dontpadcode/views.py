@@ -46,7 +46,7 @@ def new_file(request, slug):
 
     #verificam daca exista code in baza de date pentru acel path
     code = DontpadCode.objects.filter(slug_id = obj[0].id).order_by("-id")
-
+    print(code)
     #formularul pentru incarcarea de fisiere
     uploadFileForm = UploadFile()
 
@@ -76,13 +76,14 @@ def new_file(request, slug):
 
     #metoda prin care salvam un nou code
     if request.method == "POST":
-        print(request.POST)
         if request.user.is_professor:
             DontpadCode.objects.create(slug_id=obj[0].id,code = request.POST["code"])
         else:
             versionId = request.POST["versionId"]
+            print(DontpadCode.objects.get(id = versionId))
             DontpadUserCode.objects.create(
-                                    slug_id=obj[0].id,code = request.POST["code"],
+                                    slug_id=obj[0].id,
+                                    code = request.POST["code"],
                                     user_id = request.user.id,
                                     proffesor_code_id = versionId)
         return HttpResponse(status = 200)
