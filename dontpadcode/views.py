@@ -19,13 +19,6 @@ def send_whatsapp(image_url, number, message =" ", name=" "):
                                     media_url = str(image_url)
                                 )
 
-CHARACTERS ={
-    " ":"&nbsp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    "&":"&amp;",
-    "\\t":"&nbsp; &nbsp; &nbsp; &nbsp;"
-}
 #view-ul pentru home page
 def home(request):
     template_name = "home/home.html"
@@ -147,3 +140,23 @@ def uploadVideo(request, slug):
             return HttpResponse(status = 201, 
             content = json.dumps({"video":video.video.url, "name":video.name}))
     return HttpResponse(status = 200, content = json.dumps({"videos":[video.data() for video in videos]}))
+
+#view-ul pentru creare exercitilor
+def createExercise(request, slug):
+    template_name = "createExercise.html"
+    form = CreateExercise(request.POST)
+    context = {
+        "form":form
+    }
+    if request.method == "POST":
+        url_id = DontpadURL.objects.filter(slug = slug)[0].id
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.slug_id = url_id
+            instance.save()
+            return redirect(request.path)
+        else:
+            print(form.errors)
+
+    response = render(request, template_name, context)
+    return response

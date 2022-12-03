@@ -9,8 +9,6 @@ from channels.layers import get_channel_layer
 from django.db.models.signals import post_save
 from .models import *
 from django.dispatch import receiver
-from difflib import Differ
-from .views import CHARACTERS
 from accounts.models import CustomUser
 from django.contrib.sessions.models import Session
 

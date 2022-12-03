@@ -1,5 +1,7 @@
 from django.db import models
 from accounts.models import CustomUser
+from django.urls import reverse
+from django.utils.text import slugify
 
 #Modelul pentru noul proiect
 class DontpadURL(models.Model):
@@ -69,24 +71,24 @@ class DontpadVideo(models.Model):
 #modelul pentru exercitii
 class DontpadExercise(models.Model):
     slug = models.ForeignKey(DontpadURL, on_delete = models.CASCADE)
-    name = models.CharField(max_length = 100)
+    title = models.CharField(max_length = 100)
     description = models.TextField()
-    code = models.TextField()
-    test = models.TextField()
+    codeInput = models.TextField()
+    hints = models.TextField(blank = True, null = True)
+    exerciseSlug = models.SlugField(unique = True)
 
     class Meta:
-        ordering = ["-id"]
+        ordering = ["id"]
 
     def __str__(self):
-        return self.name
+        return self.exerciseSlug
 
-    def data(self):
-        return {
-            "name": self.name,
-            "description": self.description,
-            "code": self.code,
-            "test": self.test,
-        }
+    def get_absolute_url(self):
+        return reverse('dontpadcode:createExercise', kwargs={'slug': self.slug.slug})
+
+    def save(self, *args, **kwargs):
+        self.exerciseSlug = slugify(self.slug.slug + "_" + self.title)
+        super(DontpadExercise, self).save(*args, **kwargs)
 
 #modelul pentru rezultatele exercitiilor
 class DontpadExerciseResult(models.Model):
