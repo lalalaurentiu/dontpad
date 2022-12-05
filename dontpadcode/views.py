@@ -4,6 +4,7 @@ from dontpad import settings
 from .models import *
 from .forms import *
 import json
+from django.contrib.auth.decorators import login_required
 
 def send_whatsapp(image_url, number, message =" ", name=" "):
      # Your Account SID from twilio.com/console
@@ -39,11 +40,13 @@ def new_file(request, slug):
 
     #verificam daca exista code in baza de date pentru acel path
     code = DontpadCode.objects.filter(slug_id = obj[0].id).order_by("-id")
-    print(code)
+
     #formularul pentru incarcarea de fisiere
     uploadFileForm = UploadFile()
 
     videos = DontpadVideo.objects.filter(url_id = obj[0].id)
+
+    exercise = DontpadExercise.objects.filter(slug_id = obj[0].id)
 
     #daca exista code pentru acel path il returnam pe ultimul
     try:
@@ -64,7 +67,8 @@ def new_file(request, slug):
         "fileForm":uploadFileForm,
         "slug":slug,
         "versions":code,
-        "videos":videos
+        "videos":videos,
+        "exercises":exercise
     }
 
     #metoda prin care salvam un nou code
@@ -73,7 +77,7 @@ def new_file(request, slug):
             DontpadCode.objects.create(slug_id=obj[0].id,code = request.POST["code"])
         else:
             versionId = request.POST["versionId"]
-            print(DontpadCode.objects.get(id = versionId))
+            
             DontpadUserCode.objects.create(
                                     slug_id=obj[0].id,
                                     code = request.POST["code"],
@@ -120,7 +124,6 @@ def whatsapp(request, slug):
         message = request.POST.get("message")
         name = request.POST.get("name")
         if number and image:
-            print(number, message, name)
             image = DontpadImage.objects.create(image = image)
             send_whatsapp(image.image.url, number, message, name) 
             
@@ -160,3 +163,54 @@ def createExercise(request, slug):
 
     response = render(request, template_name, context)
     return response
+
+#view-ul pentru vizualizarea exercitiilor
+@login_required
+def viewExercise(request, slug, id):
+
+    template_name = "viewExercise.html"
+    url_id = DontpadURL.objects.filter(slug = slug)[0].id
+    exercise = DontpadExercise.objects.filter(slug_id = url_id, id = id)[0]
+
+    try:
+        result = DontpadExerciseResult.objects.get(exercise_id = id, user_id = request.user.id)
+        print(result)
+    except:
+        result = None
+
+    context = {
+        "exercise":exercise,
+        "result":result.result if result else False
+    }
+    response = render(request, template_name, context)
+    return response
+
+@login_required
+def exerciseHint(request, slug, id):
+    hint = DontpadExercise.objects.filter(slug_id = DontpadURL.objects.filter(slug = slug)[0].id, id = id)[0].hints
+    print(hint)
+    if hint:
+        return HttpResponse(json.dumps({"hint":hint}), content_type="application/json")
+    return HttpResponse(status = 400)
+
+@login_required
+def submitExercise(request, slug, id):
+    print(request.body)
+    getResponse = json.loads(request.body)
+    print(getResponse)
+    if request.method == "POST":
+        url_id = DontpadURL.objects.filter(slug = slug)[0].id
+        exercise = DontpadExercise.objects.filter(slug_id = url_id, id = id)[0]
+        
+        if exercise:
+            if exercise.hints == getResponse["answer"]:
+                DontpadExerciseResult.objects.create(
+                                                    exercise_id = id,
+                                                    user_id = request.user.id,
+                                                    result = getResponse["answer"],
+                                                    solved = True
+                                                    )
+                return HttpResponse(status = 201, content = json.dumps({"status":"success", "message":"Felicitari! Ai rezolvat exercitiul corect!"}))
+            else:
+                return HttpResponse(status = 201, content = json.dumps({"status":"error", "message":"Codul nu este corect!"}))
+    return HttpResponse(status = 400)

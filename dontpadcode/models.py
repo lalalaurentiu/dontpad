@@ -94,24 +94,13 @@ class DontpadExercise(models.Model):
 class DontpadExerciseResult(models.Model):
     user = models.ForeignKey(CustomUser, on_delete = models.CASCADE)
     exercise = models.ForeignKey(DontpadExercise, on_delete = models.CASCADE, related_name = "exercise")
-    code = models.TextField()
     result = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
     solved = models.BooleanField(default = False)
 
     def __str__(self):
-        return self.user.first_name + " " + self.user.last_name + " " + self.exercise.name
+        return self.user.first_name + " " + self.user.last_name + " " + self.exercise.title
 
-    def data(self):
-        return {
-            "user": {
-                "first_name": self.user.first_name,
-                "last_name": self.user.last_name,
-            },
-            "exercise": {
-                "name": self.exercise.name,
-            },
-            "code": self.code,
-            "result": self.result,
-            "date": self.date.strftime("%d/%m/%Y %H:%M:%S"),
-        }
+    def get_absolute_url(self):
+        return reverse('dontpadcode:viewExercise', kwargs={'slug': self.exercise.slug.slug})
+

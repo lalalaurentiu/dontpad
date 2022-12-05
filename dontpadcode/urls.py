@@ -12,6 +12,11 @@ urlpatterns = [
     path("upload", uploadFile, name="upload"),
     #ruta pentru comment
     path("comment/", comment, name="comment"),
+    #ruta pentru hints
+    path("hint/<id>/", exerciseHint, name="hint"),
+    path("submitExercise/<id>/", submitExercise, name="submitExercise"),
+    #ruta pentru exercitii
+    path("<id>/", viewExercise, name="viewExercise"),
     #ruta pentru un nou path sau unul existent
     path("", new_file, name="newfile"),
     

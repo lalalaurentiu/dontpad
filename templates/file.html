@@ -114,13 +114,44 @@
         <button id="videoBtn">
             Recorder Screen
         </button>
+        <style>
+            .dropdown {
+              position: relative;
+              display: inline-block;
+            }
+            .dropdown-content {
+              display: none;
+              position: absolute;
+              background-color: #f1f1f1;
+              min-width: 160px;
+              box-shadow: 0px 8px 16px 0px white;
+              z-index: 1;
+              transform: translateY(-100%);
+            }
+            .dropdown:hover .dropdown-content {
+              display: block;
+            }
+            .dropdown-content a {
+              color: black;
+              padding: 12px 16px;
+              text-decoration: none;
+              display: block;
+            }
+        </style>
+        {% if exercises%}
+        <div class="dropdown">
+            <div class="dropdown-content">
+                {% for exercise in exercises %}
+                    <a href="{% url 'code:viewExercise' exercise.slug exercise.id %}">{{exercise.title}}</a>
+                {% endfor %}
+            </div>
+            <button id="exercises">Exercitii</button>
+        </div>
+        {% endif %}
     </div>
     <div class="chat-container">
         <div class="messages-count">
             Mesaje
-            <style>
-                
-            </style>
             <i data-count="0" class="fa fa-shopping-cart fa-5x fa-border icon-grey badge"></i>
         <script>
             let messagesCount = document.querySelector('.messages-count > i');
