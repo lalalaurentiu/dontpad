@@ -79,7 +79,9 @@ form,
 #sendChat,
 .commentContainer,
 #share,
-#videoBtn{
+#videoBtn,
+#exercises,
+#createExercise{
     border:0;
     padding:5px;
     border-radius:5px;
@@ -166,6 +168,14 @@ input[type="color"]::-webkit-color-swatch {
 
 #videoBtn{
     background-color: rgb(207, 198, 18);
+}
+
+#exercises{
+    background-color: rgb(255, 149, 0);
+}
+#createExercise{
+    background-color: rgb(101, 0, 252);
+    text-decoration: none;
 }
 /* ------------------------- */
 
@@ -390,6 +400,31 @@ input[type="radio"]{
     left: 10px;
     padding-left: 5px;
     z-index: 30;
+}
+
+/* dropdown  */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px white;
+    z-index: 1;
+    transform: translateY(-100%);
+    border-radius: 10px;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
 }
 /* ------------------------------------- */
 

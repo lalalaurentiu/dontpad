@@ -145,24 +145,28 @@ def uploadVideo(request, slug):
     return HttpResponse(status = 200, content = json.dumps({"videos":[video.data() for video in videos]}))
 
 #view-ul pentru creare exercitilor
+@login_required
 def createExercise(request, slug):
-    template_name = "createExercise.html"
-    form = CreateExercise(request.POST)
-    context = {
-        "form":form
-    }
-    if request.method == "POST":
-        url_id = DontpadURL.objects.filter(slug = slug)[0].id
-        if form.is_valid():
-            instance = form.save(commit=False)
-            instance.slug_id = url_id
-            instance.save()
-            return redirect(request.path)
-        else:
-            print(form.errors)
+    if request.user.is_professor:
+        template_name = "createExercise.html"
+        form = CreateExercise(request.POST)
+        context = {
+            "form":form
+        }
+        if request.method == "POST":
+            url_id = DontpadURL.objects.filter(slug = slug)[0].id
+            if form.is_valid():
+                instance = form.save(commit=False)
+                instance.slug_id = url_id
+                instance.save()
+                return redirect(request.path)
+            else:
+                print(form.errors)
 
-    response = render(request, template_name, context)
-    return response
+        response = render(request, template_name, context)
+        return response
+    else:
+        return HttpResponse(status = 403)
 
 #view-ul pentru vizualizarea exercitiilor
 @login_required

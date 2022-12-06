@@ -7,23 +7,44 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CodePan</title>
-    <link rel="stylesheet" href="{% static 'css/file.css' %}">
-    <link rel="stylesheet" href="{% static 'css/comments.css' %}">
-    <link rel="stylesheet" href="{% static 'css/videoRecorder.css' %}">
+    <link rel="stylesheet" 
+            href="{% static 'css/file.css' %}">
+    <link rel="stylesheet" 
+            href="{% static 'css/comments.css' %}">
+    <link rel="stylesheet" 
+            href="{% static 'css/videoRecorder.css' %}">
 
-    <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
-    <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/perl/perl.min.js"></script>
+    <script language="javascript" 
+            type="text/javascript" 
+            src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js">
+    </script>
+    <script language="javascript" 
+            type="text/javascript" 
+            src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/perl/perl.min.js">
+    </script>
 
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css"></link>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/abbott.min.css"></link>
+    <link rel="stylesheet" 
+            type="text/css" 
+            href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css"></link>
+    <link rel="stylesheet" 
+            type="text/css" 
+            href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/abbott.min.css"></link>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/diff_match_patch/20121119/diff_match_patch.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/merge/merge.min.css"></link>
-    <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/merge/merge.min.js"></script>
+    <link rel="stylesheet" 
+            type="text/css" 
+            href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/merge/merge.min.css"></link>
+    <script language="javascript" 
+            type="text/javascript" 
+            src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/merge/merge.min.js">
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/search/search.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/search/searchcursor.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/search/jump-to-line.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/dialog/dialog.min.css">
+
+    <link rel="stylesheet" h
+            ref="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/dialog/dialog.min.css">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/dialog/dialog.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/keymap/sublime.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/edit/closebrackets.min.js"></script>
@@ -34,34 +55,54 @@
 <body>
     {% include 'comments.html' %}
     <div class="container">
-        <div style="position: relative; overflow-y:auto;overflow-x: hidden; background-color: #231c14;color: white; padding-top: 10px;">
+        <div style="position: relative; 
+                    overflow-y:auto;
+                    overflow-x: hidden; 
+                    background-color: #231c14;
+                    color: white; 
+                    padding-top: 10px;">
             <div class="versioning">
                 {% for version in versions %}
-                
                     {% if forloop.first %}
-                    <div class="version">
-                        <input type="radio" name="version" id="version{{version.id}}" value="{{ version.code }}" checked>
-                        <label for="version{{forloop.counter}}">V{{forloop.revcounter}}</label>
-                        
-                        <div class="studentVersion" >
-                            {% for sversion in version.proffesor_code.all %}
-                                <input type="radio" name="version" id="studentVersion{{version.id}}" value="{{ sversion.code }}"
-                                style="display: block; position: relative;{% if forloop.first %}{% else %}margin-top: 10px;{%endif%};top:-7px;"
-                                >
-                                <label for="studentVersion{{forloop.counter}}"></label>
-                            {% endfor %}
+                        <div class="version">
+                            <input type="radio" 
+                                    name="version" 
+                                    id="version{{version.id}}" 
+                                    value="{{ version.code }}" 
+                                    checked>
+                            <label for="version{{forloop.counter}}">V{{forloop.revcounter}}</label>
+                            
+                            <div class="studentVersion" >
+                                {% for sversion in version.proffesor_code.all %}
+                                    <input type="radio" 
+                                            name="version" 
+                                            id="studentVersion{{version.id}}" 
+                                            value="{{ sversion.code }}"
+                                            style="display: block; 
+                                                    position: relative;
+                                                    {% if forloop.first %}{% else %}margin-top: 10px;{%endif%};
+                                                    top:-7px;">
+                                    <label for="studentVersion{{forloop.counter}}"></label>
+                                {% endfor %}
+                            </div>
                         </div>
-                    </div>
-                    
                     {% else %}
                     <div class="version">
-                        <input type="radio" name="version" id="version{{version.id}}" value="{{ version.code }}">
+                        <input type="radio" 
+                                name="version" 
+                                id="version{{version.id}}" 
+                                value="{{ version.code }}">
                         <label for="version{{forloop.counter}}">V{{forloop.revcounter}}</label>
                         <div class="studentVersion" >
                             {% for sversion in version.proffesor_code.all %}
-                                <input type="radio" name="version" id="studentVersion{{version.id}}" value="{{ sversion.code }}"
-                                style="display: block; position: relative;{% if forloop.first %}{% else %}margin-top: 10px;{%endif%};top:-7px;"
-                                >
+                                <input type="radio" 
+                                        name="version" 
+                                        id="studentVersion{{version.id}}" 
+                                        value="{{ sversion.code }}"
+                                        style="display: block; 
+                                                position: relative;
+                                                {% if forloop.first %}{% else %}margin-top: 10px;{%endif%};
+                                                top:-7px;" >
                                 <label for="studentVersion{{forloop.counter}}"></label>
                             {% endfor %}
                         </div>
@@ -72,106 +113,135 @@
         </div>
         
         <div class="editor">
-            <textarea id="code" cols="30" rows="10">{{ code.code }}</textarea>
+            <textarea id="code" 
+                        cols="30" 
+                        rows="10">{{ code.code }}</textarea>
         </div>
         <div class="modified">
-            <textarea id="difference" style="display: none;">{{difference}}</textarea>
+            <textarea id="difference" 
+                        style="display: none;">{{difference}}</textarea>
             <div id="editor2"></div>
         </div>
     </div>
     
     <div class="actionContainer">
         {% if request.user.is_professor %}
-            <button id="send" type="button" onclick="proffesorSendCode()">Salvare</button>
+            <button id="send" 
+                    type="button" 
+                    onclick="proffesorSendCode()">Salvare</button>
         {% elif request.user.is_authenticated %}
-            <button id="send" type="button" onclick="studentSendCode()">Salvare</button>
+            <button id="send" 
+                    type="button" 
+                    onclick="studentSendCode()">Salvare</button>
         {% else %}
         {% endif %}
         <button id="differences">Diferente</button>
-        <form method="POST" action="{% url 'code:upload' slug %}" enctype="multipart/form-data">
+        <form method="POST" 
+                action="{% url 'code:upload' slug %}" 
+                enctype="multipart/form-data">
             {% csrf_token %}
             {{ fileForm }}
-            <button type="submit" style="margin: 0; background-color: transparent; border: 0; color: white;cursor: pointer;">Upload</button>
+            <button type="submit" 
+                    style="margin: 0; 
+                            background-color: transparent; 
+                            border: 0; 
+                            color: white;
+                            cursor: pointer;">Upload</button>
         </form>
         
         <div class="mark-code-container" >
-            <input id="showMarkers" type="checkbox" checked>
+            <input id="showMarkers" 
+                    type="checkbox" 
+                    checked>
             <button id="mark">Marcheaza Codul</button>
-            <input id="markColor" type="color">
+            <input id="markColor" 
+                    type="color">
         </div>
         <div>
             <button id="sendChat">Trimite codul</button>
         </div>
         <div class="commentContainer">
-            <input type="button" id="comment" value="Comenteaza" style="background-color: transparent;border:0;cursor:pointer;color:white;">
-            <input type="text" id="commentMessage" placeholder="Scrie un comentariu" style="width: 0px; display: none;">
+            <input type="button" 
+                    id="comment" 
+                    value="Comenteaza" 
+                    style="background-color: transparent;
+                            border:0;
+                            cursor:pointer;
+                            color:white;">
+            <input type="text" 
+                    id="commentMessage" 
+                    placeholder="Scrie un comentariu" 
+                    style="width: 0px; 
+                            display: none;">
         </div>
         <button id="share">
-            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-share" viewBox="0 0 16 16">
-                <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
+            <svg xmlns="http://www.w3.org/2000/svg" 
+                    width="10" 
+                    height="10" 
+                    fill="currentColor" 
+                    class="bi bi-share" 
+                    viewBox="0 0 16 16">
+                <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 
+                        2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 
+                        0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 
+                        2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 
+                        0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
               </svg> Share
         </button>
         <button id="videoBtn">
             Recorder Screen
         </button>
-        <style>
-            .dropdown {
-              position: relative;
-              display: inline-block;
-            }
-            .dropdown-content {
-              display: none;
-              position: absolute;
-              background-color: #f1f1f1;
-              min-width: 160px;
-              box-shadow: 0px 8px 16px 0px white;
-              z-index: 1;
-              transform: translateY(-100%);
-            }
-            .dropdown:hover .dropdown-content {
-              display: block;
-            }
-            .dropdown-content a {
-              color: black;
-              padding: 12px 16px;
-              text-decoration: none;
-              display: block;
-            }
-        </style>
         {% if exercises%}
-        <div class="dropdown">
-            <div class="dropdown-content">
-                {% for exercise in exercises %}
-                    <a href="{% url 'code:viewExercise' exercise.slug exercise.id %}">{{exercise.title}}</a>
-                {% endfor %}
+            <div class="dropdown">
+                <div class="dropdown-content">
+                    {% for exercise in exercises %}
+                        <a href="{% url 'code:viewExercise' exercise.slug exercise.id %}">{{exercise.title}}</a>
+                    {% endfor %}
+                </div>
+                <button id="exercises">Exercitii</button>
             </div>
-            <button id="exercises">Exercitii</button>
-        </div>
+        {% endif %}
+        {% if request.user.is_professor %}
+            <a id="createExercise" href="{% url 'code:createExercise' slug %}">Creaza Exercitii </a>
         {% endif %}
     </div>
     <div class="chat-container">
         <div class="messages-count">
             Mesaje
             <i data-count="0" class="fa fa-shopping-cart fa-5x fa-border icon-grey badge"></i>
+        
+        <!-- todo -->
         <script>
             let messagesCount = document.querySelector('.messages-count > i');
             let messagesCountValue = messagesCount.getAttribute('data-count');
             messagesCountValue = parseInt(messagesCountValue);  
             messagesCountValue += 1;    
             messagesCount.setAttribute('data-count', messagesCountValue);   
-
         </script>
+
         </div>
         <div class="chat-elements">
             <div id="chat">
                 <div id="chat-log"></div>  
             </div>
             <div id="chatAction">
-                <input id="chat-message-input" type="text" placeholder="Scrie un mesaj">
-                <button id="chat-message-submit" type="button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
-                        <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
-                      </svg>
+                <input id="chat-message-input" 
+                        type="text" 
+                        placeholder="Scrie un mesaj">
+                <button id="chat-message-submit" 
+                        type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" 
+                            width="16" 
+                            height="16" 
+                            fill="currentColor" 
+                            class="bi bi-send" 
+                            viewBox="0 0 16 16">
+                        <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 
+                                14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 
+                                7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 
+                                1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 
+                                10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
+                    </svg>
                 </button>
             </div>
         </div>
@@ -184,9 +254,15 @@
             <div id="whatsapp-image-container">
 
             </div>
-            <input id="number" type="numeric" placeholder="Telefon 0722222222" >
-            <input id="name" type="text" placeholder="Nume" >
-            <input id="msg" type="text" placeholder="Mesaj" >
+            <input id="number" 
+                    type="numeric" 
+                    placeholder="Telefon 0722222222" >
+            <input id="name" 
+                    type="text" 
+                    placeholder="Nume" >
+            <input id="msg" 
+                    type="text"
+                    placeholder="Mesaj" >
             <button id="whatsapp-end-btn">send</button>
             <div class="message-whatsapp">
                 Pentru a putea trimite imagini este nevoie sa trimiti un mesaj cu textul "join four-nou" 
