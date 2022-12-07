@@ -24,20 +24,8 @@
             type="text/css" 
             href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/abbott.min.css">
     </link>
-
-    <style>
-        body{
-            background-color: #231c14;
-            color: white;
-        }
-        .CodeMirror{
-            border: 1px solid white;
-        }
-        form > div{
-            margin: 10px;
-        }
-    </style>
-
+    <link rel="stylesheet" 
+            href="{% static 'css/createExercise.css' %}">
     <title>Create Exercise</title>
 </head>
 <body>
@@ -62,26 +50,7 @@
         </div>
         <input type="submit" value="Save" >
     </form>
+
+    <script src="{% static 'js/createExercise.js' %}"></script>
 </body>
-<script>
-    let codeInput = CodeMirror.fromTextArea(document.getElementById("id_codeInput"), {
-        lineNumbers: true,
-        mode: "text/x-perl",
-        theme: "abbott"
-    });
-
-    let hints = CodeMirror.fromTextArea(document.getElementById("id_hints"), {
-        mode: "text/x-perl",
-        theme: "abbott"
-    });
-
-    codeInput.on("change", function(){
-        document.getElementById("id_codeInput").value = codeInput.getValue();
-    });
-
-    hints.on("change", function(){
-        document.getElementById("id_hints").value = hints.getValue();
-    });
-
-</script>
 </html>
