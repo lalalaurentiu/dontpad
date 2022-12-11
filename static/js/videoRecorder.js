@@ -1,174 +1,108 @@
-const csrftoken = getCookie('csrftoken');
-const url = window.location.href;
+let videoStartBtn = document.getElementById('videoStartBtn');
+let videoStopBtn = document.getElementById('videoStopBtn');
 
-let start = document.getElementById('start')
-let stop  = document.getElementById('stop')
-let stream
+let mediaRecorder;
+let audioChunks = [];
+let changes = []
 
-let videoContainer = document.getElementById('videosContainer');
+// funtia de scriere a textului
+function textWrite(txt, cm, speed,fromLine, fromCh , toLine, toCh) {
+    return new Promise((resolve) => {
+        let interval = setInterval(() => {
+            cm.replaceRange(txt[0] , {line: fromLine, ch:fromCh}, {line: toLine, ch:toCh});
+            clearInterval(interval);
+                resolve();
+        }, speed);
+    });
+};
 
-let videoBtn = document.getElementById('videoBtn');
-let screenRecorder = document.getElementById('screenRecorder');
+async function writeText(txtList, cm, speed ,fromLine, fromCh , toLine, toCh) {
+        await textWrite(txtList[i], cm, speed, fromLine, fromCh , toLine, toCh);
+};
+// ------------------------------
 
-function createVideoElement(node ,video, name){
-  let videoName= document.createElement('button');
-      videoName.value = video;
-      videoName.innerHTML = name;
-
-  let playBtn = document.createElement('div');
-      playBtn.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
-          <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
-        </svg>
-      `;
-
-  videoName.appendChild(playBtn);
-  node.appendChild(videoName);
-  playVideo(videoName);
+// functia de inregistrare a timpului
+let time = 0;
+function timer(){
+  let interval = setInterval(function(){
+    time++;
+  }, 100);
+  return interval;
 }
+timer();
+// ------------------------------
 
-function playVideo(button){
-  button.addEventListener('click', function(){
-    videoPlayer.style.display = 'initial';
-    video.src = button.value;
-    video.controls = true;
+// functia de inregistrare a audio-ului
+
+async function recordAudio() {
+    // asteptam ca utilizatorul sa dea permisiunea de a folosi microfonul
+    let audio = await navigator.mediaDevices.getUserMedia({ audio: true })
+
+    mediaRecorder = new MediaRecorder(audio);
+    mediaRecorder.start();
+
+    mediaRecorder.ondataavailable = function (e) {
+        audioChunks.push(e.data);
+    };
+
+    mediaRecorder.onstop = function () {
+        audio.getTracks().forEach(track => track.stop());
+        let blob = new Blob(audioChunks, {
+            type: 'audio/mp3'
+        });
+        let url = URL.createObjectURL(blob);
+        let a = document.createElement('audio');
+        a.src = url;
+        a.controls = true;
+        document.body.appendChild(a);
+        audioChunks = [];
+    };
+};
+// ------------------------------
+
+
+videoStartBtn.addEventListener('click', function(){
+    recordAudio();
+})
+
+videoStopBtn.addEventListener('click', function(){
+    mediaRecorder.stop();
+})
+
+editor.on ('change', function (instance, changeObj) {
+  changeObj.time = time;
+  changes.push(changeObj);
+  console.log(changes);
   })
-}
-  
 
-start.addEventListener('click', recordScreen);
+  let testceva = CodeMirror.fromTextArea(document.getElementById('ceva'), {
+    mode: 'text/x-perl',
+    lineNumbers: true,
+    keyMap:"sublime",
+    theme: 'abbott',
+    autoCloseBrackets: true,
+    styleSelectedText:true,
+  });
 
-stop.addEventListener('click', function(){
-    stream.stream.getTracks().forEach(track => track.stop());
-    cosole.log('stop')
+
+
+let btn = document.getElementById('cevabtn');
+btn.addEventListener('click', function(){
+  console.log('ceva');
+  changes.forEach((element, index) => {
+    textWrite(element.text, testceva, element.time * 100, element.from.line, element.from.ch, element.to.line, element.to.ch);
+  });
 })
 
-async function recordScreen(){
-  screenRecorder.style.transform = "translateX(100%)";
-
-    const mimeType = 'mp4';
-    const displayStream = await navigator.mediaDevices.getDisplayMedia({
-        video: {
-            cursor: 'always',
-            displaySurface: 'application',
-            logicalSurface: true,
-        },
-        audio: {
-            echoCancellation: true,
-            noiseSuppression: true,
-            sampleRate: 44100,
-            sampleSize: 16,
-            channelCount: 2
-        }
-    });
-
-    const audioStream = await navigator.mediaDevices.getUserMedia({audio: true});
-
-    let tracks = [...displayStream.getTracks(), ...audioStream.getTracks()];
-
-    const Stream = new MediaStream(tracks);
-
-    stream = createRecorder(Stream, mimeType);
-}
-
-function createRecorder (stream, mimeType) {
-  // the stream data is stored in this array
-  let recordedChunks = []; 
-
-  const mediaRecorder = new MediaRecorder(stream);
-        mediaRecorder.ondataavailable = function (e) {
-          if (e.data.size > 0) {
-            recordedChunks.push(e.data);
-          }  
-        };
-        mediaRecorder.onstop = function () {
-          saveFile(recordedChunks);
-          recordedChunks = [];
-        };
-        mediaRecorder.start(200); 
-  return mediaRecorder;
-}
-
-function saveFile(recordedChunks){
-   const blob = new Blob(recordedChunks, {
-      type: 'video/mp4'
-    });
-     
-    let date = new Date();
-    let fileName = date.getFullYear() + '-' + 
-                  (date.getMonth() + 1) + '-' + 
-                  date.getDate() + '-' + 
-                  date.getHours() + '-' + 
-                  date.getMinutes() + '-' + 
-                  date.getSeconds() + '.mp4';
-    
-    let video = document.createElement('video');
-        video.width = 400;
-        video.height = 300;
-        video.controls = true;
-        video.src = URL.createObjectURL(blob);
-
-    URL.revokeObjectURL(blob); 
-
-    fetch(video.src)
-    .then(res => res.blob())
-    .then(blob => {
-        let video = new File([blob], fileName , {type: 'video/mp4'});
-        let formData = new FormData();
-          formData.append('video', video);
-          formData.append('name', fileName);
-        fetch(url + 'uploadVideo/', {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': csrftoken
-            },
-            body: formData
-        })
-        .then(res => res.json())
-        .then(data => {
-            createVideoElement(videoContainer, data.video, data.name);
-        })
-    })
-}
-
-
-
-async function getVideos(){
-    let res = await fetch(url + 'uploadVideo/');
-    let data = await res.json();
-    return data;
-}
-
-let getDataVideos = getVideos();
-
-getDataVideos.then(data => {
-    let videoContainer = document.getElementById('videosContainer');
-
-    data.videos.forEach(video => {
-      createVideoElement(videoContainer, video.video, video.name);
-    })
-})
-
-let videoPlayer = document.getElementById('videoPlayer');
-let video = videoPlayer.querySelector('video');
-
-
-let videoControls = document.getElementById('videoControls');
-let videoClose = videoControls.getElementsByTagName('button')[0];
-
-videoClose.addEventListener('click', function(){
-  video.src = '';
-  videoPlayer.style.display = 'none';
-})
-
-
-videoBtn.addEventListener('click', function(){
-  if (screenRecorder.style.transform == 'translateX(100%)'){
-    screenRecorder.style.transform = 'translateX(0%)';
-  }else{
-    screenRecorder.style.transform = 'translateX(100%)';
-  }
-})
-
-
-
+editor.on ("keyup", function (instance, event) {
+  if (event.keyCode == 13){
+    console.log('enter');
+    let enterObj = {
+      from: {line: editor.getCursor().line, ch: 0},
+      to: {line: editor.getCursor().line, ch: 0},
+      text: ["\n"],
+      time: time,
+    }
+    changes.push(enterObj);
+    }
+  })

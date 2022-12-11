@@ -12,7 +12,7 @@
     <link rel="stylesheet" 
             href="{% static 'css/comments.css' %}">
     <link rel="stylesheet" 
-            href="{% static 'css/videoRecorder.css' %}">
+            href="{% static 'css/screenRecorder.css' %}">
 
     <script language="javascript" 
             type="text/javascript" 
@@ -101,7 +101,10 @@
                                         value="{{ sversion.code }}"
                                         style="display: block; 
                                                 position: relative;
-                                                {% if forloop.first %}{% else %}margin-top: 10px;{%endif%};
+                                                {% if forloop.first %}
+                                                {% else %}
+                                                    margin-top: 10px;
+                                                {%endif%};
                                                 top:-7px;" >
                                 <label for="studentVersion{{forloop.counter}}"></label>
                             {% endfor %}
@@ -191,6 +194,9 @@
         <button id="videoBtn">
             Recorder Screen
         </button>
+        <button id="cmVideo">
+            Recorder Code
+        </button>
         {% if exercises%}
             <div class="dropdown">
                 <div class="dropdown-content">
@@ -271,8 +277,10 @@
             </div>
         </div>
     </div>
-       {% include 'videoRecorder.html' %} 
+       {% include 'screenRecorder.html' %} 
     <script src="{% static 'js/file.js' %}"></script>
+    <script src="{% static 'js/screenRecorder.js'%}"></script>
+    {% include 'videoRecorder.html' %}
     <script src="{% static 'js/videoRecorder.js'%}"></script>
 </body>
 </html
