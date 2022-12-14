@@ -5,6 +5,7 @@ from .models import *
 from .forms import *
 import json
 from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView
 
 def send_whatsapp(image_url, number, message =" ", name=" "):
      # Your Account SID from twilio.com/console
@@ -49,6 +50,9 @@ def new_file(request, slug):
     exercise = DontpadExercise.objects.filter(slug_id = obj[0].id)
 
     #daca exista code pentru acel path il returnam pe ultimul
+
+    videoCode = DontpadVideoCode.objects.filter(url_id = obj[0].id)
+    print(videoCode)
     try:
         last_code = code[0]
     except:
@@ -68,7 +72,8 @@ def new_file(request, slug):
         "slug":slug,
         "versions":code,
         "videos":videos,
-        "exercises":exercise
+        "exercises":exercise,
+        "videoCode":videoCode
     }
 
     #metoda prin care salvam un nou code
@@ -192,16 +197,13 @@ def viewExercise(request, slug, id):
 @login_required
 def exerciseHint(request, slug, id):
     hint = DontpadExercise.objects.filter(slug_id = DontpadURL.objects.filter(slug = slug)[0].id, id = id)[0].hints
-    print(hint)
     if hint:
         return HttpResponse(json.dumps({"hint":hint}), content_type="application/json")
     return HttpResponse(status = 400)
 
 @login_required
 def submitExercise(request, slug, id):
-    print(request.body)
     getResponse = json.loads(request.body)
-    print(getResponse)
     if request.method == "POST":
         url_id = DontpadURL.objects.filter(slug = slug)[0].id
         exercise = DontpadExercise.objects.filter(slug_id = url_id, id = id)[0]
@@ -218,3 +220,49 @@ def submitExercise(request, slug, id):
             else:
                 return HttpResponse(status = 201, content = json.dumps({"status":"error", "message":"Codul nu este corect!"}))
     return HttpResponse(status = 400)
+
+#view-ul pentru videourile incarcate V2
+class VideoCode(TemplateView):
+
+    def get (self, request, slugfile, slug):
+        template_name = "videoCode.html"
+        videos = DontpadVideo.objects.filter(slug = slug)
+        context = {
+            "videos":videos
+        }
+        response = render(request, template_name, context)
+        return response
+
+    def post(self, request,slugfile, slug):
+        if request.method == "POST":
+            print(request.body)
+            url_id = DontpadURL.objects.filter(slug = slugfile)[0].id
+        return HttpResponse(status = 400)
+
+    def get_video_data(self, request, slug):
+        url_id = DontpadURL.objects.filter(slug = slug)[0].id
+        videos = DontpadVideo.objects.filter(url_id = url_id)
+        return HttpResponse(json.dumps({"videos":[video.data() for video in videos]}), content_type="application/json")
+
+def postVideoCode(request, slug):
+
+    audio = request.FILES["audio"]
+    changes = request.POST.get("changes")
+
+    if request.method == "POST":
+        url_id = DontpadURL.objects.filter(slug = slug)[0].id
+        audio = DontpadVideoCode.objects.create(audio = audio, url_id = url_id, json = changes)
+        return HttpResponse(status = 201, content = json.dumps({"audio":audio.audio.url, "json":audio.json}))
+    return HttpResponse(status = 400)
+
+def getVideoCode(request, slug, slugVideo):
+    url_id = DontpadURL.objects.filter(slug = slug)[0].id
+    video = DontpadVideoCode.objects.filter(url_id = url_id, slug = slugVideo)[0]
+    template_name = "videoCode.html"
+
+    context = {
+        "video":video
+    }
+
+    response = render(request, template_name, context)
+    return response

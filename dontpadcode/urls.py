@@ -12,6 +12,9 @@ urlpatterns = [
     path("upload", uploadFile, name="upload"),
     #ruta pentru comment
     path("comment/", comment, name="comment"),
+    #ruta video V2
+    path("PostVideoCode/", postVideoCode , name="PostVideoCode"),
+    path("videoCode/<slugVideo>", getVideoCode , name="videoCode"),
     #ruta pentru hints
     path("hint/<id>/", exerciseHint, name="hint"),
     path("submitExercise/<id>/", submitExercise, name="submitExercise"),

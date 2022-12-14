@@ -1,25 +1,8 @@
-let videoStartBtn = document.getElementById('videoStartBtn');
-let videoStopBtn = document.getElementById('videoStopBtn');
-
+let videoStartBtn = document.getElementById('cmVideo');
 let mediaRecorder;
 let audioChunks = [];
 let changes = []
-
-// funtia de scriere a textului
-function textWrite(txt, cm, speed,fromLine, fromCh , toLine, toCh) {
-    return new Promise((resolve) => {
-        let interval = setInterval(() => {
-            cm.replaceRange(txt[0] , {line: fromLine, ch:fromCh}, {line: toLine, ch:toCh});
-            clearInterval(interval);
-                resolve();
-        }, speed);
-    });
-};
-
-async function writeText(txtList, cm, speed ,fromLine, fromCh , toLine, toCh) {
-        await textWrite(txtList[i], cm, speed, fromLine, fromCh , toLine, toCh);
-};
-// ------------------------------
+console.log(changes);
 
 // functia de inregistrare a timpului
 let time = 0;
@@ -29,72 +12,73 @@ function timer(){
   }, 100);
   return interval;
 }
-timer();
 // ------------------------------
 
 // functia de inregistrare a audio-ului
-
 async function recordAudio() {
-    // asteptam ca utilizatorul sa dea permisiunea de a folosi microfonul
-    let audio = await navigator.mediaDevices.getUserMedia({ audio: true })
+  // asteptam ca utilizatorul sa dea permisiunea de a folosi microfonul
+  let audio = await navigator.mediaDevices.getUserMedia({ audio: true })
 
-    mediaRecorder = new MediaRecorder(audio);
-    mediaRecorder.start();
+  mediaRecorder = new MediaRecorder(audio);
+  mediaRecorder.start();
 
-    mediaRecorder.ondataavailable = function (e) {
-        audioChunks.push(e.data);
-    };
+  mediaRecorder.ondataavailable = function (e) {
+      audioChunks.push(e.data);
+  };
 
-    mediaRecorder.onstop = function () {
-        audio.getTracks().forEach(track => track.stop());
-        let blob = new Blob(audioChunks, {
-            type: 'audio/mp3'
-        });
-        let url = URL.createObjectURL(blob);
-        let a = document.createElement('audio');
-        a.src = url;
-        a.controls = true;
-        document.body.appendChild(a);
-        audioChunks = [];
-    };
+  mediaRecorder.onstop = function () {
+      
+      let blob = new Blob(audioChunks, {
+          type: 'audio/mp3'
+      });
+      let audiourl = URL.createObjectURL(blob);
+
+      let date = new Date();
+
+      let audioName = date.getFullYear() + '-' +
+                      (date.getMonth() + 1) + '-' +
+                      date.getDate() + '-' +
+                      date.getHours() + '-' +
+                      date.getMinutes() + '-' +
+                      date.getSeconds() + '.mp3';
+
+      fetch(audiourl) 
+      .then(res => res.blob())
+      .then(blob => {
+          const csrf_token = getCookie('csrftoken');
+          let audio = new File([blob], audioName, {type: 'audio/mp3'});
+          let formData = new FormData();
+            formData.append('audio', audio);
+            formData.append('changes', JSON.stringify(changes));
+          fetch(url + 'PostVideoCode/', {
+              method: 'POST',
+              headers: {
+                  'X-CSRFToken': csrf_token
+              },
+              body: formData
+          })
+          .then(res => res.json())
+          .then(data => {
+              console.log(JSON.parse(data.json));
+          })
+      })
+      audioChunks = [];
+      changes = [];
+      audio.getTracks().forEach(track => track.stop());
+  };
 };
 // ------------------------------
 
+let startTime;
 
-videoStartBtn.addEventListener('click', function(){
-    recordAudio();
-})
-
-videoStopBtn.addEventListener('click', function(){
-    mediaRecorder.stop();
-})
-
-editor.on ('change', function (instance, changeObj) {
+// functia de inregistrare a textului
+function editorChange (instance, changeObj) {
+  console.log("change")
   changeObj.time = time;
   changes.push(changeObj);
-  console.log(changes);
-  })
+};
 
-  let testceva = CodeMirror.fromTextArea(document.getElementById('ceva'), {
-    mode: 'text/x-perl',
-    lineNumbers: true,
-    keyMap:"sublime",
-    theme: 'abbott',
-    autoCloseBrackets: true,
-    styleSelectedText:true,
-  });
-
-
-
-let btn = document.getElementById('cevabtn');
-btn.addEventListener('click', function(){
-  console.log('ceva');
-  changes.forEach((element, index) => {
-    textWrite(element.text, testceva, element.time * 100, element.from.line, element.from.ch, element.to.line, element.to.ch);
-  });
-})
-
-editor.on ("keyup", function (instance, event) {
+function editorKeyup (instance, event) {
   if (event.keyCode == 13){
     console.log('enter');
     let enterObj = {
@@ -104,5 +88,41 @@ editor.on ("keyup", function (instance, event) {
       time: time,
     }
     changes.push(enterObj);
-    }
-  })
+  }
+};
+// ------------------------------
+
+videoStartBtn.addEventListener('click', function(){
+  if (this.value == 'Start'){
+    this.value = 'Stop';
+
+    // pornim timpul
+    startTime = timer();
+
+    // pornim inregistrarea audio
+    recordAudio();
+
+    // pornim inregistrarea textului
+    editor.on('change', editorChange)
+
+    editor.on("keyup", editorKeyup)
+      
+    console.log('start');
+  } else {
+    this.value = 'Start';
+
+    // oprim timpul
+    clearInterval(startTime);
+    time = 0;
+
+    // oprim inregistrarea audio
+    mediaRecorder.stop();
+
+    // oprim inregistrarea textului
+    editor.off("change", editorChange)
+    editor.off("keyup", editorKeyup)
+    
+    console.log('stop');
+  }
+})
+

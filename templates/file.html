@@ -194,7 +194,7 @@
         <button id="videoBtn">
             Recorder Screen
         </button>
-        <button id="cmVideo">
+        <button id="cmVideo" value="Start">
             Recorder Code
         </button>
         {% if exercises%}
@@ -280,7 +280,10 @@
        {% include 'screenRecorder.html' %} 
     <script src="{% static 'js/file.js' %}"></script>
     <script src="{% static 'js/screenRecorder.js'%}"></script>
-    {% include 'videoRecorder.html' %}
     <script src="{% static 'js/videoRecorder.js'%}"></script>
+
+    {% for video in videoCode %}
+        <a href="{% url 'code:videoCode' slug video.slug %}">{{video.slug}}</a>
+    {% endfor %}
 </body>
 </html

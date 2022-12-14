@@ -2,6 +2,7 @@ from django.db import models
 from accounts.models import CustomUser
 from django.urls import reverse
 from django.utils.text import slugify
+import json
 
 #Modelul pentru noul proiect
 class DontpadURL(models.Model):
@@ -103,4 +104,27 @@ class DontpadExerciseResult(models.Model):
 
     def get_absolute_url(self):
         return reverse('dontpadcode:viewExercise', kwargs={'slug': self.exercise.slug.slug})
+
+#modelul pentru audio si video versiunea 2
+
+class DontpadVideoCode(models.Model):
+    url = models.ForeignKey(DontpadURL, on_delete = models.CASCADE)
+    audio = models.FileField(upload_to = "audio/")
+    json = models.TextField()
+    slug = models.SlugField(unique = True)
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.url.slug + "_" + self.audio.name)
+        super(DontpadVideoCode, self).save(*args, **kwargs)
+        
+
+    def getJson(self):
+        return json.loads(self.json)
+
+    def __str__(self):
+        return self.slug
+
+    def get_absolute_url(self):
+        return reverse('dontpadcode:videoCode', kwargs={'slug': self.slug})
+
 
