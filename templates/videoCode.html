@@ -4,36 +4,128 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script language="javascript" 
+            type="text/javascript" 
+            src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js">
+    </script>
+    <script language="javascript" 
+            type="text/javascript" 
+            src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/perl/perl.min.js">
+    </script>
+
+    <link rel="stylesheet" 
+            type="text/css" 
+            href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css"></link>
+    <link rel="stylesheet" 
+            type="text/css" 
+            href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/abbott.min.css"></link>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/diff_match_patch/20121119/diff_match_patch.js"></script>
+    <link rel="stylesheet" 
+            type="text/css" 
+            href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/merge/merge.min.css"></link>
+    <script language="javascript" 
+            type="text/javascript" 
+            src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/merge/merge.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/search/search.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/search/searchcursor.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/search/jump-to-line.min.js"></script>
+
+    <link rel="stylesheet" h
+            ref="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/dialog/dialog.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/dialog/dialog.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/keymap/sublime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/edit/closebrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/selection/mark-selection.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.10.8/html-to-image.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.10.8/html-to-image.min.js"></script>
     <title>Video</title>
-</head>
-<body>
+
     <style>
-        .videoCodeContainer {
-            position: absolute;
-            width: 700px;
-            height: 500px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border: 1px solid white;
-            
+        body {
+            margin: 0;
+            padding: 0;
+
         }
-        .videoCode {
-            /* position: relative; */
-            /* width: 100%;
-            height: 100%; */
-            overflow: auto;
+        .CodeMirror {
+            height: 100vh;
+            width: 100%;
+        }
+        audio {
+            width: 100%;
+            position: absolute;
+            bottom: 0;
         }
     </style>
-    
-    <div class="videoCodeContainer">
-        <button id="videoStartBtn">Start</button>
-        <button id="videoStopBtn">Stop</button>
-        <button id="cevabtn">Test</button>
-        <div class="videoCode"> 
-            <textarea name="ceva" id="ceva"></textarea>
-            <audio src=""></audio>
-        </div>
-    </div>
+</head>
+<body>
+    <textarea id="editor"></textarea>
+
+        <audio src="{{ video.audio.url }}" controls></audio>
+
+    <script>
+
+        // funtia de scriere a textului
+        function textWrite(txt, cm, speed,fromLine, fromCh , toLine, toCh) {
+            return new Promise((resolve) => {
+                let interval = setInterval(() => {
+                    cm.replaceRange(txt , {line: fromLine, ch:fromCh}, {line: toLine, ch:toCh});
+                    clearInterval(interval);
+                        resolve();
+                }, speed);
+            });
+        };
+
+        async function writeText(txtList, cm, speed ,fromLine, fromCh , toLine, toCh) {
+            for (let i = 0; i < txtList.length; i++) {
+                await textWrite(txtList[i], cm, speed, fromLine, fromCh , toLine, toCh);
+            }
+        };
+        // ------------------------------
+
+        let url = window.location.href;
+
+        async function getData(url) {
+            let response = await fetch(url + '?format=json');
+            let data = await response.json();
+            return JSON.parse(data);
+        }
+
+        let dataVideo = getData(url);
+        console.log(dataVideo);
+
+
+        let editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
+            mode: 'text/x-perl',
+            lineNumbers: true,
+            keyMap:"sublime",
+            theme: 'abbott',
+            autoCloseBrackets: true,
+            styleSelectedText:true,
+        });
+
+        let audio = document.querySelector('audio');
+        audio.addEventListener("play", function() {
+            dataVideo.then(dataVideo => {
+
+                dataVideo.forEach((item, i) => { 
+                    writeText(item.text, editor, item.time * 100, item.from.line, item.from.ch , item.to.line, item.to.ch);
+                });
+            });
+        });
+        audio.addEventListener("pause", function() {
+            console.log("pause");
+        });
+        audio.addEventListener("seeked", function() {
+            console.log("seeked");
+        });
+        audio.addEventListener("ended", function() {
+            console.log("ended");
+        });
+
+    </script>
 </body>
 </html>

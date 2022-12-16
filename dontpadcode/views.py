@@ -248,7 +248,7 @@ def postVideoCode(request, slug):
 
     audio = request.FILES["audio"]
     changes = request.POST.get("changes")
-
+    print(changes)
     if request.method == "POST":
         url_id = DontpadURL.objects.filter(slug = slug)[0].id
         audio = DontpadVideoCode.objects.create(audio = audio, url_id = url_id, json = changes)
@@ -256,13 +256,17 @@ def postVideoCode(request, slug):
     return HttpResponse(status = 400)
 
 def getVideoCode(request, slug, slugVideo):
+    print(request.GET.get("format"))
+    formatType = request.GET.get("format")
     url_id = DontpadURL.objects.filter(slug = slug)[0].id
-    video = DontpadVideoCode.objects.filter(url_id = url_id, slug = slugVideo)[0]
+    video = DontpadVideoCode.objects.filter(url_id = url_id, slug = slugVideo).first()
     template_name = "videoCode.html"
-
     context = {
-        "video":video
+        "video":video,
     }
+
+    if formatType == "json":
+        return HttpResponse(json.dumps(video.json), content_type="application/json")
 
     response = render(request, template_name, context)
     return response

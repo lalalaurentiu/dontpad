@@ -2,7 +2,6 @@ let videoStartBtn = document.getElementById('cmVideo');
 let mediaRecorder;
 let audioChunks = [];
 let changes = []
-console.log(changes);
 
 // functia de inregistrare a timpului
 let time = 0;
@@ -60,10 +59,11 @@ async function recordAudio() {
           .then(res => res.json())
           .then(data => {
               console.log(JSON.parse(data.json));
+              audioChunks = [];
+              changes = [];
           })
       })
-      audioChunks = [];
-      changes = [];
+      
       audio.getTracks().forEach(track => track.stop());
   };
 };
