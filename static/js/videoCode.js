@@ -21,7 +21,7 @@ async function writeText(txtList, cm, speed ,fromLine, fromCh , toLine, toCh) {
 // ------------------------------
 
 let url = window.location.href;
-
+// functia de preluare a datelor din baza de date
 async function getData(url) {
     let response = await fetch(url + '?format=json');
     let data = await response.json();
@@ -30,6 +30,7 @@ async function getData(url) {
 
 let dataVideo = getData(url);
 
+// 
 let editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
     mode: 'text/x-perl',
     lineNumbers: true,
@@ -38,8 +39,9 @@ let editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
     autoCloseBrackets: true,
     styleSelectedText:true,
 });
-
+// 
 let audio = document.querySelector('audio');
+// functia pentru play
 audio.addEventListener("play", function() {
     console.log("play");
     if (intervals.length > 0) {
@@ -62,6 +64,7 @@ audio.addEventListener("play", function() {
     }
     
 });
+// functia pentru pauza
 audio.addEventListener("pause", function() {
     console.log("pause");
     intervals.forEach((item, i) => {
@@ -69,9 +72,11 @@ audio.addEventListener("pause", function() {
     }
     );
 });
+// functia pentru derulare 
 audio.addEventListener("seeked", function() {
     console.log("seeked");
 });
+// functia pentru stop
 audio.addEventListener("ended", function() {
     console.log("ended");
     editor.setValue('');

@@ -114,7 +114,7 @@ class DontpadVideoCode(models.Model):
     slug = models.SlugField(unique = True)
     
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.url.slug + "_" + self.audio.name)
+        self.slug = slugify(self.audio.name.split(".mp3"))
         super(DontpadVideoCode, self).save(*args, **kwargs)
         
 

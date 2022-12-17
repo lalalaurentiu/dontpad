@@ -81,7 +81,8 @@ form,
 #share,
 #videoBtn,
 #exercises,
-#createExercise{
+#createExercise,
+#cmVideo{
     border:0;
     padding:5px;
     border-radius:5px;
@@ -89,6 +90,10 @@ form,
     color:white;
     cursor: pointer;
     white-space: nowrap;
+}
+
+#cmVideo{
+    background-color: rgb(255, 3, 3);
 }
 
 #send{
