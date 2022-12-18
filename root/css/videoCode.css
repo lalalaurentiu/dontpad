@@ -1,0 +1,13 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+.CodeMirror {
+    height: 100vh !important;
+    width: 100%;
+}
+audio {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}

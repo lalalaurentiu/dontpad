@@ -1,3 +1,4 @@
+
 var editor = CodeMirror.fromTextArea(document.getElementById("demo"), {
     lineNumbers: true,
     mode: "text/x-perl",
@@ -49,23 +50,4 @@ int main() {
     `echo "Hello World";`,
 ]
 
-function textWrite(txt, idx){
-    return new Promise((resolve) => {
-        let i = 0;
-        let interval = setInterval(() => {
-            editor.setValue(txt.slice(0, i));
-            i++;
-            if(i > txt.length){
-                clearInterval(interval);
-                resolve();
-            }
-        }, 100);
-    })
-}
-
-async function writeText(){
-    for (let i = 0; i < txtList.length; i++) {
-        await textWrite(txtList[i], i);
-    }
-}
-writeText();
+writeText(txtList, editor);
