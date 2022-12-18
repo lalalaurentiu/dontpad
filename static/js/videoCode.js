@@ -44,13 +44,14 @@ let audio = document.querySelector('audio');
 // functia pentru play
 audio.addEventListener("play", function() {
     console.log("play");
-    if (intervals.length > 0) {
+    if (intervals.length > 0 ) {
         let currentTime = parseInt(audio.currentTime * 1000);
         dataVideo.then(dataVideo => {
             dataVideo.forEach((item, i) => {
                 if (item.time * 100 > currentTime + 200) {
                     writeText(item.text, editor, item.time * 100 - currentTime , item.from.line, item.from.ch , item.to.line, item.to.ch);
                     console.log("play mode ", item.time * 100 - currentTime);
+                    
                 }
             });
         });
@@ -72,10 +73,24 @@ audio.addEventListener("pause", function() {
     }
     );
 });
+
 // functia pentru derulare 
 audio.addEventListener("seeked", function() {
     console.log("seeked");
+    editor.setValue('');
+    let currentTime = parseInt(audio.currentTime * 1000);
+    let words = "";
+    dataVideo.then(dataVideo => {
+        dataVideo.forEach((item, i) => {
+            if (item.time * 100 < currentTime + 200) {
+                words += item.text;
+                editor.setValue(words);   
+            }
+        });
+    });
 });
+
+
 // functia pentru stop
 audio.addEventListener("ended", function() {
     console.log("ended");
