@@ -41,6 +41,12 @@ let editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
 });
 // 
 let audio = document.querySelector('audio');
+
+audio.addEventListener("canplaythrough", function() {
+    console.log("canplathrough");
+    audio.controls = true;
+});
+
 // functia pentru play
 audio.addEventListener("play", function() {
     console.log("play");
