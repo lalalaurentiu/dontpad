@@ -42,10 +42,18 @@ let editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
 // 
 let audio = document.querySelector('audio');
 
-audio.addEventListener("canplaythrough", function() {
-    console.log("canplathrough");
-    audio.controls = true;
-});
+// audio.addEventListener("canplaythrough", function() {
+//     console.log("canplathrough");
+//     audio.controls = true;
+// });
+
+fetch(audio.src)
+    .then( response => response.blob() )
+    .then( blob => {
+        let audioURL = URL.createObjectURL(blob);
+        audio.setAttribute('src', audioURL);
+        audio.controls = true;
+    }); 
 
 // functia pentru play
 audio.addEventListener("play", function() {
