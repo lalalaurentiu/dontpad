@@ -42,15 +42,9 @@ let editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
 // 
 let audio = document.querySelector('audio');
 
-audio.addEventListener("canplaythrough", function() {
-    console.log("canplathrough");
-    if (this.readyState >= 4) {
-        this.controls = true;
-        this.load();
-        this.removeEventListener("canplaythrough", arguments.callee);
-    }
-});
-
+if (audio.HAVE_ENOUGH_DATA) {
+    audio.controls = true;
+}
 
 // functia pentru play
 audio.addEventListener("play", function() {
