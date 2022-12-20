@@ -46,10 +46,11 @@ audio.addEventListener("canplaythrough", function() {
     console.log("canplathrough");
     if (this.readyState >= 4) {
         this.controls = true;
+        this.load();
+        this.removeEventListener("canplaythrough", arguments.callee);
     }
 });
 
-audio.load();
 
 // functia pentru play
 audio.addEventListener("play", function() {
