@@ -49,6 +49,8 @@ audio.addEventListener("canplaythrough", function() {
     }
 });
 
+audio.load();
+
 // functia pentru play
 audio.addEventListener("play", function() {
     console.log("play");
