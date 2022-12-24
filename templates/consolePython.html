@@ -26,6 +26,10 @@
         justify-content: space-between;
         cursor: move;
     }
+    .output {
+        color: #fff;
+        padding: 5px;
+    }
 </style>
 <div class="console">
     <div id="console_header">
@@ -36,19 +40,68 @@
         
         <button>Close</button>
     </div>
+    <div class="output">
+
+    </div>
 </div>
 
 <script>
     let consoleContainer = document.querySelector('.console');
     let consoleHeader = document.getElementById('console_header');
     let consoleHeaderButtons = consoleHeader.querySelectorAll('button');
+    let output = document.querySelector('.output');
+
+    async function main() {
+        let pyodide = await loadPyodide({ indexURL : "https://cdn.jsdelivr.net/pyodide/v0.21.3/full/"});
+        
+        return pyodide
+        
+    }
+
+    // add pyodide returned value to the output
+    function addToOutput(stdout) {
+        stdout.split('\n').forEach(line => {
+            if (line !== ''){
+                line = line.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                output.innerHTML += ">>> " + line + "<br>";
+            };
+        });
+    }
+
+    // clean the output section
+    function clearHistory() {
+    output.innerHTML = "";
+    }
     
     consoleHeaderButtons[0].addEventListener('click', function() {
         console.log('Run');
+        let pyodideReadyPromise = main();
+
+        let input = editor.getValue();
+
+        async function evaluatePython() {
+            let pyodide = await pyodideReadyPromise;
+            try {
+                pyodide.runPython(`
+                    import sys
+                    from io import StringIO
+                    sys.stdout = StringIO()
+                `);
+                let result = pyodide.runPython(editor.getValue());
+                let stdout = pyodide.runPython("sys.stdout.getvalue()");
+                console.log(stdout);
+                addToOutput(stdout);
+            } catch (err) {
+                addToOutput(err);
+            }
+        }
+
+        evaluatePython();
     });
     
     consoleHeaderButtons[1].addEventListener('click', function() {
         console.log('Clear');
+        clearHistory();
     });
     
     consoleHeaderButtons[2].addEventListener('click', function() {
