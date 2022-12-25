@@ -25,6 +25,8 @@
         display: flex;
         justify-content: space-between;
         cursor: move;
+        position: sticky;
+        top: 0;
     }
     .output {
         color: #fff;
@@ -61,6 +63,7 @@
     // add pyodide returned value to the output
     function addToOutput(stdout) {
         stdout.split('\n').forEach(line => {
+
             if (line !== ''){
                 line = line.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
                 output.innerHTML += ">>> " + line + "<br>";
@@ -89,13 +92,13 @@
                 `);
                 let result = pyodide.runPython(editor.getValue());
                 let stdout = pyodide.runPython("sys.stdout.getvalue()");
-                console.log(stdout);
                 addToOutput(stdout);
+                consoleContainer.scrollTop = 999999999;
             } catch (err) {
                 addToOutput(err);
+                consoleContainer.scrollTop = 999999999;
             }
         }
-
         evaluatePython();
     });
     
@@ -171,4 +174,45 @@
     function setTranslate(xPos, yPos, el) {
       el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
     }
+    // comentarii interactive in editor demo
+    let commentTest = document.createElement('div');
+
+    let commentButtonTest = document.createElement('a');
+    commentButtonTest.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+  <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+</svg>
+    `;
+    commentButtonTest.style.color = 'white';
+    commentButtonTest.style.fontSize = '20px';
+    commentButtonTest.style.padding = '5px';
+    commentButtonTest.style.cursor = 'pointer';
+    commentButtonTest.style.marginRight = '5px';
+
+
+    commentTest.appendChild(commentButtonTest);
+
+    let commentTextContainerTest = document.createElement('div');
+    commentTextContainerTest.innerHTML = "This is a test comment 🥰";
+    commentTextContainerTest.style.display = 'none';
+    commentTextContainerTest.style.marginLeft = '10px';
+    commentTest.appendChild(commentTextContainerTest);
+
+
+    commentButtonTest.addEventListener('click', function() {
+        if (commentTextContainerTest.style.display === 'none') {
+            commentTextContainerTest.style.display = 'block';
+            commentButtonTest.querySelector('svg').style.transform = 'rotate(90deg)';
+        } else {
+            commentTextContainerTest.style.display = 'none';
+            commentButtonTest.querySelector('svg').style.transform = 'rotate(0deg)';
+        }
+    });
+
+    editor.addLineWidget(0, commentTest, {
+        coverGutter: false,
+        noHScroll: true,
+        above: false
+    });
+    // -----------------------------
 </script>
