@@ -9,8 +9,6 @@ async function getComments (){
     
 let comments = getComments();
 
-
-
 comments.then(function(result) {
     obj = result;
     let objectCommentsContainer = {};
@@ -35,25 +33,22 @@ comments.then(function(result) {
         `;
         commentButton.style.color = "white";
         commentButton.style.fontSize = "20px";
-        commentButton.style.padding = '5px';
         commentButton.style.cursor = 'pointer';
-        commentButton.style.marginRight = '5px';
+        commentButton.style.display = 'block';
+
+        commentButton.querySelector("svg").style.transition = "transform 0.3s ease-in-out";
 
         commentContainer.appendChild(commentButton);
     
         let commentTextContainer = document.createElement("div");
             commentTextContainer.style.display = "none";
-            commentTextContainer.style.marginLeft = "10px";
-
-        let commentText = document.createElement("div");
-            commentText.innerHTML = value;
-
-        commentTextContainer.appendChild(commentText);
+            commentTextContainer.style.paddingLeft = "15px";
+            commentTextContainer.innerHTML = value;
         commentContainer.appendChild(commentTextContainer);
 
         commentButton.addEventListener('click', function(){
             if (commentTextContainer.style.display == "none"){
-                commentTextContainer.style.display = "initial";
+                commentTextContainer.style.display = "block";
                 commentButton.querySelector("svg").style.transform = "rotate(90deg)";
             }else{
                 commentTextContainer.style.display = "none";
@@ -70,8 +65,50 @@ comments.then(function(result) {
 });
 
 // trimite comentariul
+
+let emojis = [
+    "😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "🥲", "🥹",
+    "😊", "😇", "🙂", "🙃", "😉", "😌", "😍", "🥰", "😘", "😗",
+    "😙", "😚", "😋", "😛", "😝", "😜", "🤪", "🤨", "🧐", "🤓",
+    "😎", "🥸", "🤩", "🥳", "😏", "😒", "😞", "😔", "😟", "😕",
+    "🙁", "☹️", "😣", "😖", "😫", "😩", "🥺", "😢", "😭", "😮‍💨",
+    "😤", "😠", "😡", "🤬", "🤯", "😳", "🥵", "🥶", "😱", "😨",
+    "😰", "😥", "😓", "🫣", "🤗", "🫡", "🤔", "🫢", "🤭", "🤫",
+    "🤥", "😶", "😶‍🌫️", "😐", "😑", "😬", "🫠", "🙄", "😯", "😦",
+    "😧", "😮", "😲", "🥱", "😴", "🤤", "😪", "😵", "😵‍💫", "🫥",
+    "🤐", "🥴", "🤢", "🤮", "🤧", "😷", "🤒", "🤕", "🤑", "🤠",
+    "😈", "👿", "👹", "👺", "🤡", "💩", "👻", "💀", "☠️", "👽",
+    "👾", "🤖", "🎃", "😺", "😸", "😹", "😻", "😼", "😽", "🙀",
+    "😿", "😾", "🙈", "🙉", "🙊", "💋", "💌", "💘", "💝", "💖",
+    "💗", "💓", "💞", "💕", "💟", "❣️", "💔", "❤️", "🧡", "💛",
+    "💚", "💙", "💜", "🤎", "🖤", "🤍", "💯", "💢", "💥", "💫",
+    "💦", "💨", "🕳️", "💣", "💬", "👁️‍🗨️", "🗨️", "🗯️", "💭", "💤",
+]
 let commentButton = document.getElementById('comment');
 let commentMessage = document.getElementById('commentMessage');
+let commentInputContainer = document.getElementById('commentInputContainer');
+
+let emojisContainer = document.getElementById('emojis');
+    emojisContainer.style.display = "none";
+
+emojis.forEach(emoji => {
+    emojisContainer.innerHTML += `<span class="emoji">${emoji}</span>`;
+});
+
+emojisContainer.querySelectorAll('.emoji').forEach(emoji => {
+    emoji.addEventListener('click', function(){
+        commentMessage.value += emoji.innerHTML;
+    })
+})
+
+let emojiButton = document.getElementById('emojiButton');
+emojiButton.addEventListener('click', function(){
+    if (emojisContainer.style.display == "none"){
+        emojisContainer.style.display = "block";
+    }else{
+        emojisContainer.style.display = "none";
+    }
+});
 
 commentButton.addEventListener('click', function(){
     if (commentMessage.value && lineStart + 1){
@@ -91,11 +128,21 @@ commentButton.addEventListener('click', function(){
         commentMessage.value = ""
     }
 
-    if(commentMessage.style.width == '0px'){
-        commentMessage.style.width = 'initial';
-        commentMessage.style.display = 'initial';
-    }else{
-        commentMessage.style.width = '0px';
-        commentMessage.style.display = 'none';
+    if (commentInputContainer.style.display == "none"){
+        commentInputContainer.style.display = "flex";
+
     }
+    else{
+        commentInputContainer.style.display = "none";
+        emojisContainer.style.display = "none";
+    };
+
+    // if(commentMessage.style.width == '0px'){
+    //     commentMessage.style.width = 'initial';
+    //     commentMessage.style.display = 'initial';
+    //     em
+    // }else{
+    //     commentMessage.style.width = '0px';
+    //     commentMessage.style.display = 'none';
+    // }
 });

@@ -12,8 +12,6 @@
     <title>CodePan</title>
 </head>
 <body>
-    {% include 'comments.html' %}
-
     <div class="container">
         <div style="position: relative; 
                     overflow-y:auto;
@@ -123,20 +121,7 @@
         <div>
             <button id="sendChat">Trimite codul</button>
         </div>
-        <div class="commentContainer">
-            <input type="button" 
-                    id="comment" 
-                    value="Comenteaza" 
-                    style="background-color: transparent;
-                            border:0;
-                            cursor:pointer;
-                            color:white;">
-            <input type="text" 
-                    id="commentMessage" 
-                    placeholder="Scrie un comentariu" 
-                    style="width: 0px; 
-                            display: none;">
-        </div>
+        {% include 'comments.html' %}
         <button id="share">
             <svg xmlns="http://www.w3.org/2000/svg" 
                     width="10" 

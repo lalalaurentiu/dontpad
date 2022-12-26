@@ -1,61 +1,19 @@
-.tooltip {
+#emojiButton{
+    background-color: white;
+    font-size: 11px;
+    padding: 0;
+    margin: 0;
+}
+
+#emojis {
     position: absolute;
-    left: calc(100% - 200px);
-    height: 80%;
-    display:inline-block;
-    border-bottom:1px dotted #666;
-    text-align:left;
-}
-
-.tooltip .right {
-    width:200px; 
-    height: 100%;
-    padding:10px 20px;
-    color:#444444;
-    background-color:#EEEEEE;
-    font-weight:normal;
-    font-size:13px;
-    border-radius:8px;
-    position:absolute;
-    z-index:30;
-    box-sizing:border-box;
-    box-shadow:0 1px 8px rgba(0,0,0,0.5);
-    display:none;
+    transform: translateY(-60%);
+    width: 300px;
+    height: 300px;
+    background-color: white;
+    z-index: 100;
+    display: block;
+    white-space: normal;
     overflow: auto;
-}
-
-.tooltip:hover .right {
-    display:block;
-}
-
-.tooltip i {
-    position:absolute;
-    top:50%;
-    right:100%;
-    margin-top:-12px;
-    width:12px;
-    height:24px;
-    overflow:hidden;
-    z-index: 30;
-}
-
-.tooltip i::after {
-    content:'';
-    position:absolute;
-    width:12px;
-    height:12px;
-    left:0;
-    top:50%;
-    transform:translate(50%,-50%) rotate(-45deg);
-    background-color:#EEEEEE;
-    box-shadow:0 1px 8px rgba(0,0,0,0.5);
-}
-.btn {
-    height: 100%;
-}
-#i{
-    display: none;
-}
-#commentMessage {
-    transition: all 0.5s;
+    border-radius: 10px;
 }
