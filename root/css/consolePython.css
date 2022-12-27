@@ -1,0 +1,41 @@
+.console {
+    position: absolute;
+    background-color: #000;
+    top: 0;
+    right: 0;
+    font-family: monospace;
+    font-size: 12px;
+    padding: 10px;
+    width: 50%;
+    height: 80vh;
+    overflow: auto;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 5px;
+    padding: 0;
+    z-index: 40;
+}
+#console_header {
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    border-bottom: 1px solid rgb(255, 255, 255);
+    display: flex;
+    justify-content: space-between;
+    cursor: move;
+    position: sticky;
+    top: 0;
+}
+.output {
+    color: #fff;
+    padding: 5px;
+}
+#Run{
+    position: absolute;
+    background-color: rgb(37, 171, 24);
+    bottom: 10%;
+    right: 5%;
+    font-family: monospace;
+    cursor: pointer;
+}

@@ -32,17 +32,24 @@
                             
                             <div class="studentVersion" >
                                 {% for sversion in version.proffesor_code.all %}
+                                    {% if forloop.first %}
+                                        <input type="radio" 
+                                                name="version" 
+                                                id="studentVersion{{version.id}}" 
+                                                value="{{ sversion.code }}"
+                                                style="display: block; 
+                                                        position: relative;
+                                                        top:-7px;">
+                                    {% else %}
                                     <input type="radio" 
                                             name="version" 
                                             id="studentVersion{{version.id}}" 
                                             value="{{ sversion.code }}"
                                             style="display: block; 
                                                     position: relative;
-                                                    {% if forloop.first %}
-                                                    {% else %}
-                                                        margin-top: 10px;
-                                                    {%endif%};
-                                                    top:-7px;">
+                                                    top:-7px;
+                                                    margin-top: 10px;">
+                                    {%endif%}
                                     <label for="studentVersion{{forloop.counter}}"></label>
                                 {% endfor %}
                             </div>
@@ -56,17 +63,24 @@
                         <label for="version{{forloop.counter}}">V{{forloop.revcounter}}</label>
                         <div class="studentVersion" >
                             {% for sversion in version.proffesor_code.all %}
-                                <input type="radio" 
-                                        name="version" 
-                                        id="studentVersion{{version.id}}" 
-                                        value="{{ sversion.code }}"
-                                        style="display: block; 
-                                                position: relative;
-                                                {% if forloop.first %}
-                                                {% else %}
-                                                    margin-top: 10px;
-                                                {%endif%};
-                                                top:-7px;" >
+                                {% if forloop.first %}
+                                    <input type="radio" 
+                                            name="version" 
+                                            id="studentVersion{{version.id}}" 
+                                            value="{{ sversion.code }}"
+                                            style="display: block; 
+                                                    position: relative;
+                                                    top:-7px;" >
+                                {% else %}
+                                    <input type="radio" 
+                                            name="version" 
+                                            id="studentVersion{{version.id}}" 
+                                            value="{{ sversion.code }}"
+                                            style="display: block; 
+                                                    position: relative;
+                                                    top:-7px;
+                                                    margin-top: 10px;" >
+                                {%endif%}
                                 <label for="studentVersion{{forloop.counter}}"></label>
                             {% endfor %}
                         </div>
@@ -248,10 +262,9 @@
             </div>
         </div>
     </div>
+        {% include 'consolePython.html' %}
         {% include 'screenRecorder.html' %} 
-        
         {% include 'footerScripts.html' %} 
 
-        {% include 'consolePython.html' %}
 </body>
 </html
