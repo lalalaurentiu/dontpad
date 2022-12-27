@@ -5,9 +5,11 @@
     padding: 0;
     margin: 0;
 }
+
 #gifButton {
     color: black;
 }
+
 #emojis,
 #gifs {
     position: absolute;
