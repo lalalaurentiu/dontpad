@@ -84,12 +84,83 @@ let emojis = [
     "💚", "💙", "💜", "🤎", "🖤", "🤍", "💯", "💢", "💥", "💫",
     "💦", "💨", "🕳️", "💣", "💬", "👁️‍🗨️", "🗨️", "🗯️", "💭", "💤",
 ]
+
+let gifs = [
+    "https://media.tenor.com/2nKSTDDekOgAAAAM/coding-kira.gif",
+    "https://media.tenor.com/GfSX-u7VGM4AAAAM/coding.gif",
+    "https://media.tenor.com/7Tu-pBzg0_kAAAAM/programming.gif",
+    "https://media.tenor.com/ggIWe4jxVrUAAAAM/computer-program-program.gif",
+    "https://media.tenor.com/hmDMrE1yMAkAAAAM/when-the-coding-when-the.gif",
+    "https://media.tenor.com/tZ2Xd8LqAnMAAAAM/typing-fast.gif",
+    "https://media.tenor.com/gTg8ZSZMR6YAAAAM/scaler-create-impact.gif",
+    "https://media.tenor.com/41I-iMyClCgAAAAM/programmer-programming.gif",
+    "https://media.tenor.com/uYP_Nkq8VPsAAAAM/coding-hello-world.gif",
+    "https://media.tenor.com/46Z0icVkLYgAAAAM/coding-is-tough-coding.gif",
+    "https://media.tenor.com/_DOBjnGspYAAAAAM/code-coding.gif",
+    "https://media.tenor.com/77IymeWcaBgAAAAM/coding-programming.gif",
+    "https://media.tenor.com/i3lImBg2UEQAAAAM/scaler-create-impact.gif",
+    "https://media.tenor.com/zNZjeqK_FxwAAAAM/code-works-code-not-working.gif",
+    "https://media.tenor.com/IVCnKbtTeRQAAAAM/programming-computer.gif",
+    "https://tenor.com/assets/img/gif-maker-entrypoints/search-entrypoint-optimized.gif",
+    "https://media.tenor.com/VpZ2Nf5gdRYAAAAM/pc-banging.gif",
+    "https://media.tenor.com/bQCHJwgCNuMAAAAM/kitten-cat.gif",
+    "https://media.tenor.com/MYOUqnV-uGMAAAAM/scaler-create-impact.gif",
+    "https://media.tenor.com/lYJUdIQn1IEAAAAM/stackoverflow-programming.gif",
+    "https://media.tenor.com/4Spqr1waLjIAAAAM/coding-humor.gif",
+
+]
 let commentButton = document.getElementById('comment');
 let commentMessage = document.getElementById('commentMessage');
 let commentInputContainer = document.getElementById('commentInputContainer');
 
 let emojisContainer = document.getElementById('emojis');
     emojisContainer.style.display = "none";
+
+let gifsContainer = document.getElementById('gifs');
+
+gifs.forEach(gif => {
+    let img = document.createElement('img');
+    img.src = gif;
+    img.classList.add('gif');
+    gifsContainer.appendChild(img);
+
+    img.addEventListener('click', function(){
+        if (lineStart + 1){
+            const csrftoken = getCookie("csrftoken");
+            const url = window.location.href
+            fetch(url + "comment/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": csrftoken,
+                },
+                body: JSON.stringify({
+                    "comment": `<img src="${gif}" class="gif">`,
+                    "line": lineStart + 1,
+                })
+            })
+            .then(result => {
+                if (result.status == 201){
+                    commentInputContainer.style.display = "none";
+                    emojisContainer.style.display = "none";
+                    gifsContainer.style.display = "none";
+                    window.location.reload();
+                }
+            });
+        }
+    });
+        
+})
+
+let gifButton = document.getElementById('gifButton');
+gifButton.addEventListener('click', function(){
+    if (gifsContainer.style.display == "none"){
+        gifsContainer.style.display = "block";
+        emojisContainer.style.display = "none";
+    }else{
+        gifsContainer.style.display = "none";
+    }
+});
 
 emojis.forEach(emoji => {
     emojisContainer.innerHTML += `<span class="emoji">${emoji}</span>`;
@@ -105,6 +176,7 @@ let emojiButton = document.getElementById('emojiButton');
 emojiButton.addEventListener('click', function(){
     if (emojisContainer.style.display == "none"){
         emojisContainer.style.display = "block";
+        gifsContainer.style.display = "none";
     }else{
         emojisContainer.style.display = "none";
     }
@@ -125,8 +197,19 @@ commentButton.addEventListener('click', function(){
                 "line": lineStart + 1,
             })
         })
-        commentMessage.value = ""
+        .then(result => {
+            if (result.status == 201){
+                commentInputContainer.style.display = "none";
+                emojisContainer.style.display = "none";
+                gifsContainer.style.display = "none";
+                commentMessage.value = "";
+                window.location.reload();
+            }
+        });
+
     }
+    
+
 
     if (commentInputContainer.style.display == "none"){
         commentInputContainer.style.display = "flex";
@@ -137,12 +220,4 @@ commentButton.addEventListener('click', function(){
         emojisContainer.style.display = "none";
     };
 
-    // if(commentMessage.style.width == '0px'){
-    //     commentMessage.style.width = 'initial';
-    //     commentMessage.style.display = 'initial';
-    //     em
-    // }else{
-    //     commentMessage.style.width = '0px';
-    //     commentMessage.style.display = 'none';
-    // }
 });

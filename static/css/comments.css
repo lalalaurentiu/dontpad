@@ -1,11 +1,15 @@
-#emojiButton{
+#emojiButton,
+#gifButton {
     background-color: white;
     font-size: 11px;
     padding: 0;
     margin: 0;
 }
-
-#emojis {
+#gifButton {
+    color: black;
+}
+#emojis,
+#gifs {
     position: absolute;
     transform: translateY(-60%);
     width: 300px;
@@ -16,4 +20,12 @@
     white-space: normal;
     overflow: auto;
     border-radius: 10px;
+}
+
+.gif{
+    width: 130px;
+    height: 130px;
+    margin: 5px;
+    border-radius: 10px;
+    cursor: pointer;
 }

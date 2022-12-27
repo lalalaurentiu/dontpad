@@ -38,7 +38,10 @@
                                             value="{{ sversion.code }}"
                                             style="display: block; 
                                                     position: relative;
-                                                    {% if forloop.first %}{% else %}margin-top: 10px;{%endif%};
+                                                    {% if forloop.first %}
+                                                    {% else %}
+                                                        margin-top: 10px;
+                                                    {%endif%};
                                                     top:-7px;">
                                     <label for="studentVersion{{forloop.counter}}"></label>
                                 {% endfor %}
