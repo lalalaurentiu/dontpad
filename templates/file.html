@@ -12,6 +12,7 @@
     <title>CodePan</title>
 </head>
 <body>
+    {% include 'navbar.html' %}
     <div class="container">
         <div style="position: relative; 
                     overflow-y:auto;
@@ -266,5 +267,45 @@
         {% include 'screenRecorder.html' %} 
         {% include 'footerScripts.html' %} 
 
+        <style>
+            .contextMenu {
+                position: absolute;
+                display: none;
+                top: 0;
+                background-color: #f9f9f9;
+                min-width: 160px;
+                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                z-index: 1;
+            }
+            .contextMenu-content > a {
+                display: block;
+            }
+        </style>
+
+        <div class="contextMenu" >
+            <div class="contextMenu-content">
+                <a href="#" id="copy">Buton 1</a>
+                <a href="#" id="paste">Buton 2</a>
+                <a href="#" id="cut">Buton 2</a>
+                <a href="#" id="select">Buton 3</a>
+            </div>
+        </div>
+    <!-- <script>
+        let contextMenu = document.querySelector('.contextMenu');
+        window.oncontextmenu = function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            console.log(event);
+            contextMenu.style.display = 'block';
+            contextMenu.style.top = event.pageY + 'px';
+            contextMenu.style.left = event.pageX + 'px';
+            return false;
+        };
+        window.onclick = function(event) {
+            if (!event.target.matches('.contextMenu')) {
+                contextMenu.style.display = 'none';
+            }
+        };
+    </script> -->
 </body>
 </html
