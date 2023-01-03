@@ -1,3 +1,4 @@
+
 // afisarea comentariilor interactive
 
 async function getComments (){
@@ -9,7 +10,7 @@ async function getComments (){
     
 let comments = getComments();
 
-comments.then(function(result) {
+comments.then((result) => {
     obj = result;
     let objectCommentsContainer = {};
     obj.comments.forEach(function(comment) {
@@ -31,7 +32,6 @@ comments.then(function(result) {
                 <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
             </svg>
         `;
-        commentButton.style.color = "white";
         commentButton.style.fontSize = "20px";
         commentButton.style.cursor = 'pointer';
         commentButton.style.display = 'block';

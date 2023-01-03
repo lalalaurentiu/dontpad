@@ -52,7 +52,6 @@ def new_file(request, slug):
     #daca exista code pentru acel path il returnam pe ultimul
 
     videoCode = DontpadVideoCode.objects.filter(url_id = obj[0].id)
-    print(videoCode)
     try:
         last_code = code[0]
     except:
@@ -183,7 +182,6 @@ def viewExercise(request, slug, id):
 
     try:
         result = DontpadExerciseResult.objects.get(exercise_id = id, user_id = request.user.id)
-        print(result)
     except:
         result = None
 
@@ -235,7 +233,6 @@ class VideoCode(TemplateView):
 
     def post(self, request,slugfile, slug):
         if request.method == "POST":
-            print(request.body)
             url_id = DontpadURL.objects.filter(slug = slugfile)[0].id
         return HttpResponse(status = 400)
 
@@ -248,7 +245,6 @@ def postVideoCode(request, slug):
 
     audio = request.FILES["audio"]
     changes = request.POST.get("changes")
-    print(changes)
     if request.method == "POST":
         url_id = DontpadURL.objects.filter(slug = slug)[0].id
         audio = DontpadVideoCode.objects.create(audio = audio, url_id = url_id, json = changes)
@@ -256,7 +252,6 @@ def postVideoCode(request, slug):
     return HttpResponse(status = 400)
 
 def getVideoCode(request, slug, slugVideo):
-    print(request.GET.get("format"))
     formatType = request.GET.get("format")
     url_id = DontpadURL.objects.filter(slug = slug)[0].id
     video = DontpadVideoCode.objects.filter(url_id = url_id, slug = slugVideo).first()

@@ -42,6 +42,8 @@
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
     transform: translateX(calc(-100% + 76px));
+    overflow-y: auto;
+    max-height: 300px;
   }
   
   .navbar-dropdown-content a {
@@ -51,6 +53,7 @@
     text-decoration: none;
     display: block;
     text-align: left;
+    cursor: pointer;
   }
   
   .navbar-dropdown-content a:hover {
