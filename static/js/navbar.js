@@ -189,13 +189,29 @@ let themes = [
         color: "#e6e6e6",
         border: "1px solid rgba(255,255,255,.1)"},
 ]
+
+
 let navbar_dropdown_content = document.querySelector(".navbar-dropdown-content")
 let HEADE = document.getElementsByTagName("head")[0]
 let LINK = document.createElement("link")
 LINK.rel = "stylesheet"
 
-
 HEADE.appendChild(LINK)
+
+const cookie = document.cookie.split(";")[0].split(",")
+cookie.forEach((item) => {
+    if (item.split("=")[0] === "theme"){
+        let theme = themes.find(theme => theme.name === item.split("=")[1])
+        LINK.href = theme.url
+        editor.setOption("theme", theme.name)
+        document.querySelector(".navbar").style.background = theme.background;
+        document.querySelector(".navbar").style.borderBottom = theme.border;
+        document.querySelector(".navbar a").style.color = theme.color;
+        document.querySelector(".dropbtn").style.color = theme.color;
+        document.querySelector(".versioning-container").style.background = theme.background;
+        document.querySelector(".versioning-container").style.color = theme.color;  
+    }
+})
 
 themes.forEach((theme) => {
     let a = document.createElement("a")
@@ -205,8 +221,11 @@ themes.forEach((theme) => {
 })
 
 navbar_dropdown_content.addEventListener("click", (e) => {
+    
     let theme = themes.find(theme => theme.name === e.target.getAttribute("value"))
     LINK.href = theme.url
+    document.cookie = `theme=${theme.name}, background=${theme.background}, color=${theme.color}, border=${theme.border}`
+
     editor.setOption("theme", e.target.getAttribute("value"))
     document.querySelector(".navbar").style.background = theme.background;
     document.querySelector(".navbar").style.borderBottom = theme.border;
