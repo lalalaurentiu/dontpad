@@ -195,8 +195,9 @@ let navbar_dropdown_content = document.querySelector(".navbar-dropdown-content")
 let HEADE = document.getElementsByTagName("head")[0]
 let LINK = document.createElement("link")
 LINK.rel = "stylesheet"
-
 HEADE.appendChild(LINK)
+
+let headerRunButtonCode = document.querySelector(".run")
 
 const cookie = document.cookie.split(";")[0].split(",")
 cookie.forEach((item) => {
@@ -210,6 +211,7 @@ cookie.forEach((item) => {
         document.querySelector(".dropbtn").style.color = theme.color;
         document.querySelector(".versioning-container").style.background = theme.background;
         document.querySelector(".versioning-container").style.color = theme.color;  
+        headerRunButtonCode.style.color = theme.color;
     }
 })
 
@@ -233,8 +235,13 @@ navbar_dropdown_content.addEventListener("click", (e) => {
     document.querySelector(".dropbtn").style.color = theme.color;
     document.querySelector(".versioning-container").style.background = theme.background;
     document.querySelector(".versioning-container").style.color = theme.color;
+    headerRunButtonCode.style.color = theme.color;
 })
 
+
+
+
+runCode(headerRunButtonCode)
 
 
 
