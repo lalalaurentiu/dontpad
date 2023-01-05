@@ -52,6 +52,7 @@ def new_file(request, slug):
     #daca exista code pentru acel path il returnam pe ultimul
 
     videoCode = DontpadVideoCode.objects.filter(url_id = obj[0].id)
+
     try:
         last_code = code[0]
     except:
