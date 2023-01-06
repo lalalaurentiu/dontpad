@@ -82,6 +82,7 @@ def new_file(request, slug):
             DontpadCode.objects.create(slug_id=obj[0].id,code = request.POST["code"])
         else:
             versionId = request.POST["versionId"]
+            print(versionId)
             
             DontpadUserCode.objects.create(
                                     slug_id=obj[0].id,

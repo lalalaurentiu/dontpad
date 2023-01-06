@@ -130,13 +130,16 @@ class ChatConsumer(AsyncWebsocketConsumer):
         diferrence = event.get("differnce")
         user = event.get("user")
         parrentId = event.get("parrentId")
+        elementId = event.get("elementId")
 
         # Send message to WebSocket
         await self.send(text_data=json.dumps({
             "code": code, 
             "differnce": diferrence, 
             "user": user,
-            "parrentId": parrentId
+            "is_professor": self.user.is_professor,
+            "parrentId": parrentId,
+            "elementId": elementId
             }))
 
     async def chat_mark(self, event):
@@ -197,6 +200,9 @@ def post_user_code_receiver(sender, **kwargs):
         {"type": "chat_code", 
         "code": kwargs["instance"].code, 
         "user": kwargs["instance"].user.first_name,
-        "parrentId": kwargs["instance"].proffesor_code.id
+        "is_professor": kwargs["instance"].user.is_professor,
+        "parrentId": kwargs["instance"].proffesor_code.id,
+        "elementId": kwargs["instance"].id
         },
     )
+    print(kwargs["instance"].id)

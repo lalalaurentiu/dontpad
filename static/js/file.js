@@ -65,11 +65,14 @@ function proffesorSendCode(){
 function studentSendCode(){
     versions.forEach(version => {
         if (version.checked){
+            let parrentNode = version.parentElement.parentElement.parentNode
             let versionId
-            if (version.id.includes("studentVersion")){
-                versionId = version.id.split("studentVersion")[1]
+            if(parrentNode.getAttribute("class") === "version"){
+                versionId = parrentNode.children[0].id.split("version")[1]
+                console.log("studentversion")
             } else {
-                versionId = version.id.split("version")[1]
+                parrentNode = version.parentElement.children[0]
+                versionId = parrentNode.id.split("version")[1]
             }
             const url = window.location.href
             const csrftoken = getCookie("csrftoken")
@@ -164,7 +167,8 @@ socket.onmessage = (e) => {
     }
     // afisarea codului
     if (data.code) {
-        if (data.user){
+        if (!data.is_professor){
+            console.log(data)
             createUserVersion(data, versions)
         } else {
             editor.setValue(data.code)

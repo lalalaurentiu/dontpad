@@ -1,4 +1,12 @@
 /* --versionarea codului */
+.versioning-container{
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: #231c14;
+    color: white;
+    padding-top: 10px;
+}
 .versioning {
     position: relative;
     margin-left: 10px;
@@ -7,23 +15,7 @@
 .studentVerison{
     width: 100px;
     height: 30px;
-    /* display: flex;
-    align-items: center;
-    justify-content: space-evenly; */
 }
-
-/* .version::before,  */
-/* .studentVersion::after  {
-    position: absolute;
-    display: block;
-    content: "";
-    top:0;
-    left: 0;
-    bottom: 0;
-    width: 2px;
-    background-color: rgb(0, 132, 255);
-    margin-left: 5px;
-} */
 
 .version::before {
     position: relative;
@@ -47,24 +39,19 @@
     margin-left: 5px;
 }
 
-/* .studentVersion::before{
-    position: absolute;
-    content: "";
-    top:-3px;
-    left: 0;
-    bottom: 0;
-    width: 60px;
-    height: 2px;
-    background-color: rgb(255, 255, 0);
-    margin-left: 5px;
-    transform: translateX(-100%);
-} */
-
 .studentVersion{
     position:absolute;
     top: 0;
-    /* right: 10px; */
     display: none;
+}
+
+.showStudentVersion{
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    cursor: pointer;
 }
 
 input[type="radio"]{
@@ -78,23 +65,19 @@ input[type="radio"]{
 .version label{
     position:relative;
     left: -4px;
-    /* padding-left: 5px; */
-    /* z-index: 30; */
+    cursor: pointer;
 }
 
 .studentVersion label{
     position:relative;
     left: -5px;
     bottom: 25px;
-    /* padding-left: 5px; */
-    /* z-index: 30; */
+    cursor: pointer;
 }
 
 .version > input[type="radio"],
 .studentVersion div > input[type="radio"]{
     border: 0;
-    /* clip: rect(0, 0, 0, 0); */
-    /* height: 1px; */
     overflow: hidden;
     padding: 0;
     position: absolute !important;
