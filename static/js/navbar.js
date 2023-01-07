@@ -211,6 +211,9 @@ cookie.forEach((item) => {
         document.querySelector(".dropbtn").style.color = theme.color;
         document.querySelector(".versioning-container").style.background = theme.background;
         document.querySelector(".versioning-container").style.color = theme.color;  
+        document.querySelector(".contextMenu").style.borderColor = theme.color;
+        document.querySelector(".contextMenu").style.background = theme.background;
+        document.querySelector(".contextMenu").style.color = theme.color;
         headerRunButtonCode.style.color = theme.color;
     }
 })
@@ -235,6 +238,9 @@ navbar_dropdown_content.addEventListener("click", (e) => {
     document.querySelector(".dropbtn").style.color = theme.color;
     document.querySelector(".versioning-container").style.background = theme.background;
     document.querySelector(".versioning-container").style.color = theme.color;
+    document.querySelector(".contextMenu").style.borderColor = theme.color;
+    document.querySelector(".contextMenu").style.background = theme.background;
+    document.querySelector(".contextMenu").style.color = theme.color;
     headerRunButtonCode.style.color = theme.color;
 })
 

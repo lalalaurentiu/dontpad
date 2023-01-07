@@ -53,14 +53,14 @@
                             cursor: pointer;">Upload</button>
         </form>
         
-        <div class="mark-code-container" >
+        <!-- <div class="mark-code-container" >
             <input id="showMarkers" 
                     type="checkbox" 
                     checked>
             <button id="mark">Marcheaza Codul</button>
             <input id="markColor" 
                     type="color">
-        </div>
+        </div> -->
         <div>
             <button id="sendChat">Trimite codul</button>
         </div>
@@ -188,49 +188,82 @@
             </div>
         </div>
     </div>
+
+    <style>
+        .contextMenu {
+            position: absolute;
+            display: none;
+            top: 0;
+            background-color: transparent;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border: 1px solid gray;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+
+        .contextMenu-content div {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+        }
+        .contextMenu-content  div > button {
+            display: block;
+            color:inherit;
+            background-color: transparent;
+            border: none;
+            font-size: 16px;
+            padding:0;
+            margin: 0;
+        }
+
+        .contextMenu-content > div > button:hover {
+            color: rgb(0, 132, 255);
+        }
+
+    </style>
+
+    <div class="contextMenu" >
+        <div class="contextMenu-content">
+            <div>
+                <button id="mark">Marcheaza Codul</button>
+                <input id="markColor" 
+                        type="color">
+                <input id="showMarkers" 
+                        type="checkbox" 
+                        style="margin-left: 5px; width: 16px; height: 16px;"
+                        checked>
+            </div>
+            <div>
+                
+            </div>
+            
+        </div>
+    </div>
+<script>
+    let contextMenu = document.querySelector('.contextMenu');
+    window.oncontextmenu = function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        contextMenu.style.display = 'block';
+        contextMenu.style.top = event.pageY + 'px';
+        contextMenu.style.left = event.pageX + 'px';
+        
+    };
+
+    window.onclick = function(event) {
+        if (!contextMenu.contains(event.target)) {
+            contextMenu.style.display = 'none';
+        }
+    };
+
+</script>
+
         {% include 'consolePython.html' %}
         {% include 'screenRecorder.html' %} 
         {% include 'footerScripts.html' %} 
 
-        <style>
-            .contextMenu {
-                position: absolute;
-                display: none;
-                top: 0;
-                background-color: #f9f9f9;
-                min-width: 160px;
-                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-                z-index: 1;
-            }
-            .contextMenu-content > a {
-                display: block;
-            }
-        </style>
-
-        <div class="contextMenu" >
-            <div class="contextMenu-content">
-                <a href="#" id="copy">Buton 1</a>
-                <a href="#" id="paste">Buton 2</a>
-                <a href="#" id="cut">Buton 2</a>
-                <a href="#" id="select">Buton 3</a>
-            </div>
-        </div>
-    <!-- <script>
-        let contextMenu = document.querySelector('.contextMenu');
-        window.oncontextmenu = function(event) {
-            event.preventDefault();
-            event.stopPropagation();
-            console.log(event);
-            contextMenu.style.display = 'block';
-            contextMenu.style.top = event.pageY + 'px';
-            contextMenu.style.left = event.pageX + 'px';
-            return false;
-        };
-        window.onclick = function(event) {
-            if (!event.target.matches('.contextMenu')) {
-                contextMenu.style.display = 'none';
-            }
-        };
-    </script> -->
 </body>
 </html
