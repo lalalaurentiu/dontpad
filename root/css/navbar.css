@@ -19,7 +19,8 @@
     float: left;
   }
   
-  .dropdown .dropbtn {
+  .dropdown .dropbtn, 
+  .run {
     font-size: 16px;  
     border: none;
     outline: none;
@@ -30,7 +31,7 @@
     margin: 0;
   }
   
-  .navbar a:hover, .dropdown:hover .dropbtn {
+  .navbar a:hover, .dropdown:hover .dropbtn, .run:hover {
     background-color: red;
   }
   
@@ -62,4 +63,10 @@
   
   .dropdown:hover .navbar-dropdown-content {
     display: block;
+  }
+
+  .run{
+    position: relative;
+    padding: 10px 10px;
+    cursor: pointer;
   }

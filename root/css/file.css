@@ -74,10 +74,10 @@ code{
 #differences,
 form,
 .mark-code-container,
-#mark,
-#sendChat,
-.commentContainer,
-#share,
+/* #mark, */
+/* #sendChat, */
+/* .commentContainer, */
+/* #share, */
 #videoBtn,
 #exercises,
 #createExercise,
@@ -104,8 +104,8 @@ form,
 }
 
 form,
-.mark-code-container,
-.commentContainer{
+.mark-code-container{
+/* .commentContainer{ */
     margin: 10px;
 }
 
@@ -119,23 +119,23 @@ form{
     background-color: rgb(0, 130, 205);
 }
 
-#mark{
+/* #mark{
     background-color: transparent;
     padding: 0;
     border: 0;
     margin: 0;
-}
+} */
 
-#sendChat{
+/* #sendChat{
     background-color: rgb(167, 0, 134);
-}
+} */
 
-.commentContainer{
+/* .commentContainer{
     display: flex; 
     align-items:center; 
     align-items: center;
     background-color: rgb(169, 1, 1);
-}
+} */
 
 ::-webkit-file-upload-button {
     background-color: transparent;
@@ -166,9 +166,9 @@ input[type="color"]::-webkit-color-swatch {
     margin-left: 5px;
 }
 
-#share{
+/* #share{
     background-color: rgb(62, 196, 0);
-}
+} */
 
 #videoBtn{
     background-color: rgb(207, 198, 18);
@@ -345,66 +345,6 @@ input[type="color"]::-webkit-color-swatch {
     font-family: sans-serif;
     font-weight: bold;
   }
-/* --versionarea codului */
-.versioning {
-    position: relative;
-    margin-left: 10px;
-}
-.version,
-.studentVerison{
-    width: 100px;
-    height: 30px;
-}
-
-
-
-.version::after, 
-.studentVersion::after {
-    position: absolute;
-    display: block;
-    content: "";
-    top:0;
-    left: 0;
-    bottom: 0;
-    width: 2px;
-    background-color: rgb(0, 132, 255);
-    margin-left: 5px;
-}
-
-.studentVersion::before{
-    position: absolute;
-    content: "";
-    top:-3px;
-    left: 0;
-    bottom: 0;
-    width: 60px;
-    height: 2px;
-    background-color: rgb(255, 255, 0);
-    margin-left: 5px;
-    transform: translateX(-100%);
-}
-
-.studentVersion{
-    position:absolute;
-    top: 0;
-    right: 10px;
-    display: none;
-}
-
-input[type="radio"]{
-    position: absolute;
-    left: -5px;
-    margin: 0;
-    padding: 0;
-    z-index: 10;
-    margin-left: 5px;
-}
-.version label{
-    position:relative;
-    left: 10px;
-    padding-left: 5px;
-    z-index: 30;
-}
 
 /* dropdown  */
 .dropdown {

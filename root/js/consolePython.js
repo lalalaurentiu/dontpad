@@ -29,10 +29,6 @@ let consoleHeader = document.getElementById('console_header');
 let consoleHeaderButtons = consoleHeader.querySelectorAll('button');
 let output = document.querySelector('.output');
 
-let runCodeButton = document.getElementById('Run');
-
-runCode(runCodeButton);
-
 async function main() {
     let pyodide = await loadPyodide({ indexURL : "https://cdn.jsdelivr.net/pyodide/v0.21.3/full/"});
     return pyodide

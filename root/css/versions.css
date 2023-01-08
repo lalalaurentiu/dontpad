@@ -1,0 +1,90 @@
+/* --versionarea codului */
+.versioning-container{
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: #231c14;
+    color: white;
+    padding-top: 10px;
+}
+.versioning {
+    position: relative;
+    margin-left: 10px;
+}
+.version,
+.studentVerison{
+    width: 100px;
+    height: 30px;
+}
+
+.version::before {
+    position: relative;
+    display: block;
+    content: "";
+    top:30px;
+    height: 15px;
+    width: 2px;
+    background-color: rgb(0, 132, 255);
+    margin-left: 5px;
+}
+
+.studentVersion div::before {
+    position: relative;
+    display: block;
+    content: "";
+    bottom:-8px;
+    height: 15px;
+    width: 2px;
+    background-color: rgb(0, 132, 255);
+    margin-left: 5px;
+}
+
+.studentVersion{
+    position:absolute;
+    top: 0;
+    display: none;
+}
+
+.showStudentVersion{
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+input[type="radio"]{
+    position: absolute;
+    left: -5px;
+    margin: 0;
+    padding: 0;
+    z-index: 10;
+    margin-left: 5px;
+}
+.version label{
+    position:relative;
+    left: -4px;
+    cursor: pointer;
+}
+
+.studentVersion label{
+    position:relative;
+    left: -5px;
+    bottom: 25px;
+    cursor: pointer;
+}
+
+.version > input[type="radio"],
+.studentVersion div > input[type="radio"]{
+    border: 0;
+    overflow: hidden;
+    padding: 0;
+    position: absolute !important;
+    white-space: nowrap;
+    opacity: 0;
+}
+
+input[type=radio]:checked + label {
+    color: rgb(0, 132, 255);
+  }
