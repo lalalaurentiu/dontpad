@@ -171,7 +171,6 @@ let reload = () => {
                     )
                 }
             })
-            console.log(showStudentVersion)
         } catch(e){
             // console.log(e)
         }
