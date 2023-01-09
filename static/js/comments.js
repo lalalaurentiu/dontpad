@@ -112,6 +112,17 @@ let gifs = [
 let commentButton = document.getElementById('comment');
 let commentMessage = document.getElementById('commentMessage');
 let commentInputContainer = document.getElementById('commentInputContainer');
+let sendCommentBtn = document.getElementById('sendComment');
+
+function isItIn(parent, child){
+    let parentContainer = parent.getBoundingClientRect();
+    let childContainer = child.getBoundingClientRect();
+    console.log(parentContainer.bottom, childContainer.bottom);
+    if (childContainer.bottom <= parentContainer.bottom){
+        return true;
+    }
+    return false;
+}
 
 let emojisContainer = document.getElementById('emojis');
     emojisContainer.style.display = "none";
@@ -183,7 +194,25 @@ emojiButton.addEventListener('click', function(){
 });
 
 commentButton.addEventListener('click', function(){
-    if (commentMessage.value && lineStart + 1){
+    if (commentInputContainer.style.display == "none"){
+        commentInputContainer.style.display = "flex";
+        editor.addLineWidget(lineStart, document.querySelector(".commentContainer"), {
+            coverGutter: false,
+            noHScroll: true,
+            above: false,
+            className: "before-line",
+        });
+        document.querySelector('.contextMenu').style.display = "none";
+    }
+    else{
+        commentInputContainer.style.display = "none";
+        emojisContainer.style.display = "none";
+        editor.removeLineWidget(lineStart, commentInputContainer);
+    };
+});
+
+sendCommentBtn.addEventListener('click', function(){
+    if (commentMessage.value){
         const csrftoken = getCookie("csrftoken");
         const url = window.location.href
         fetch(url + "comment/", {
@@ -194,7 +223,7 @@ commentButton.addEventListener('click', function(){
             },
             body: JSON.stringify({
                 "comment": commentMessage.value,
-                "line": lineStart + 1,
+                "line": editor.getCursor().line + 1,
             })
         })
         .then(result => {
@@ -206,18 +235,11 @@ commentButton.addEventListener('click', function(){
                 window.location.reload();
             }
         });
-
-    }
-    
-
-
-    if (commentInputContainer.style.display == "none"){
-        commentInputContainer.style.display = "flex";
-
-    }
-    else{
+    } else {
         commentInputContainer.style.display = "none";
         emojisContainer.style.display = "none";
-    };
-
+        gifsContainer.style.display = "none";
+    }
 });
+
+

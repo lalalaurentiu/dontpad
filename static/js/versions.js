@@ -116,15 +116,13 @@ versions.push = function(){
     })
 }
 
-
-
 versions.forEach(version => {
     version.addEventListener('change', (e) => {
         if(e.target.checked){
             editor.setValue(e.target.value);
         } 
     })
-})
+});
 
 function removeListener(listener) {
     let element = listener.element;

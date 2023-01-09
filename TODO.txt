@@ -1,1 +1,1 @@
-Readaugare functionalitati pentru comentarii interactive
+Adaugare tooltip pentru versiunea utilizatorului

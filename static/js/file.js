@@ -190,6 +190,7 @@ socket.onmessage = (e) => {
         let from = {line: lineStart, ch: 0};
         let to = {line: lineEnd + 1, ch: 0};
         let mark = doc.markText(from, to, {css: `color: ${color};`});
+        document.querySelector(".contextMenu").style.display = "none"
     }
     // afisarea codului in chat
     if (data.chatCode && data.lineStart.toString()){
@@ -277,6 +278,7 @@ let whatsapp_send_btn = document.getElementById("whatsapp-end-btn")
 let buttons = [whatsapp_container_btn, whatsapp_send_btn]
 
 share.onclick = function() {
+    document.querySelector(".contextMenu").style.display = "none"
     node.style.display = "flex"
     
     let textarea = document.createElement("textarea")
