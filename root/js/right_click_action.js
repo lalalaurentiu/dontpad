@@ -1,11 +1,26 @@
 let contextMenu = document.querySelector('.contextMenu');
-window.oncontextmenu = function(event) {
+document.body.oncontextmenu = function(event) {
     event.preventDefault();
     event.stopPropagation();
     contextMenu.style.display = 'block';
+    let parent = document.body;
+
     contextMenu.style.top = event.pageY + 'px';
     contextMenu.style.left = event.pageX + 'px';
-    
+
+    if (contextMenu.getBoundingClientRect().x 
+        + contextMenu.getBoundingClientRect().width > 
+        parent.getBoundingClientRect().width
+        ){
+        contextMenu.style.left = event.pageX - contextMenu.getBoundingClientRect().width + 'px';
+    }
+
+    if (contextMenu.getBoundingClientRect().y + 
+        contextMenu.getBoundingClientRect().height > 
+        parent.getBoundingClientRect().height){
+        contextMenu.style.top = event.pageY - contextMenu.getBoundingClientRect().height + 'px';
+    }
+
 };
 
 window.onclick = function(event) {
@@ -13,6 +28,7 @@ window.onclick = function(event) {
         contextMenu.style.display = 'none';
     }
 };
+
 
 function copyToClipboard() {
     let text = editor.getRange( editor.getCursor(true), editor.getCursor(false));

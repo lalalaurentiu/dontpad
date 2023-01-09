@@ -114,16 +114,6 @@ let commentMessage = document.getElementById('commentMessage');
 let commentInputContainer = document.getElementById('commentInputContainer');
 let sendCommentBtn = document.getElementById('sendComment');
 
-function isItIn(parent, child){
-    let parentContainer = parent.getBoundingClientRect();
-    let childContainer = child.getBoundingClientRect();
-    console.log(parentContainer.bottom, childContainer.bottom);
-    if (childContainer.bottom <= parentContainer.bottom){
-        return true;
-    }
-    return false;
-}
-
 let emojisContainer = document.getElementById('emojis');
     emojisContainer.style.display = "none";
 
