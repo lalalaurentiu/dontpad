@@ -1,18 +1,22 @@
 let contextMenu = document.querySelector('.contextMenu');
-document.body.oncontextmenu = function(event) {
+window.oncontextmenu = function(event) {
     event.preventDefault();
     event.stopPropagation();
     contextMenu.style.display = 'block';
+    screenRecorder.style.display = 'none';
     let parent = document.body;
 
     contextMenu.style.top = event.pageY + 'px';
     contextMenu.style.left = event.pageX + 'px';
-
     if (contextMenu.getBoundingClientRect().x 
-        + contextMenu.getBoundingClientRect().width > 
+        + contextMenu.getBoundingClientRect().width +
+        screenRecorder.getBoundingClientRect().width > 
         parent.getBoundingClientRect().width
         ){
-        contextMenu.style.left = event.pageX - contextMenu.getBoundingClientRect().width + 'px';
+            contextMenu.style.left = event.pageX - contextMenu.getBoundingClientRect().width + 'px';
+            screenRecorder.style.left = '-100%';
+    } else {
+        screenRecorder.style.left = '100%';
     }
 
     if (contextMenu.getBoundingClientRect().y + 
@@ -26,6 +30,8 @@ document.body.oncontextmenu = function(event) {
 window.onclick = function(event) {
     if (!contextMenu.contains(event.target)) {
         contextMenu.style.display = 'none';
+        screenRecorder.style.setProperty('left', '0');
+        screenRecorder.style.setProperty('right', '0');
     }
 };
 

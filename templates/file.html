@@ -52,9 +52,9 @@
                             color: white;
                             cursor: pointer;">Upload</button>
         </form>
-        <button id="videoBtn">
+        <!-- <button id="videoBtn">
             Recorder Screen
-        </button>
+        </button> -->
 
         <div class="dropdown">
             <div class="dropdown-content">
@@ -161,10 +161,16 @@
             </div>
         </div>
     </div>
+    <div id="videoPlayer" >
+        <div id="videoControls">
+            <button>X</button>
+        </div>
+        <video src="" width="400">
+        </video>
+    </div>
         {% include 'right_click_action.html' %}
 
         {% include 'consolePython.html' %}
-        {% include 'screenRecorder.html' %} 
         {% include 'footerScripts.html' %} 
 
 </body>

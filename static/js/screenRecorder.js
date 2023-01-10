@@ -11,19 +11,29 @@ let videoBtn = document.getElementById('videoBtn');
 let screenRecorder = document.getElementById('screenRecorder');
 
 function createVideoElement(node ,video, name){
-  let videoName= document.createElement('button');
-      videoName.value = video;
-      videoName.innerHTML = name;
-
-  let playBtn = document.createElement('div');
-      playBtn.innerHTML = `
+  let videoContainer = document.createElement('div');
+  let playBtn = `
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
           <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
         </svg>
       `;
+  let videoName= document.createElement('button');
+      videoName.setAttribute("style", "font-size:small;display:flex;align-items:center;justify-content:space-between;")
+      videoName.value = video;
+      videoName.innerHTML = name + playBtn;
 
-  videoName.appendChild(playBtn);
-  node.appendChild(videoName);
+  // let playBtn = document.createElement('div');
+  //     playBtn.innerHTML = `
+  //       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+  //         <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+  //       </svg>
+  //     `;
+  //     playBtn.setAttribute("style", "display: inline");
+      
+
+  // videoName.appendChild(playBtn);
+  videoContainer.appendChild(videoName);
+  node.appendChild(videoContainer);
   playVideo(videoName);
 }
 
@@ -44,7 +54,7 @@ stop.addEventListener('click', function(){
 })
 
 async function recordScreen(){
-  screenRecorder.style.transform = "translateX(100%)";
+  screenRecorder.style.display = 'initial';
 
     const mimeType = 'mp4';
     const displayStream = await navigator.mediaDevices.getDisplayMedia({
@@ -163,9 +173,9 @@ videoClose.addEventListener('click', function(){
 
 
 videoBtn.addEventListener('click', function(){
-  if (screenRecorder.style.transform == 'translateX(100%)'){
-    screenRecorder.style.transform = 'translateX(0%)';
+  if (screenRecorder.style.display == 'none'){
+    screenRecorder.style.display = 'initial';
   }else{
-    screenRecorder.style.transform = 'translateX(100%)';
+    screenRecorder.style.display = 'none';
   }
 })

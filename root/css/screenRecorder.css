@@ -1,26 +1,13 @@
 #screenRecorder {
-    position: fixed;
-    top: 0;
-    right: 0;
-    transform: translateX(100%);
-    background: white;
-    z-index: 30;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
-
-/* #screenRecorder i::after{
-    content: '';
     position: absolute;
-    height: 12px;
-    width: 12px;
-    left:0;
-    top: 50%;
-    transform: translate(-50%, -50%) rotate(45deg);
-    border-top:2px solid white;
-    border-left:2px solid white;
-    background: white; 
-} */
+    z-index: 30;
+    border-radius: 5px;
+    border: 1px solid ;
+    top: 0;
+    height: 100%;
+    overflow-y: auto;
+    width: 220px;
+}
 
 #screenRecorder:hover, #screenRecorder > i:hover{
     transform: translate(0);
@@ -31,15 +18,9 @@
     background-color: transparent;
 }
 
-#videosContainer{
-    padding: 10px;
-}
-
 #videosContainer > button{
     border: none;
-    background-color: rgb(0, 235, 0);
     display: block;
-    border-radius: 10px;
 }
 #videoPlayer{
     position: absolute;
