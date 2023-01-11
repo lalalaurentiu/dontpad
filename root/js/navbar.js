@@ -218,6 +218,9 @@ cookie.forEach((item) => {
         screenRecorder.style.color = theme.color;
         screenRecorder.style.borderColor = theme.color;
         headerRunButtonCode.style.color = theme.color;
+        document.querySelector(".codeRecorder").style.background = theme.background;
+        document.querySelector(".codeRecorder").style.color = theme.color;
+        document.querySelector(".codeRecorder").style.borderColor = theme.color;
     }
 })
 
@@ -248,6 +251,9 @@ navbar_dropdown_content.addEventListener("click", (e) => {
     screenRecorder.style.color = theme.color;
     screenRecorder.style.borderColor = theme.color;
     headerRunButtonCode.style.color = theme.color;
+    document.querySelector(".codeRecorder").style.background = theme.background;
+    document.querySelector(".codeRecorder").style.color = theme.color;
+    document.querySelector(".codeRecorder").style.borderColor = theme.color;
 })
 
 

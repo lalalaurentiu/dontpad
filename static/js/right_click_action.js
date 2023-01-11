@@ -4,19 +4,22 @@ window.oncontextmenu = function(event) {
     event.stopPropagation();
     contextMenu.style.display = 'block';
     screenRecorder.style.display = 'none';
+    cmVideoContainer.style.display = 'none';
     let parent = document.body;
 
     contextMenu.style.top = event.pageY + 'px';
     contextMenu.style.left = event.pageX + 'px';
     if (contextMenu.getBoundingClientRect().x 
         + contextMenu.getBoundingClientRect().width +
-        screenRecorder.getBoundingClientRect().width > 
+        220 > 
         parent.getBoundingClientRect().width
         ){
             contextMenu.style.left = event.pageX - contextMenu.getBoundingClientRect().width + 'px';
             screenRecorder.style.left = '-100%';
+            cmVideoContainer.style.left = '-100%';
     } else {
         screenRecorder.style.left = '100%';
+        cmVideoContainer.style.left = '100%';
     }
 
     if (contextMenu.getBoundingClientRect().y + 

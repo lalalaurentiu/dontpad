@@ -33,6 +33,12 @@
     cursor: pointer;
 }
 
-.section > div > button:hover {
+.section > div > button:hover,
+.section a:hover {
     color: rgb(0, 132, 255);
+}
+
+.section a {
+    color: inherit;
+    text-decoration: none;
 }

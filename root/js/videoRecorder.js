@@ -95,7 +95,7 @@ function editorKeyup (instance, event) {
 videoStartBtn.addEventListener('click', function(){
   if (this.value == 'Start'){
     this.value = 'Stop';
-
+    this.innerHTML = 'Stop Record';
     // pornim timpul
     startTime = timer();
 
@@ -110,7 +110,7 @@ videoStartBtn.addEventListener('click', function(){
     console.log('start');
   } else {
     this.value = 'Start';
-
+    this.innerHTML = 'Start Record';
     // oprim timpul
     clearInterval(startTime);
     time = 0;
@@ -125,4 +125,16 @@ videoStartBtn.addEventListener('click', function(){
     console.log('stop');
   }
 })
+
+let cmVideoContainer = document.querySelector(".codeRecorder");
+let cmVideoContainerBtn = document.getElementById("recordeCodeContainerbtn")
+
+cmVideoContainerBtn.addEventListener('click', function(e){
+  if (cmVideoContainer.style.display == "none"){
+    cmVideoContainer.style.display = "block";
+    screenRecorder.style.display = 'none';
+  } else {
+    cmVideoContainer.style.display = "none";
+  }
+});
 

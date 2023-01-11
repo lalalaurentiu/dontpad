@@ -80,18 +80,10 @@
             </div>
             <div>
                 <button id="share">
-                    <svg xmlns="http://www.w3.org/2000/svg" 
-                            width="10" 
-                            height="10" 
-                            fill="currentColor" 
-                            class="bi bi-share" 
-                            viewBox="0 0 16 16">
-                        <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 
-                                2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 
-                                0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 
-                                2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 
-                                0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
-                      </svg> Share
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-share" viewBox="0 0 16 16">
+                        <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
+                    </svg>
+                    Share
                 </button>
             </div>
             <div>
@@ -105,12 +97,59 @@
         </div>
         <div class="section">
             <div>
-                <button id="videoBtn">
+                <button id="videoBtn" style="display: flex;align-items:center;justify-content:space-between;width:100%">
                     Recorder Screen
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                    </svg>
                 </button>
             </div>
+            
+            <div>
+                <button id="recordeCodeContainerbtn" style="display: flex;align-items:center;justify-content:space-between;width:100%">
+                    Recorder Code
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                    </svg>
+                </button>
+            </div>
+
             <div>
                 {% include 'screenRecorder.html' %} 
+            </div>
+
+            <div>
+                <div class="codeRecorder" style="display: none;">
+                    <div class="section">
+                        <div>
+                            <button id="cmVideo" value="Start">
+                                Record Code
+                            </button>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <div>Video List</div>
+                        {% for video in videoCode %}
+                            <div>
+                                <a href="{% url 'code:videoCode' slug video.slug %}" 
+                                    style="font-size: small; display: flex;justify-content: space-between;align-items: center;">
+                                    {{video.slug}}
+                                    <svg xmlns="http://www.w3.org/2000/svg" 
+                                            width="16" 
+                                            height="16" 
+                                            fill="currentColor" 
+                                            class="bi bi-play-fill" 
+                                            viewBox="0 0 16 16">
+                                        <path d="m11.596 8.697-6.363 
+                                                3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 
+                                                1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z">
+                                        </path>
+                                    </svg>
+                                </a> 
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

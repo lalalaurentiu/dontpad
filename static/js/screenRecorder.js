@@ -22,16 +22,6 @@ function createVideoElement(node ,video, name){
       videoName.value = video;
       videoName.innerHTML = name + playBtn;
 
-  // let playBtn = document.createElement('div');
-  //     playBtn.innerHTML = `
-  //       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
-  //         <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
-  //       </svg>
-  //     `;
-  //     playBtn.setAttribute("style", "display: inline");
-      
-
-  // videoName.appendChild(playBtn);
   videoContainer.appendChild(videoName);
   node.appendChild(videoContainer);
   playVideo(videoName);
@@ -175,6 +165,7 @@ videoClose.addEventListener('click', function(){
 videoBtn.addEventListener('click', function(){
   if (screenRecorder.style.display == 'none'){
     screenRecorder.style.display = 'initial';
+    cmVideoContainer.style.display = "none";
   }else{
     screenRecorder.style.display = 'none';
   }
