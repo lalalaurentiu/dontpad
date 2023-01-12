@@ -221,6 +221,21 @@ cookie.forEach((item) => {
         document.querySelector(".codeRecorder").style.background = theme.background;
         document.querySelector(".codeRecorder").style.color = theme.color;
         document.querySelector(".codeRecorder").style.borderColor = theme.color;
+
+        consoleContainer.style.background = theme.background;
+        consoleContainer.style.color = theme.color;
+        consoleContainer.style.borderColor = theme.color;
+
+        sentCode.style.background = theme.background;
+        sentCode.style.color = theme.color;
+        sentCode.style.borderColor = theme.color;
+        differencesButton.style.background = theme.background;
+        differencesButton.style.color = theme.color;
+        differencesButton.style.borderColor = theme.color;
+        document.querySelector("form").style.background = theme.background;
+        document.querySelector("form").style.color = theme.color;
+        document.querySelector("form").style.borderColor = theme.color;
+
     }
 })
 
@@ -254,6 +269,20 @@ navbar_dropdown_content.addEventListener("click", (e) => {
     document.querySelector(".codeRecorder").style.background = theme.background;
     document.querySelector(".codeRecorder").style.color = theme.color;
     document.querySelector(".codeRecorder").style.borderColor = theme.color;
+
+    consoleContainer.style.background = theme.background;
+    consoleContainer.style.color = theme.color;
+    consoleContainer.style.borderColor = theme.color;
+
+    sentCode.style.background = theme.background;
+    sentCode.style.color = theme.color;
+    sentCode.style.borderColor = theme.color;
+    differencesButton.style.background = theme.background;
+    differencesButton.style.color = theme.color;
+    differencesButton.style.borderColor = theme.color;
+    document.querySelector("form").style.background = theme.background;
+    document.querySelector("form").style.color = theme.color;
+    document.querySelector("form").style.borderColor = theme.color;
 })
 
 

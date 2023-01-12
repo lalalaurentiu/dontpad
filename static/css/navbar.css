@@ -32,7 +32,14 @@
   }
   
   .navbar a:hover, .dropdown:hover .dropbtn, .run:hover {
-    background-color: red;
+    background-color: red ;
+  }
+
+  #send:hover ,#differences:hover, form:hover{
+    background-color: red !important;
+  }
+  .brand:hover{
+    background-color: transparent !important;
   }
   
   .navbar-dropdown-content {

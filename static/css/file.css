@@ -2,6 +2,7 @@
 body{
     padding: 0;
     margin: 0;
+    overflow: hidden;
 }
 
 textarea{
@@ -14,7 +15,7 @@ textarea{
     resize: none;
 }
 
-.editor{
+.editor,#editor2{
     position: relative;
     display: grid;
     width: 100%;
@@ -26,10 +27,14 @@ textarea{
 }
 
 .CodeMirror-merge-pane, .CodeMirror-merge-gap{
-    height: 100vh !important;
+    height: 100%;
 }
 .CodeMirror-merge{
     border: 0 !important;
+    height: 100% !important;
+}
+.CodeMirror-merge-scrolllock-wrap{
+    top:0 !important;
 }
 
 .modified{
@@ -46,7 +51,7 @@ textarea{
     display: flex;
     position: relative;
     width: 100%;
-    height: calc(100vh - 47px);
+    height: calc(100vh - 46px);
 }
 
 button{
@@ -56,16 +61,13 @@ code{
     display: block;
 }
 
-/* butoane */
 .actionContainer{
-    position: absolute;
+    position: sticky;
     bottom: 0;
-    left: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 5px;
-    transform: translateX(-50%);
     z-index: 10;
     margin-bottom: 10px;
 }
@@ -80,26 +82,14 @@ form,
     padding:5px;
     border-radius:5px;
     border: 1px solid white;
-    color:white;
     cursor: pointer;
     white-space: nowrap;
-}
-
-#send{
-    background-color: rgba(0, 125, 0);
-}
-
-#differences{
-    background-color: rgb(178, 205, 0);
 }
 
 form,
 .mark-code-container{
     margin: 10px;
-}
-
-form{
-    background-color: rgb(81, 81, 81); 
+    padding: 0 0 0 5px;
 }
 
 .mark-code-container{
@@ -148,6 +138,7 @@ input[type="color"]::-webkit-color-swatch {
 
 /* chat */
 .chat-container {
+    display: none;
     position: absolute;
     bottom: 0;
     width: calc(100% - 40px);
@@ -355,6 +346,7 @@ input[type="color"]::-webkit-color-swatch {
 #whatsapp-close{
     position: relative;
     left: 100%;
+    top: 10px;
     transform: translate(-100%, -100%);
     cursor: pointer;
     padding: 0;
@@ -381,4 +373,15 @@ input[type="color"]::-webkit-color-swatch {
 .message-whatsapp{
     font-size: small;
     color: white;
+}
+
+/* media queys */
+@media screen and (max-width: 600px) {
+    .actionContainer{
+        display: none;
+    }
+    .console{
+        width: 100% !important;
+        height: 100% !important;
+    }
 }
