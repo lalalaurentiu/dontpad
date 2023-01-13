@@ -236,6 +236,10 @@ cookie.forEach((item) => {
         document.querySelector("form").style.color = theme.color;
         document.querySelector("form").style.borderColor = theme.color;
 
+        document.querySelector("#messageBtn").style.background = theme.background;
+        document.querySelector("#messageBtn").style.color = theme.color;
+        document.querySelector("#messageBtn").style.borderColor = theme.color;
+
     }
 })
 
@@ -283,16 +287,10 @@ navbar_dropdown_content.addEventListener("click", (e) => {
     document.querySelector("form").style.background = theme.background;
     document.querySelector("form").style.color = theme.color;
     document.querySelector("form").style.borderColor = theme.color;
+
+    document.querySelector("#messageBtn").style.background = theme.background;
+    document.querySelector("#messageBtn").style.color = theme.color;
+    document.querySelector("#messageBtn").style.borderColor = theme.color;
 })
 
-
-
-
 runCode(headerRunButtonCode)
-
-
-
-
-
-
-

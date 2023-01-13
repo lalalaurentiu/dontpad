@@ -101,13 +101,14 @@ function codeMirrorMergeUI(target,historic,original){
             theme: 'abbott',
             readOnly:true,
             });
+    return diff
 }
 let differcesContainer = document.querySelector(".modified")
 let differencesButton = document.getElementById("differences")
 let original = editor.getValue();
 let historic = document.getElementById("difference");
 let target = document.getElementById("editor2");
-codeMirrorMergeUI(target,historic,original)
+let diffEditor = codeMirrorMergeUI(target,historic,original)
 differcesContainer.style.display = "none"
 differencesButton.addEventListener("click", () =>{
     if (differcesContainer.style.display == "none"){
@@ -164,6 +165,14 @@ socket.onmessage = (e) => {
         chatMessageContainer.appendChild(breakContainer)
         
         document.getElementById('chat').scrollTop = 9999999;
+
+        let chatContainer = document.querySelector(".chat-container")
+        let chatBtn = document.getElementById("messageBtn")
+        chatBtn.value = parseInt(chatBtn.value) + 1
+        
+        if (parseInt(chatBtn.value) > 0 && chatContainer.style.display == "none"){
+            chatBtn.removeAttribute("class")
+        }
     }
     // afisarea codului
     if (data.code) {
@@ -212,13 +221,14 @@ socket.onmessage = (e) => {
 
         setTimeout(() => {
             chatElements.setAttribute("class", "chat-elements")
-        }, 10);
+        }, 100);
 
         createChatCodeMessages(chatCodeContainer, lineStart + 1)
 
         chatMessage.onclick = function() {
             editor.setCursor(lineStart, 0)
         }
+        chatBtn.value = parseInt(chatBtn.value) + 1
     }
 }
 
@@ -265,6 +275,10 @@ sendCode.onclick = function() {
                     "lineStart":lineStart,
                 }
     }))
+
+    if (document.querySelector(".chat-container").style.display == "none"){
+        document.getElementById("messageBtn").click()
+    }
 }
 
 // ---crearea unei imagini din cod sitrimiterii catre server---
@@ -350,3 +364,20 @@ buttons.forEach(function(button){
 })
 
 // ----------------------------------
+
+// Deschiderea chatului
+
+let chatBtn = document.getElementById("messageBtn")
+let chatContainer = document.querySelector(".chat-container")
+
+chatBtn.onclick = function() {
+    if (chatContainer.style.display == "none"){
+        chatContainer.style.display = "initial"
+        
+        this.setAttribute("class", "no-after")
+        this.value = "0"
+    } else {
+        chatContainer.style.display = "none"
+        this.value = "0"
+    }
+}

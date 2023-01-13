@@ -67,21 +67,7 @@
             <a id="createExercise" href="{% url 'code:createExercise' slug %}">Creaza Exercitii </a>
         {% endif %}
     </div>
-    <div class="chat-container">
-        <div class="messages-count">
-            Mesaje
-            <i data-count="0" class="fa fa-shopping-cart fa-5x fa-border icon-grey badge"></i>
-        
-        <!-- todo -->
-        <script>
-            let messagesCount = document.querySelector('.messages-count > i');
-            let messagesCountValue = messagesCount.getAttribute('data-count');
-            messagesCountValue = parseInt(messagesCountValue);  
-            messagesCountValue += 1;    
-            messagesCount.setAttribute('data-count', messagesCountValue);   
-        </script>
-
-        </div>
+    <div class="chat-container" style="display: none;">
         <div class="chat-elements">
             <div id="chat">
                 <div id="chat-log"></div>  

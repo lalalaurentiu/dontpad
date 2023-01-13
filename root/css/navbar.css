@@ -20,7 +20,7 @@
   }
   
   .dropdown .dropbtn, 
-  .run {
+  .navbar div button {
     font-size: 16px;  
     border: none;
     outline: none;
@@ -29,13 +29,14 @@
     background-color: inherit;
     font-family: inherit;
     margin: 0;
+    cursor: pointer;
   }
   
-  .navbar a:hover, .dropdown:hover .dropbtn, .run:hover {
+  .navbar a:hover, .dropdown:hover .dropbtn {
     background-color: red ;
   }
 
-  #send:hover ,#differences:hover, form:hover{
+  #send:hover ,#differences:hover, form:hover,.navbar div button:hover{
     background-color: red !important;
   }
   .brand:hover{
@@ -77,3 +78,19 @@
     padding: 10px 10px;
     cursor: pointer;
   }
+
+  #messageBtn:after{
+    content:attr(value);
+    font-size:10px;
+    background: yellowgreen;
+    border-radius:10px;
+    padding:3px 8px;
+    position:relative;
+    left:-8px;
+    top:-17px;
+    opacity:0.8;
+    }
+
+.no-after::after{
+  display: none;
+}

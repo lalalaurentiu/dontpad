@@ -138,7 +138,7 @@ input[type="color"]::-webkit-color-swatch {
 
 /* chat */
 .chat-container {
-    display: none;
+    /* display: none; */
     position: absolute;
     bottom: 0;
     width: calc(100% - 40px);
@@ -161,14 +161,6 @@ input[type="color"]::-webkit-color-swatch {
     border-top-right-radius: 10px;
     transform: translateY(-100%);
     margin-left: 10px;
-}
-
-.messages-count:hover ~ .chat-elements , .chat-elements:hover {
-    display: initial;
-}
-
-.chat-elements{
-    display: none;
 }
 
 .show-chat{
