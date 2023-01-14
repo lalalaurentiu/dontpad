@@ -3,8 +3,12 @@ window.oncontextmenu = function(event) {
     event.preventDefault();
     event.stopPropagation();
     contextMenu.style.display = 'block';
-    screenRecorder.style.display = 'none';
-    cmVideoContainer.style.display = 'none';
+
+    try{
+        screenRecorder.style.display = 'none';
+        cmVideoContainer.style.display = 'none';
+    } catch (e) {}
+    
     let parent = document.body;
 
     contextMenu.style.top = event.pageY + 'px';
@@ -15,11 +19,16 @@ window.oncontextmenu = function(event) {
         parent.getBoundingClientRect().width
         ){
             contextMenu.style.left = event.pageX - contextMenu.getBoundingClientRect().width + 'px';
-            screenRecorder.style.left = '-100%';
-            cmVideoContainer.style.left = '-100%';
+            try{
+                screenRecorder.style.left = '-100%';
+                cmVideoContainer.style.left = '-100%'; 
+            }catch (e) {}
+            
     } else {
-        screenRecorder.style.left = '100%';
-        cmVideoContainer.style.left = '100%';
+        try {
+            screenRecorder.style.left = '100%';
+            cmVideoContainer.style.left = '100%';
+        }catch (e) {}  
     }
 
     if (contextMenu.getBoundingClientRect().y + 
@@ -33,8 +42,10 @@ window.oncontextmenu = function(event) {
 window.onclick = function(event) {
     if (!contextMenu.contains(event.target)) {
         contextMenu.style.display = 'none';
-        screenRecorder.style.setProperty('left', '0');
-        screenRecorder.style.setProperty('right', '0');
+        try{
+            screenRecorder.style.setProperty('left', '0');
+            screenRecorder.style.setProperty('right', '0');
+        } catch (e) {}  
     }
 };
 

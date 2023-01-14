@@ -214,21 +214,29 @@ cookie.forEach((item) => {
         document.querySelector(".contextMenu").style.borderColor = theme.color;
         document.querySelector(".contextMenu").style.background = theme.background;
         document.querySelector(".contextMenu").style.color = theme.color;
-        screenRecorder.style.background = theme.background;
-        screenRecorder.style.color = theme.color;
-        screenRecorder.style.borderColor = theme.color;
+        
         headerRunButtonCode.style.color = theme.color;
-        document.querySelector(".codeRecorder").style.background = theme.background;
-        document.querySelector(".codeRecorder").style.color = theme.color;
-        document.querySelector(".codeRecorder").style.borderColor = theme.color;
 
         consoleContainer.style.background = theme.background;
         consoleContainer.style.color = theme.color;
         consoleContainer.style.borderColor = theme.color;
 
-        sentCode.style.background = theme.background;
-        sentCode.style.color = theme.color;
-        sentCode.style.borderColor = theme.color;
+        try {
+            sentCode.style.background = theme.background;
+            sentCode.style.color = theme.color;
+            sentCode.style.borderColor = theme.color;
+
+            screenRecorder.style.background = theme.background;
+            screenRecorder.style.color = theme.color;
+            screenRecorder.style.borderColor = theme.color;
+
+            document.querySelector(".codeRecorder").style.background = theme.background;
+            document.querySelector(".codeRecorder").style.color = theme.color;
+            document.querySelector(".codeRecorder").style.borderColor = theme.color;
+            
+        } catch (error) {
+            console.log(error)
+        }
         differencesButton.style.background = theme.background;
         differencesButton.style.color = theme.color;
         differencesButton.style.borderColor = theme.color;
@@ -266,21 +274,29 @@ navbar_dropdown_content.addEventListener("click", (e) => {
     document.querySelector(".contextMenu").style.borderColor = theme.color;
     document.querySelector(".contextMenu").style.background = theme.background;
     document.querySelector(".contextMenu").style.color = theme.color;
-    screenRecorder.style.background = theme.background;
-    screenRecorder.style.color = theme.color;
-    screenRecorder.style.borderColor = theme.color;
+    
     headerRunButtonCode.style.color = theme.color;
-    document.querySelector(".codeRecorder").style.background = theme.background;
-    document.querySelector(".codeRecorder").style.color = theme.color;
-    document.querySelector(".codeRecorder").style.borderColor = theme.color;
-
+    
     consoleContainer.style.background = theme.background;
     consoleContainer.style.color = theme.color;
     consoleContainer.style.borderColor = theme.color;
 
-    sentCode.style.background = theme.background;
-    sentCode.style.color = theme.color;
-    sentCode.style.borderColor = theme.color;
+    try {
+        sentCode.style.background = theme.background;
+        sentCode.style.color = theme.color;
+        sentCode.style.borderColor = theme.color;
+
+        screenRecorder.style.background = theme.background;
+        screenRecorder.style.color = theme.color;
+        screenRecorder.style.borderColor = theme.color;
+
+        document.querySelector(".codeRecorder").style.background = theme.background;
+        document.querySelector(".codeRecorder").style.color = theme.color;
+        document.querySelector(".codeRecorder").style.borderColor = theme.color;
+    } catch (error) {
+        console.log(error)
+    }
+
     differencesButton.style.background = theme.background;
     differencesButton.style.color = theme.color;
     differencesButton.style.borderColor = theme.color;

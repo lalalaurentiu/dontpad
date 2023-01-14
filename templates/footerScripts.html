@@ -1,9 +1,13 @@
 {% load static %}
 <script src="{% static 'js/file.js' %}"></script>
 <script src="{% static 'js/versions.js'%}"></script>
-<script src="{% static 'js/screenRecorder.js'%}"></script>
-<script src="{% static 'js/videoRecorder.js'%}"></script>
-<script src="{% static 'js/comments.js'%}"></script>
+
+{% if request.user.is_authenticated %}
+    <script src="{% static 'js/screenRecorder.js'%}"></script>
+    <script src="{% static 'js/videoRecorder.js'%}"></script>
+    <script src="{% static 'js/comments.js'%}"></script>
+{% endif %}
+
 <script src="{% static 'js/consolePython.js'%}"></script>
 <script src="{% static 'js/navbar.js'%}"></script>
 <script src="{% static 'js/right_click_action.js'%}"></script>

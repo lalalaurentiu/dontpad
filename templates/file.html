@@ -52,20 +52,21 @@
                             color: white;
                             cursor: pointer;">Upload</button>
         </form>
-        
-        {% if exercises %}
-            <div class="dropdown">
-                <div class="dropdown-content">
-                    {% for exercise in exercises %}
-                        <a href="{% url 'code:viewExercise' exercise.slug exercise.id %}">{{exercise.title}}</a>
-                    {% endfor %}
+        {% comment %}
+            {% if exercises %}
+                <div class="dropdown">
+                    <div class="dropdown-content">
+                        {% for exercise in exercises %}
+                            <a href="{% url 'code:viewExercise' exercise.slug exercise.id %}">{{exercise.title}}</a>
+                        {% endfor %}
+                    </div>
+                    <button id="exercises">Exercitii</button>
                 </div>
-                <button id="exercises">Exercitii</button>
-            </div>
-        {% endif %}
-        {% if request.user.is_professor %}
-            <a id="createExercise" href="{% url 'code:createExercise' slug %}">Creaza Exercitii </a>
-        {% endif %}
+            {% endif %}
+            {% if request.user.is_professor %}
+                <a id="createExercise" href="{% url 'code:createExercise' slug %}">Creaza Exercitii </a>
+            {% endif %}
+        {% endcomment %}
     </div>
     <div class="chat-container" style="display: none;">
         <div class="chat-elements">

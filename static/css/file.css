@@ -84,6 +84,8 @@ form,
     border: 1px solid white;
     cursor: pointer;
     white-space: nowrap;
+    color:#fbec5d;
+    background-color: #231c14;
 }
 
 form,

@@ -2,14 +2,15 @@
     position: absolute;
     display: none;
     top: 0;
-    background-color: transparent;
+    background-color: #231c14;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 11;
-    border: 1px solid gray;
+    border: 1px solid #fbec5d;
     border-radius: 5px;
     font-family: monospace;
     width: 220px;
+    color: #fbec5d;
 }
 
 .section{

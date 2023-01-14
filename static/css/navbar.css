@@ -3,7 +3,6 @@
     background-color: #231c14;
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #524b44;
   }
   
   .navbar a {
@@ -13,6 +12,7 @@
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    color: #fbec5d;
   }
   
   .navbar + .dropdown {
@@ -30,6 +30,7 @@
     font-family: inherit;
     margin: 0;
     cursor: pointer;
+    color: #fbec5d;
   }
   
   .navbar a:hover, .dropdown:hover .dropbtn {

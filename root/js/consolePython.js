@@ -43,7 +43,6 @@ function addToOutput(stdout) {
             };
         });
     } catch (err) {
-        console.log(err);
         output.innerHTML += ">>> " + stdout + "<br>";
     }
 }
