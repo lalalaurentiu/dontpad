@@ -1,68 +1,155 @@
 
 // afisarea comentariilor interactive
 
-async function getComments (){
+async function getComments (versionid){
     const url = window.location.href
-    let data = await fetch(url + "comment");
+    if (versionid.student){
+        versionid = "student=" + versionid.student
+    } else {
+        versionid = "proffesor=" + versionid.proffesor
+    }
+    let data = await fetch(url + "comment" + `?${versionid}`);
     let comments = await data.json();
     return comments 
 };
     
-let comments = getComments();
+let comments;
+let version;
 
-comments.then((result) => {
-    obj = result;
-    let objectCommentsContainer = {};
-    obj.comments.forEach(function(comment) {
-        if (objectCommentsContainer[comment.line] != undefined){
-            objectCommentsContainer[comment.line] += comment.comment + "<br>";
-        }else{
-            objectCommentsContainer[comment.line] = comment.comment + "<br>";
+versions.forEach(function(element){
+    if (element.checked){
+        
+        if(element.id.includes("studentVersion")){
+            version = { student : element.id.split("studentVersion")[1]}
+        } else {
+            version = { proffesor :element.id.split("version")[1]}
         }
+        comments = getComments(version);
+
+        comments.then((result) => {
+            obj = result;
+            let objectCommentsContainer = {};
+            obj.comments.forEach(function(comment) {
+                if (objectCommentsContainer[comment.line] != undefined){
+                    objectCommentsContainer[comment.line] += comment.comment + "<br>";
+                }else{
+                    objectCommentsContainer[comment.line] = comment.comment + "<br>";
+                }
+                
+            });
+            
         
-    });
-    
+            for (let [key, value] of Object.entries(objectCommentsContainer)){
+                let commentContainer = document.createElement("div");
+        
+                let commentButton = document.createElement("a");
+                commentButton.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                        <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                    </svg> <span style="color:#3db92a;opacity:0.5;font-size:16px;">Comentariu</span>
+                `;
+                commentButton.style.fontSize = "20px";
+                commentButton.style.cursor = 'pointer';
+                commentButton.style.display = 'block';
+        
+                commentButton.querySelector("svg").style.transition = "transform 0.3s ease-in-out";
+        
+                commentContainer.appendChild(commentButton);
+            
+                let commentTextContainer = document.createElement("div");
+                    commentTextContainer.style.display = "none";
+                    commentTextContainer.style.paddingLeft = "15px";
+                    commentTextContainer.innerHTML = value;
+                commentContainer.appendChild(commentTextContainer);
+        
+                commentButton.addEventListener('click', function(){
+                    if (commentTextContainer.style.display == "none"){
+                        commentTextContainer.style.display = "block";
+                        commentButton.querySelector("svg").style.transform = "rotate(90deg)";
+                    }else{
+                        commentTextContainer.style.display = "none";
+                        commentButton.querySelector("svg").style.transform = "rotate(0deg)";
+                    }
+                });
+                
+                editor.addLineWidget(key - 1, commentContainer, {
+                    coverGutter: false,
+                    noHScroll: true,
+                    above: false,
+                });
+            };
+        });
+        
+    }
 
-    for (let [key, value] of Object.entries(objectCommentsContainer)){
-        let commentContainer = document.createElement("div");
-
-        let commentButton = document.createElement("a");
-        commentButton.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
-                <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
-            </svg> <span style="color:#3db92a;opacity:0.5;font-size:16px;">Comentariu</span>
-        `;
-        commentButton.style.fontSize = "20px";
-        commentButton.style.cursor = 'pointer';
-        commentButton.style.display = 'block';
-
-        commentButton.querySelector("svg").style.transition = "transform 0.3s ease-in-out";
-
-        commentContainer.appendChild(commentButton);
-    
-        let commentTextContainer = document.createElement("div");
-            commentTextContainer.style.display = "none";
-            commentTextContainer.style.paddingLeft = "15px";
-            commentTextContainer.innerHTML = value;
-        commentContainer.appendChild(commentTextContainer);
-
-        commentButton.addEventListener('click', function(){
-            if (commentTextContainer.style.display == "none"){
-                commentTextContainer.style.display = "block";
-                commentButton.querySelector("svg").style.transform = "rotate(90deg)";
-            }else{
-                commentTextContainer.style.display = "none";
-                commentButton.querySelector("svg").style.transform = "rotate(0deg)";
+    element.addEventListener('change', function(e){
+        if(e.target.checked){
+            if(e.target.id.includes("studentVersion")){
+                version = { student : e.target.id.split("studentVersion")[1]}
+            } else {
+                version = { proffesor :e.target.id.split("version")[1]}
             }
-        });
-        
-        editor.addLineWidget(key - 1, commentContainer, {
-            coverGutter: false,
-            noHScroll: true,
-            above: false,
-        });
-    };
+            comments = getComments(version);
+
+            console.log(version);
+            comments.then((result) => {
+                obj = result;
+                let objectCommentsContainer = {};
+                obj.comments.forEach(function(comment) {
+                    if (objectCommentsContainer[comment.line] != undefined){
+                        objectCommentsContainer[comment.line] += comment.comment + "<br>";
+                    }else{
+                        objectCommentsContainer[comment.line] = comment.comment + "<br>";
+                    }
+                    
+                });
+                
+            
+                for (let [key, value] of Object.entries(objectCommentsContainer)){
+                    let commentContainer = document.createElement("div");
+            
+                    let commentButton = document.createElement("a");
+                    commentButton.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                            <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                        </svg> <span style="color:#3db92a;opacity:0.5;font-size:16px;">Comentariu</span>
+                    `;
+                    commentButton.style.fontSize = "20px";
+                    commentButton.style.cursor = 'pointer';
+                    commentButton.style.display = 'block';
+            
+                    commentButton.querySelector("svg").style.transition = "transform 0.3s ease-in-out";
+            
+                    commentContainer.appendChild(commentButton);
+                
+                    let commentTextContainer = document.createElement("div");
+                        commentTextContainer.style.display = "none";
+                        commentTextContainer.style.paddingLeft = "15px";
+                        commentTextContainer.innerHTML = value;
+                    commentContainer.appendChild(commentTextContainer);
+            
+                    commentButton.addEventListener('click', function(){
+                        if (commentTextContainer.style.display == "none"){
+                            commentTextContainer.style.display = "block";
+                            commentButton.querySelector("svg").style.transform = "rotate(90deg)";
+                        }else{
+                            commentTextContainer.style.display = "none";
+                            commentButton.querySelector("svg").style.transform = "rotate(0deg)";
+                        }
+                    });
+                    
+                    editor.addLineWidget(key - 1, commentContainer, {
+                        coverGutter: false,
+                        noHScroll: true,
+                        above: false,
+                    });
+                };
+            });
+        } 
+    })
 });
+
+
 
 // trimite comentariul
 
@@ -127,6 +214,12 @@ gifs.forEach(gif => {
 
     img.addEventListener('click', function(){
         if (lineStart + 1){
+            let versionId;
+            if (version.student){
+                versionId = {student:version.student}
+            }else{
+                versionId = {proffesor:version.proffesor};
+            }
             const csrftoken = getCookie("csrftoken");
             const url = window.location.href
             fetch(url + "comment/", {
@@ -138,6 +231,7 @@ gifs.forEach(gif => {
                 body: JSON.stringify({
                     "comment": `<img src="${gif}" class="gif">`,
                     "line": lineStart + 1,
+                    "version": versionId,
                 })
             })
             .then(result => {
@@ -203,9 +297,15 @@ commentButton.addEventListener('click', function(){
 
 sendCommentBtn.addEventListener('click', function(){
     if (commentMessage.value){
+        let versionId;
+        if (version.student){
+            versionId = {student:version.student}
+        }else{
+            versionId = {proffesor:version.proffesor};
+        }
         const csrftoken = getCookie("csrftoken");
         const url = window.location.href
-        fetch(url + "comment/", {
+        fetch(url + "comment/" , {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -214,6 +314,7 @@ sendCommentBtn.addEventListener('click', function(){
             body: JSON.stringify({
                 "comment": commentMessage.value,
                 "line": editor.getCursor().line + 1,
+                "version": versionId,
             })
         })
         .then(result => {

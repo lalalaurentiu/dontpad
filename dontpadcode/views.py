@@ -108,15 +108,41 @@ def uploadFile(request, slug):
 
 #view-ul pentru commenturi
 def comment(request, slug):
+    
+    proffesorCode = request.GET.get("proffesor")
+    studentCode = request.GET.get("student")
+
     obj = DontpadURL.objects.filter(slug = slug)[0].id
-    comments = DontpadComment.objects.filter(slug_id = obj)
+    if proffesorCode:
+        comments = DontpadComment.objects.filter(slug_id = obj, proffesorCode = proffesorCode)
+    elif studentCode:
+        comments = DontpadComment.objects.filter(slug_id = obj, userCode = studentCode)
+    else:
+        comments = DontpadComment.objects.filter(slug_id = obj)
+    # comments = DontpadComment.objects.filter(slug_id = obj)
     comments = [comment.data() for comment in comments]
 
     if request.method == "POST" and request.user.is_authenticated:
-        DontpadComment.objects.create(
+        
+        # print(json.loads(request.body)["version"])
+        user = json.loads(request.body)["version"]
+
+        if user.get("proffesor"):
+            proffesorCode = DontpadCode.objects.filter(id = int(user["proffesor"])).first()
+            print(proffesorCode)
+            DontpadComment.objects.create(
                                     slug_id = obj, 
                                     comment = json.loads(request.body)["comment"], 
                                     line = json.loads(request.body)["line"], 
+                                    proffesorCode = proffesorCode,
+                                    user_id = request.user.id)
+        elif user.get("student"):
+            userCode = DontpadUserCode.objects.filter(id = int(user["student"])).first()
+            DontpadComment.objects.create(
+                                    slug_id = obj, 
+                                    comment = json.loads(request.body)["comment"], 
+                                    line = json.loads(request.body)["line"], 
+                                    userCode = userCode,
                                     user_id = request.user.id)
         return HttpResponse(status = 201)
 

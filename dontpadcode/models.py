@@ -30,6 +30,8 @@ class DontpadUserCode(models.Model):
 #modelul pentru comentarii
 class DontpadComment(models.Model):
     slug = models.ForeignKey(DontpadURL, on_delete = models.CASCADE)
+    userCode = models.ForeignKey(DontpadUserCode, on_delete = models.CASCADE, blank = True, null = True)
+    proffesorCode = models.ForeignKey(DontpadCode, on_delete = models.CASCADE, blank = True, null = True)
     line = models.IntegerField()
     comment = models.TextField()
     user = models.ForeignKey(CustomUser, on_delete = models.CASCADE)

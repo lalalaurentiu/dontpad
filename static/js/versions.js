@@ -124,14 +124,6 @@ versions.forEach(version => {
     })
 });
 
-function removeListener(listener) {
-    let element = listener.element;
-    let type = listener.type;
-    let callback = listener.callback;
-    console.log('removeListener', element, type, callback);
-    element.removeEventListener(type, callback);
-}
-
 let reload = () => {
     let userVersion = document.querySelectorAll('.version');  
     userVersion.forEach((element) => {
@@ -165,8 +157,7 @@ let reload = () => {
                         } catch(e){
                             // console.log(e)
                         }
-                    }
-                    )
+                    })
                 }
             })
         } catch(e){
