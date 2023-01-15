@@ -72,9 +72,11 @@
     z-index: 10 !important;
 }
 
-/* .commentContainer {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-} */
+.comment {
+    display: flex;
+    align-items: center;
+}
+
+.comment span{
+    margin: 0 5px;
+}
