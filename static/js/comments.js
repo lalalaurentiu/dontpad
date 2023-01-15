@@ -78,6 +78,19 @@ versions.forEach(function(element){
                     above: false,
                 });
             };
+            let commentsContainer = document.querySelectorAll(".CodeMirror-linewidget");
+            let showCommentsBtn = document.getElementById('showComments');
+            showCommentsBtn.addEventListener("change", function(){
+                if (this.checked){
+                    commentsContainer.forEach(comment => {
+                        comment.style.display = "block";
+                    })
+                }else{
+                    commentsContainer.forEach(comment => {
+                        comment.style.display = "none";
+                    })
+                }
+            })
         });
         
     }
@@ -90,8 +103,6 @@ versions.forEach(function(element){
                 version = { proffesor :e.target.id.split("version")[1]}
             }
             comments = getComments(version);
-
-            console.log(version);
             comments.then((result) => {
                 obj = result;
                 let objectCommentsContainer = {};
@@ -143,7 +154,30 @@ versions.forEach(function(element){
                         noHScroll: true,
                         above: false,
                     });
+                    
                 };
+                let commentsContainer = document.querySelectorAll(".CodeMirror-linewidget");
+                let showCommentsBtn = document.getElementById('showComments');
+                if (showCommentsBtn.checked){
+                    commentsContainer.forEach(comment => {
+                        comment.style.display = "block";
+                    })
+                }else{
+                    commentsContainer.forEach(comment => {
+                        comment.style.display = "none";
+                    })
+                }
+                showCommentsBtn.addEventListener("change", function(){
+                    if (this.checked){
+                        commentsContainer.forEach(comment => {
+                            comment.style.display = "block";
+                        })
+                    }else{
+                        commentsContainer.forEach(comment => {
+                            comment.style.display = "none";
+                        })
+                    }
+                });
             });
         } 
     })
@@ -332,5 +366,12 @@ sendCommentBtn.addEventListener('click', function(){
         gifsContainer.style.display = "none";
     }
 });
+
+
+comments.then(result => {
+    
+});
+
+
 
 
