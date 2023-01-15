@@ -265,6 +265,14 @@ try {
         }));
     };
 
+    document.getElementById("showMarkers").onchange = function() {
+        if (this.checked){
+            this.parentNode.querySelector(".tooltipText").innerHTML = "Ascunde marcajele"
+        } else {
+            this.parentNode.querySelector(".tooltipText").innerHTML = "Arata marcajele"
+        }
+    };
+
 
     // trimiterea codului in chat demo
     let sendCode = document.getElementById("sendChat")

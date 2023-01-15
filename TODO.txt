@@ -1,1 +1,1 @@
-Adaugare tooltip pentru versiunea utilizatorului
+Adaugare tooltip pentru versiunea utilizatorului, butoanele markCode si showComments, comments

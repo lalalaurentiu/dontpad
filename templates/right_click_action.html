@@ -59,12 +59,19 @@
                         </svg>
                         Marcheaza Codul
                     </button>
-                    <input id="markColor" 
+                    <div class="tooltip">
+                        <input id="markColor" 
                             type="color">
-                    <input id="showMarkers" 
+                        <span class="tooltipText">Alege culoarea</span>
+                    </div>
+                    <div class="tooltip">
+                        <input id="showMarkers" 
                             type="checkbox" 
                             style="margin-left: 5px; width: 16px; height: 16px;"
                             checked>
+                        <span class="tooltipText">Ascunde marcajele</span>
+                    </div>
+                    
                 </div>
                 <div>
                     <button id="sendChat">
@@ -94,7 +101,11 @@
                         </svg>
                         Comenteaza
                     </button>
-                    <input id="showComments" type="checkbox" checked>
+                    <div class="tooltip">
+                        <input id="showComments" type="checkbox" checked>
+                        <span class="tooltipText">Ascunde Comentariile</span>
+                    </div>
+                    
                 </div>
             </div>
             <div class="section">

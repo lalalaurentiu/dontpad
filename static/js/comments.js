@@ -82,10 +82,12 @@ versions.forEach(function(element){
             let showCommentsBtn = document.getElementById('showComments');
             showCommentsBtn.addEventListener("change", function(){
                 if (this.checked){
+                    this.parentNode.querySelector(".tooltipText").innerHTML = "Ascunde comentariile";
                     commentsContainer.forEach(comment => {
                         comment.style.display = "block";
                     })
                 }else{
+                    this.parentNode.querySelector(".tooltipText").innerHTML = "Arata comentariile";
                     commentsContainer.forEach(comment => {
                         comment.style.display = "none";
                     })
@@ -366,12 +368,3 @@ sendCommentBtn.addEventListener('click', function(){
         gifsContainer.style.display = "none";
     }
 });
-
-
-comments.then(result => {
-    
-});
-
-
-
-
