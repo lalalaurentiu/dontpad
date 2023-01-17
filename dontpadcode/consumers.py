@@ -199,10 +199,10 @@ def post_user_code_receiver(sender, **kwargs):
         "chat_%s" % kwargs["instance"].slug.slug,
         {"type": "chat_code", 
         "code": kwargs["instance"].code, 
-        "user": kwargs["instance"].user.first_name,
+        "user": kwargs["instance"].user.first_name + " " + kwargs["instance"].user.last_name,
         "is_professor": kwargs["instance"].user.is_professor,
         "parrentId": kwargs["instance"].proffesor_code.id,
         "elementId": kwargs["instance"].id
         },
     )
-    print(kwargs["instance"].id)
+    print(kwargs["instance"].user.first_name + " " + kwargs["instance"].user.last_name)

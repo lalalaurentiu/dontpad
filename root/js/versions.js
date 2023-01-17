@@ -73,7 +73,7 @@ function createVersions(lst, target, code, editor){
 
 function createUserVersion (obj, lst, ){
     let parrent = document.getElementById(`version${obj.parrentId}`).parentElement
-    console.log(obj.parrentId)
+    console.log(obj)
     let studentVersion
     if (parrent.querySelector(".studentVersion")){
         studentVersion = parrent.querySelector(".studentVersion");
@@ -88,6 +88,8 @@ function createUserVersion (obj, lst, ){
         parrent.appendChild(studentVersion)
     }
     let studentVersionContainer = document.createElement("div")
+        studentVersionContainer.setAttribute("class", "tooltip")
+        studentVersionContainer.setAttribute("style", "left:10px;")
     let input = document.createElement("input")
         input.setAttribute("type", "radio")
         input.setAttribute("name", "version")
@@ -98,9 +100,14 @@ function createUserVersion (obj, lst, ){
     let label = document.createElement("label")
         label.setAttribute("for", `studentVersion${obj.elementId}`)
         label.innerHTML = versionIcon
+
+    let user = document.createElement("span")
+        user.setAttribute("class", "tooltipText")
+        user.innerHTML = obj.user
     
     studentVersionContainer.prepend(label)
     studentVersionContainer.prepend(input)
+    studentVersionContainer.append(user)
     studentVersion.prepend(studentVersionContainer)
     lst.push(input)
     reload()

@@ -69,7 +69,6 @@ function studentSendCode(){
             let versionId
             if(parrentNode.getAttribute("class") === "version"){
                 versionId = parrentNode.children[0].id.split("version")[1]
-                console.log("studentversion")
             } else {
                 parrentNode = version.parentElement.children[0]
                 versionId = parrentNode.id.split("version")[1]
@@ -177,7 +176,6 @@ socket.onmessage = (e) => {
     // afisarea codului
     if (data.code) {
         if (!data.is_professor){
-            console.log(data)
             createUserVersion(data, versions)
         } else {
             editor.setValue(data.code)

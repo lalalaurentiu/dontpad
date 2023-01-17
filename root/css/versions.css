@@ -1,6 +1,5 @@
 /* --versionarea codului */
 .versioning-container{
-    position: relative;
     overflow-y: auto;
     overflow-x: hidden;
     background-color: #231c14;
@@ -9,7 +8,6 @@
     color: #fbec5d;
 }
 .versioning {
-    position: relative;
     margin-left: 10px;
 }
 .version,
