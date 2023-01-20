@@ -3,8 +3,6 @@
 
 DontPad Code is a powerful, feature-rich code editing application built using the Django web framework. Developed by a team of experienced programmers, it offers a seamless and intuitive experience for developers of all skill levels.
 
-[========]
-
 ## Features
 
 - **Login/Registration**: Users can easily create an account and log in to access the editor.
@@ -24,13 +22,12 @@ DontPad Code is a powerful, feature-rich code editing application built using th
 
 With its robust feature set and user-friendly interface, DontPad Code is the perfect choice for developers looking to streamline their coding workflow. The application is open-source and the code can be found on [GitHub](https://github.com/lalalaurentiu/dontpad.git) under the MIT license.
 
-[========]
-
 ## Getting Started
 
 1. **Prerequisites**: Before you begin, make sure you have the following software installed on your system:
     - [Django](https://www.djangoproject.com/)
     - [Python](https://www.python.org/) (version 3.x)
+    - [Docker](https://www.docker.com)
     - A database management system such as [PostgreSQL](https://www.postgresql.org/) or [MySQL](https://www.mysql.com/)
 
 2. **Clone the repository**: To get started, you will need to clone the project repository to your local machine. You can do this by running the following command in your terminal:
@@ -48,23 +45,22 @@ With its robust feature set and user-friendly interface, DontPad Code is the per
 6. **Migrate the database**: Run the following command to create the necessary tables in the database:
 
 	`python manage.py migrate`
+	
+7. **We will use a channel layer that uses Redis as its backing store. To start a Redis server on port 6379, run the following command:
+	`docker run -p 6379:6379 -d redis:5`
 
-7. **Run the development server**: You can now run the development server by running the following command:
+8. **Run the development server**: You can now run the development server by running the following command:
 
 	`python manage.py runserver`
 	The application will be available at `http://localhost:8000/`
 
-8. **Create a superuser**: You can create a superuser by running the following command:
+9. **Create a superuser**: You can create a superuser by running the following command:
 
 	`python manage.py createsuperuser`
-
-[========]
 
 ## Usage
 
 The DontPad Code can be used in the following way:
-
-[========]
 
 ## Contribution
 
@@ -76,17 +72,13 @@ We welcome and encourage contributions to the Aplicația de gestionare a proiect
 
 We appreciate any and all contributions to the Aplicația de gestionare a proiectelor, and we thank you in advance for your help!
 
-[========]
-
-
 ## Authors
 
 - Laurentiu Marian
 
-[========]
-
 ## Credits
 
 - [Django](https://www.djangoproject.com/) - The web framework used.
+- [Docker](https://www.docker.com/get-started/) - Containers used in the application.
 - [CodeMirror](https://codemirror.net/5/doc/manual.html) - Code editor used in the application.
 
