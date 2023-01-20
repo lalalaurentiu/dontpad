@@ -46,7 +46,7 @@ With its robust feature set and user-friendly interface, DontPad Code is the per
 
 	`python manage.py migrate`
 	
-7. **We will use a channel layer that uses Redis as its backing store. To start a Redis server on port 6379, run the following command:
+7. **Run Docker**: We will use a channel layer that uses Redis as its backing store. To start a Redis server on port 6379, run the following command:
 	`docker run -p 6379:6379 -d redis:5`
 
 8. **Run the development server**: You can now run the development server by running the following command:
