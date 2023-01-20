@@ -1,4 +1,5 @@
 # DontPad Code
+<img width="1440" alt="Screenshot 2023-01-20 at 19 36 11" src="https://user-images.githubusercontent.com/67306273/213767946-623a9378-3734-4a79-a183-4c20a3cf0d93.png">
 
 DontPad Code is a powerful, feature-rich code editing application built using the Django web framework. Developed by a team of experienced programmers, it offers a seamless and intuitive experience for developers of all skill levels.
 
