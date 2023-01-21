@@ -62,7 +62,20 @@ With its robust feature set and user-friendly interface, DontPad Code is the per
 
 ## Usage
 
-The DontPad Code can be used in the following way:
+1. Log in or create an account to access the editor.
+2. Use the full-featured IDE to write and edit code.
+3. Collaborate with other users in real-time through the built-in chat feature.
+4. Admin users have access to additional versioning tools to manage code changes.
+5. Run code directly in the browser and view the output.
+6. Customize the look and feel of the editor with various color schemes and themes.
+7. Save and retrieve code snippets for later use.
+8. Upload code from a file for editing.
+9. Copy, cut, paste, undo, and redo code with ease.
+10. Code is highlighted and color-coded for improved readability.
+11. Add comments to code with support for GIFs and emoticons.
+12. Create a screenshot of selected code and share it on WhatsApp.
+13. Record your screen while coding and save the video for later use.
+14. Watch interactive videos and copy, paste, and insert code as the video plays.
 
 ## Contribution
 

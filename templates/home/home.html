@@ -15,7 +15,7 @@
     <title>Home</title>
 </head>
 <body>
-    {% include 'background.html' %}
+    {% include 'home/background.html' %}
     <div class="container">
         <div>
             <h1>CodePan</h1>
@@ -23,31 +23,37 @@
         <div class="card">
             <div>
                 <span id="location"></span>
-                <input type="text" id="path">
+                <input type="text" id="path" placeholder="example.py">
                 <button type="button" id="go">GO</button>
             </div>
             <div>
                 <ul>
-                    <li>Update in timp real</li>
-                    <li>Chat in timp real</li>
-                    <li>Versionarea codului</li>
-                    <li>Afisare diferente</li>
-                    <li>Marcarea codului cu comentarii interactive //demo</li>
-                    <li>Marcarea codului in culori</li>
-                    <li>Trimiterea codului in chat</li>
-                    <li>Inserare fisiere TXT</li>
+                    <li>Log in or create an account to access the editor.</li>
+                    <li>Use the full-featured IDE to write and edit code.</li>
+                    <li>Collaborate with other users in real-time through the built-in chat feature.</li>
+                    <li>Admin users have access to additional versioning tools to manage code changes.</li>
+                    <li>Run code directly in the browser and view the output.</li>
+                    <li>Customize the look and feel of the editor with various color schemes and themes.</li>
+                    <li>Save and retrieve code snippets for later use.</li>
+                    <li>Upload code from a file for editing.</li>
+                    <li>Copy, cut, paste, undo, and redo code with ease.</li>
+                    <li>Code is highlighted and color-coded for improved readability.</li>
+                    <li>Add comments to code with support for GIFs and emoticons.</li>
+                    <li>Create a screenshot of selected code and share it on WhatsApp.</li>
+                    <li>Record your screen while coding and save the video for later use.</li>
+                    <li>Watch interactive videos and copy, paste, and insert code as the video plays.</li>
                 </ul>
             </div>
             {% if user.is_authenticated %}
             <div>
-                <a href="{% url 'accounts:logout' %}">Delogare</a>
+                <a href="{% url 'accounts:logout' %}">logout</a>
             </div>
             {% else %}
             <div>
-                Pentru utilizarea anumitor functii este nevoie de &nbsp; <a href="{% url 'accounts:login' %}">Autentificare</a>
+                To use certain functions,&nbsp; <a href="{% url 'accounts:login' %}">authentication</a> &nbsp; is required 
             </div>
             <div>
-                Daca nu ai cont te poti &nbsp; <a href="{% url 'accounts:register' %}">Inregistra</a> &nbsp; gratuit
+                If you don't have an account, you can register &nbsp; <a href="{% url 'accounts:register' %}">here</a> &nbsp;
             </div>
             {% endif %}
         </div>

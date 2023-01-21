@@ -31,7 +31,7 @@ async function getData(url) {
 let dataVideo = getData(url);
 
 // 
-let editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
+let videoCm = CodeMirror.fromTextArea(document.getElementById('videoCm'), {
     mode: 'text/x-perl',
     lineNumbers: true,
     keyMap:"sublime",
@@ -54,7 +54,7 @@ audio.addEventListener("play", function() {
         dataVideo.then(dataVideo => {
             dataVideo.forEach((item, i) => {
                 if (item.time * 100 > currentTime + 200) {
-                    writeText(item.text, editor, item.time * 100 - currentTime , item.from.line, item.from.ch , item.to.line, item.to.ch);
+                    writeText(item.text, videoCm, item.time * 100 - currentTime , item.from.line, item.from.ch , item.to.line, item.to.ch);
                     console.log("play mode ", item.time * 100 - currentTime);
                     
                 }
@@ -64,7 +64,7 @@ audio.addEventListener("play", function() {
     } else {
         dataVideo.then(dataVideo => {
             dataVideo.forEach((item, i) => { 
-               writeText(item.text, editor, item.time * 100, item.from.line, item.from.ch , item.to.line, item.to.ch);
+               writeText(item.text, videoCm, item.time * 100, item.from.line, item.from.ch , item.to.line, item.to.ch);
             });
         });
     }
@@ -82,14 +82,14 @@ audio.addEventListener("pause", function() {
 // functia pentru derulare 
 audio.addEventListener("seeked", function() {
     console.log("seeked");
-    editor.setValue('');
+    videoCm.setValue('');
     let currentTime = parseInt(audio.currentTime * 1000);
     let words = "";
     dataVideo.then(dataVideo => {
         dataVideo.forEach((item, i) => {
             if (item.time * 100 < currentTime + 200) {
                 words += item.text;
-                editor.setValue(words);   
+                videoCm.setValue(words);   
             }
         });
     });
@@ -99,5 +99,5 @@ audio.addEventListener("seeked", function() {
 // functia pentru stop
 audio.addEventListener("ended", function() {
     console.log("ended");
-    editor.setValue('');
+    videoCm.setValue('');
 });

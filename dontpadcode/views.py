@@ -30,7 +30,7 @@ def home(request):
 # view-ul pentru o noua ruta
 def new_file(request, slug):
     
-    template_name = "file.html"
+    template_name = "filepath/file.html"
 
     #luam pathul si-l verificam in baza de date 
     #verificam in baza de date daca exista

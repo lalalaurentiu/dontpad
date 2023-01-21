@@ -12,10 +12,10 @@ class CustomUserCreationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(CustomUserCreationForm, self).__init__(*args, **kwargs)  
         self.fields['email'] = forms.CharField(widget=forms.TextInput(attrs={"placeholder":"Email"}))
-        self.fields['first_name'] = forms.CharField(widget=forms.TextInput(attrs={"placeholder":"Nume"}))
-        self.fields['last_name'] = forms.CharField(widget=forms.TextInput(attrs={"placeholder":"Prenume"}))
-        self.fields['password1'] = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder":"Parola"}))
-        self.fields['password2'] = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder":"Confirma Parola"}))
+        self.fields['first_name'] = forms.CharField(widget=forms.TextInput(attrs={"placeholder":"Name"}))
+        self.fields['last_name'] = forms.CharField(widget=forms.TextInput(attrs={"placeholder":"Last Name"}))
+        self.fields['password1'] = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder":"Password"}))
+        self.fields['password2'] = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder":"Confirm Password"}))
 
     class Meta:
         model = CustomUser
@@ -29,4 +29,4 @@ class CustomUserChangeForm(UserChangeForm):
 
 class CustomAuthentificationForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={"placeholder":"Email"}))
-    password = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder":"Parola"}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={"placeholder":"Password"}))
