@@ -15,11 +15,52 @@ function getCookie(name) {
 };
 //
 
+let modes = {
+    "py":{mode:{
+            name: "python",
+            version: 3,
+            singleLineStringErrors: false
+        },
+        path:"/static/js/mode/python.js"},
+
+    "js":{mode:{
+            name: "javascript",
+            version: 6,
+            singleLineStringErrors: false
+        },
+        path:"/static/js/mode/javascript.js"},
+
+    "html":{mode:"htmlmixed",
+        path:"/static/js/mode/html.js"},
+
+    "css":{mode:"text/x-gss",
+            path:"/static/js/mode/css.js"},
+
+}
+
+function createScriptTag(path){
+    let script = document.createElement("script")
+    script.src = path
+    script.id = "mode"
+    document.getElementsByTagName("head")[0].appendChild(script)
+}
+
+function getExtension(mod) {
+    let url = window.location.pathname
+    let extension = url.split(".").pop().split("/")[0]
+    if (extension === ""){
+        return "text"
+    }else{
+        createScriptTag(mod[extension].path)
+        return mod[extension].mode
+    }
+}
+
 //functia pentru crearea unui codeMirror in chat
 function createChatCodeMessages(target, lineNumber){
     let editor = CodeMirror.fromTextArea(target, {
         lineNumbers: true,
-        mode: 'text/x-perl',
+        mode: "text/x-perl",
         theme: 'abbott',
         keyMap:"sublime",
         autoCloseBrackets: true,
@@ -32,13 +73,20 @@ function createChatCodeMessages(target, lineNumber){
 // schimbarea textarea intr-un obiect codemirror
 let sentCode = document.getElementById("send")
 let editor = CodeMirror.fromTextArea(document.getElementById('code'), {
-    mode: 'text/x-perl',
     lineNumbers: true,
     keyMap:"sublime",
     theme: 'abbott',
     autoCloseBrackets: true,
     styleSelectedText:true,
 });
+let mode = getExtension(modes);
+try {
+    document.getElementById("mode").onload = () => {
+        editor.setOption("mode", mode)
+    };
+} catch (error) {
+    editor.setOption("mode", mode)
+}
 
 // marcajul codului
 let lineStart , lineEnd 
