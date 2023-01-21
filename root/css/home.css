@@ -40,3 +40,9 @@ a:hover{
     color: rgb(253, 117, 117);
     text-decoration: none;
 }
+
+@media screen and (max-width: 600px) {
+    li{
+        font-size: small;
+    }
+}

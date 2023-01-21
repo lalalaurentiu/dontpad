@@ -1,5 +1,5 @@
 
-var editor = CodeMirror.fromTextArea(document.getElementById("demo"), {
+let editor = CodeMirror.fromTextArea(document.getElementById("demo"), {
     lineNumbers: true,
     mode: "text/x-perl",
     theme: "abbott",

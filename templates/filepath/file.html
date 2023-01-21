@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    {% include 'linkCss.html' %}
-    {% include 'headerScripts.html' %}
+    {% include 'filepath/linkCss.html' %}
+    {% include 'filepath/headerScripts.html' %}
     
     <title>CodePan</title>
 </head>
 <body>
-    {% include 'navbar.html' %}
+    {% include 'filepath/navbar.html' %}
     <div class="container">
-        {% include 'versions.html' %}
+        {% include 'filepath/versions.html' %}
         
         <div class="editor">
             <textarea id="code" 
@@ -27,7 +27,7 @@
             <div id="editor2"></div>
         </div>
     </div>
-    {% include 'comments.html' %}
+    {% include 'filepath/comments.html' %}
     <div class="actionContainer">
         {% if request.user.is_professor %}
             <button id="send" 
@@ -135,10 +135,10 @@
         <video src="" width="400">
         </video>
     </div>
-        {% include 'right_click_action.html' %}
+        {% include 'filepath/right_click_action.html' %}
 
-        {% include 'consolePython.html' %}
-        {% include 'footerScripts.html' %} 
+        {% include 'filepath/consolePython.html' %}
+        {% include 'filepath/footerScripts.html' %} 
 
 </body>
 </html
