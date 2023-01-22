@@ -47,12 +47,26 @@ class ChatConsumer(AsyncWebsocketConsumer):
         )
 
         await self.accept()
-        await self.send(text_data=json.dumps({"message": f"{self.user.first_name} {self.user.last_name} s-a conectat!", "user": {"first_name": "Server", "last_name": " "}}))
-
+        await self.channel_layer.group_send(
+            self.room_group_name,
+            {
+                "type": "chat_message",
+                "message": f"{self.user.first_name} {self.user.last_name} has joined!",
+                "user": {"first_name": "Server", "last_name": " "},
+            },
+        )
     async def disconnect(self, close_code):
         # Leave room group
         await self.channel_layer.group_discard(
             self.room_group_name, self.channel_name
+        )
+        await self.channel_layer.group_send(
+            self.room_group_name,
+            {
+                "type": "chat_message",
+                "message": f"{self.user.first_name} {self.user.last_name} has left!",
+                "user": {"first_name": "Server", "last_name": " "},
+            },
         )
 
     # Receive message from WebSocket
