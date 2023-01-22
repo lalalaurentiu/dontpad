@@ -103,7 +103,6 @@ function dragEnd(e) {
 
 function drag(e) {
   if (active) {
-  
     e.preventDefault();
   
     if (e.type === "touchmove") {
