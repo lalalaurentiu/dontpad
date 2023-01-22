@@ -313,9 +313,9 @@ try {
 
     document.getElementById("showMarkers").onchange = function() {
         if (this.checked){
-            this.parentNode.querySelector(".tooltipText").innerHTML = "Ascunde marcajele"
+            this.parentNode.querySelector(".tooltipText").innerHTML = "Hide Markers"
         } else {
-            this.parentNode.querySelector(".tooltipText").innerHTML = "Arata marcajele"
+            this.parentNode.querySelector(".tooltipText").innerHTML = "Show Markers"
         }
     };
 

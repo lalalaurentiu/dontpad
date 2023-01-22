@@ -283,7 +283,7 @@ def getVideoCode(request, slug, slugVideo):
     formatType = request.GET.get("format")
     url_id = DontpadURL.objects.filter(slug = slug)[0].id
     video = DontpadVideoCode.objects.filter(url_id = url_id, slug = slugVideo).first()
-    template_name = "videoCode.html"
+    template_name = "filepath/videoCode.html"
     context = {
         "video":video,
     }

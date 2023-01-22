@@ -28,7 +28,6 @@ versions.forEach(function(element){
 
         comments.then((result) => {
             obj = result;
-            console.log(obj);
             let objectCommentsContainer = {};
             obj.comments.forEach(function(comment) {
                 if (objectCommentsContainer[comment.line] != undefined){
@@ -99,12 +98,12 @@ versions.forEach(function(element){
             let showCommentsBtn = document.getElementById('showComments');
             showCommentsBtn.addEventListener("change", function(){
                 if (this.checked){
-                    this.parentNode.querySelector(".tooltipText").innerHTML = "Ascunde comentariile";
+                    this.parentNode.querySelector(".tooltipText").innerHTML = "Hide comments";
                     commentsContainer.forEach(comment => {
                         comment.style.display = "block";
                     })
                 }else{
-                    this.parentNode.querySelector(".tooltipText").innerHTML = "Arata comentariile";
+                    this.parentNode.querySelector(".tooltipText").innerHTML = "Show comments";
                     commentsContainer.forEach(comment => {
                         comment.style.display = "none";
                     })
