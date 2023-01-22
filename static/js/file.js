@@ -21,28 +21,42 @@ let modes = {
             version: 3,
             singleLineStringErrors: false
         },
-        path:"/static/js/mode/python.js"},
+        path:"/static/js/mode/python.js",
+        ide:"/static/js/console/consolePython.js"},
 
     "js":{mode:{
             name: "javascript",
             version: 6,
             singleLineStringErrors: false
         },
-        path:"/static/js/mode/javascript.js"},
+        path:"/static/js/mode/javascript.js",
+        ide:"/static/js/console/javascriptide.js"},
 
-    "html":{mode:"htmlmixed",
-        path:"/static/js/mode/html.js"},
+    "html":{mode:"text/html",
+        path:"/static/js/mode/html.js",
+        ide:"/static/js/console/consoleHtml.js"},
 
     "css":{mode:"text/x-gss",
             path:"/static/js/mode/css.js"},
 
 }
 
-function createScriptTag(path){
+function createHeaderScript(path){
     let script = document.createElement("script")
     script.src = path
     script.id = "mode"
     document.getElementsByTagName("head")[0].appendChild(script)
+}
+
+function createFooterScript(path){
+    if (path !== undefined){
+        let script = document.createElement("script")
+        script.src = path
+        script.id = "ide"
+        document.getElementsByTagName("body")[0].appendChild(script)
+    } else {
+        document.querySelector(".run").style.display = "none"
+    } 
 }
 
 function getExtension(mod) {
@@ -51,7 +65,8 @@ function getExtension(mod) {
     if (extension === ""){
         return "text"
     }else{
-        createScriptTag(mod[extension].path)
+        createHeaderScript(mod[extension].path)
+        createFooterScript(mod[extension].ide)
         return mod[extension].mode
     }
 }
@@ -84,8 +99,12 @@ try {
     document.getElementById("mode").onload = () => {
         editor.setOption("mode", mode)
     };
+    document.getElementById("ide").onload = () => {
+        runCode(document.querySelector(".run"))
+    };
 } catch (error) {
     editor.setOption("mode", mode)
+    document.querySelector(".run").style.display = "none"
 }
 
 // marcajul codului

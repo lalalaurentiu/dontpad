@@ -380,10 +380,11 @@ input[type="color"]::-webkit-color-swatch {
     .actionContainer > form{
         display: none;
     }
-    .console{
+    .console, .console_html{
         width: 100% !important;
         height: 100% !important;
     }
+
 }
 
 /* tooltip */

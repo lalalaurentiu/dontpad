@@ -217,9 +217,9 @@ cookie.forEach((item) => {
         
         headerRunButtonCode.style.color = theme.color;
 
-        consoleContainer.style.background = theme.background;
-        consoleContainer.style.color = theme.color;
-        consoleContainer.style.borderColor = theme.color;
+        document.querySelector(".console").style.background = theme.background;
+        document.querySelector(".console").style.color = theme.color;
+        document.querySelector(".console").style.borderColor = theme.color;
 
         try {
             sentCode.style.background = theme.background;
@@ -276,9 +276,9 @@ navbar_dropdown_content.addEventListener("click", (e) => {
     
     headerRunButtonCode.style.color = theme.color;
     
-    consoleContainer.style.background = theme.background;
-    consoleContainer.style.color = theme.color;
-    consoleContainer.style.borderColor = theme.color;
+    document.querySelector(".console").style.background = theme.background;
+    document.querySelector(".console").style.color = theme.color;
+    document.querySelector(".console").style.borderColor = theme.color;
 
     try {
         sentCode.style.background = theme.background;
@@ -306,4 +306,4 @@ navbar_dropdown_content.addEventListener("click", (e) => {
     document.querySelector("#messageBtn").style.borderColor = theme.color;
 })
 
-runCode(headerRunButtonCode)
+// runCode(headerRunButtonCode)
