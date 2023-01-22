@@ -372,6 +372,12 @@ input[type="color"]::-webkit-color-swatch {
 /* media queys */
 @media screen and (max-width: 600px) {
     .actionContainer{
+        display: block;
+    }
+    .actionContainer > button{
+        display: block;
+    }
+    .actionContainer > form{
         display: none;
     }
     .console{

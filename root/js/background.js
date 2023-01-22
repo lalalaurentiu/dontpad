@@ -50,4 +50,4 @@ int main() {
     `echo "Hello World";`,
 ]
 
-writeText(txtList, editor);
+writeText(txtList, editor,300);
