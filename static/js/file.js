@@ -160,10 +160,10 @@ differcesContainer.style.display = "none"
 differencesButton.addEventListener("click", () =>{
     if (differcesContainer.style.display == "none"){
         differcesContainer.style.display = "initial"
-        differencesButton.innerHTML = "Ascunde diferentele"
+        differencesButton.innerHTML = "Hide Differences"
     }else {
         differcesContainer.style.display = "none"
-        differencesButton.innerHTML = "Diferente"
+        differencesButton.innerHTML = "Sow Differences"
     }
 })
 //

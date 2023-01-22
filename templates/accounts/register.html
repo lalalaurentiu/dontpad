@@ -43,5 +43,13 @@
             </form>
         </div>
     </div>
+    <script>
+        let inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', (e) => {
+                e.preventDefault();
+            });
+        });
+    </script>
 </body>
 </html>

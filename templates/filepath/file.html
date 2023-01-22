@@ -32,14 +32,14 @@
         {% if request.user.is_professor %}
             <button id="send" 
                     type="button" 
-                    onclick="proffesorSendCode()">Salvare</button>
+                    onclick="proffesorSendCode()">Save</button>
         {% elif request.user.is_authenticated %}
             <button id="send" 
                     type="button" 
-                    onclick="studentSendCode()">Salvare</button>
+                    onclick="studentSendCode()">Save</button>
         {% else %}
         {% endif %}
-        <button id="differences">Diferente</button>
+        <button id="differences">Sow Differences</button>
         <form method="POST" 
                 action="{% url 'code:upload' slug %}" 
                 enctype="multipart/form-data">
