@@ -1,11 +1,17 @@
 let consoleContainer = document.querySelector('.console_html');
 let consoleHeader = document.querySelector('.console_html_header');
 let consoleHeaderButton = consoleHeader.querySelector('button');
+let output = document.querySelector('.html_output');
+
+let outputBody = output.contentWindow.document.body;
+let css = "";
+let js = "";
 
 function runCode(button){
   button.addEventListener('click', function(){
     if (consoleContainer.style.display === 'none') {
       consoleContainer.style.display = 'block';
+      outputBody.innerHTML = css + editor.getValue() + js;
     } else {
       consoleContainer.style.display = 'none';
     }
@@ -76,7 +82,46 @@ function setTranslate(xPos, yPos, el) {
   el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
 }
 
+async function getFiles(){
+  let file = window.location.pathname.split('/')[1].split('.')[0];
+  let response = await fetch("?file=" + file);
+  if (response.status === 200) {
+    let data = await response.json();
+    return data;
+  }
+  return false;
+}
+
+
+let files = getFiles();
+
+if (files) {
+  files.then(function(data){
+    let cssfile= data.css;
+    let jsfile = data.js;
+    if (cssfile) {
+      let style = `
+        <style>
+          ${cssfile.code}
+        </style>
+      `
+      css = style;
+    } 
+    if (jsfile) {
+      let script = `
+        <script>
+          ${jsfile.code}
+        </script>
+      `
+      js = script;
+    }
+  });
+  
+}else {
+  console.log('error');
+}
+
 
 editor.on('change', function(){
-  document.querySelector(".html_output").srcdoc = editor.getValue();
+  outputBody.innerHTML = css + editor.getValue() + js;
 });

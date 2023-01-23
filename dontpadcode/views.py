@@ -29,7 +29,30 @@ def home(request):
 
 # view-ul pentru o noua ruta
 def new_file(request, slug):
-    
+    file = request.GET.get("file")
+
+    #verificam daca exista fisierul
+    if file:
+        try:
+            jsfileId = DontpadURL.objects.filter(slug = file + ".js")[0].id
+            jsfile = DontpadCode.objects.filter(slug_id = jsfileId).values().order_by("-id")[0]
+        except:
+            jsfile = None
+        
+        try:
+            cssFileId = DontpadURL.objects.filter(slug = file + ".css")[0].id
+            cssFile = DontpadCode.objects.filter(slug_id = cssFileId).values().order_by("-id")[0]
+        except:
+            cssFile = None
+        if jsfile and cssFile:
+            return HttpResponse(json.dumps({"js":jsfile, "css":cssFile}), status = 200)
+        elif jsfile:
+            return HttpResponse(json.dumps({"js":jsfile}), status = 200)
+        elif cssFile:
+            return HttpResponse(json.dumps({"css":cssFile}), status = 200)
+        else:
+            return HttpResponse(status = 404)
+
     template_name = "filepath/file.html"
 
     #luam pathul si-l verificam in baza de date 
@@ -90,6 +113,8 @@ def new_file(request, slug):
                                     user_id = request.user.id,
                                     proffesor_code_id = versionId)
         return HttpResponse(status = 200)
+
+    
 
     response = render(request, template_name, context)
     return response
