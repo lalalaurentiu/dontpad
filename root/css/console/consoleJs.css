@@ -1,0 +1,25 @@
+.console_Js{
+    position: absolute;
+    background-color: white;
+    width: 50%;
+    height: 80vh;
+    top: 0;
+    right: 0;
+    z-index: 40;
+    overflow: auto;
+    font-family: monospace; 
+}
+.console_Js_header{
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    border-bottom: 1px solid rgb(255, 255, 255);
+    display: flex;
+    justify-content: space-between;
+    cursor: move;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}

@@ -30,7 +30,7 @@ let modes = {
             singleLineStringErrors: false
         },
         path:"/static/js/mode/javascript.js",
-        ide:"/static/js/console/javascriptide.js"},
+        ide:"/static/js/console/consoleJs.js"},
 
     "html":{mode:"text/html",
         path:"/static/js/mode/html.js",
