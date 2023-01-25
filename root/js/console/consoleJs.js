@@ -2,15 +2,25 @@ let consoleContainer = document.querySelector('.console_Js');
 let consoleHeader = document.querySelector('.console_Js_header');
 let consoleHeaderButton = consoleHeader.querySelectorAll('button');
 let output = document.querySelector('.js_output');
+let outputHtml = document.querySelector('.html_output_js').contentWindow;
+// let outputBody = outputHtml.contentWindow.document.body;
+
+outputHtml.console.log = function(message) {
+    output.innerHTML += `<div>${message}</div>` ;
+};
+
+outputHtml.console.error = function(message) {
+    output.innerHTML += `<div style="color:red;">${message}</div>` ;
+};
 
 function runCode(button){
   button.addEventListener('click', function(){
         consoleContainer.style.display = 'block';
-        let code = editor.getValue();
+
         try {
-            eval(code);
+          outputHtml.eval(editor.getValue());
         } catch (error) {
-            console.error(error);
+          output.innerHTML += `<div style="color:red;">${error}</div>` ;
         }
   });
 }
@@ -88,13 +98,29 @@ function setTranslate(xPos, yPos, el) {
   el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
 }
 
-let consoleHistory = [];
-console.log = function(message) {
-    output.innerHTML += `<div>${message}</div>` ;
-};
+async function getFiles(){
+  let file = window.location.pathname.split('/')[1].split('.')[0];
+  let response = await fetch("?file=" + file);
+  if (response.status === 200) {
+    let data = await response.json();
+    return data;
+  }
+  return false;
+}
 
-console.error = function(message) {
-    output.innerHTML += `<div style="color:red;">${message}</div>` ;
-};
+
+let files = getFiles();
+
+if (files) {
+  files.then(function(data){
+
+    let htmlfile= data.html;
+    if (htmlfile) {
+      outputHtml.document.body.innerHTML = htmlfile.code;
+    }
+  });
+  
+}else {
+}
 
 

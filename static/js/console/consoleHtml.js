@@ -7,11 +7,25 @@ let outputBody = output.contentWindow.document.body;
 let css = "";
 let js = "";
 
+output.contentWindow.log = function(message) {
+  outputBody.innerHTML += `<div>${message}</div>` ;
+};
+
+output.contentWindow.error = function(message) {
+  outputBody.innerHTML += `<div style="color:red;">${message}</div>` ;
+};
+
 function runCode(button){
   button.addEventListener('click', function(){
     if (consoleContainer.style.display === 'none') {
       consoleContainer.style.display = 'block';
-      outputBody.innerHTML = css + editor.getValue() + js;
+      try{
+        outputBody.innerHTML = css + editor.getValue() + js;
+        output.contentWindow.eval(js.split('<script>')[1].split('</script>')[0]);
+      } catch (error) {
+        outputBody.innerHTML += `<div style="color:red;">${error}</div>` ;
+      }
+      
     } else {
       consoleContainer.style.display = 'none';
     }
@@ -123,5 +137,11 @@ if (files) {
 
 
 editor.on('change', function(){
-  outputBody.innerHTML = css + editor.getValue() + js;
+  try {
+    outputBody.innerHTML = css + editor.getValue() + js;
+    output.contentWindow.eval(js.split('<script>')[1].split('</script>')[0]);
+  } catch (error) {
+    outputBody.innerHTML += `<div style="color:red;">${error}</div>` ;
+  }
+  
 });
