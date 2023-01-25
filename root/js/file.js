@@ -30,7 +30,7 @@ let modes = {
             singleLineStringErrors: false
         },
         path:"/static/js/mode/javascript.js",
-        ide:"/static/js/console/javascriptide.js"},
+        ide:"/static/js/console/consoleJs.js"},
 
     "html":{mode:"text/html",
         path:"/static/js/mode/html.js",
@@ -121,11 +121,22 @@ editor.on('cursorActivity', function (selected) {
 function proffesorSendCode(){
     const url = window.location.href
     const csrftoken = getCookie("csrftoken")
-    const xhr = new XMLHttpRequest()
-    xhr.open("POST", url, true)
-    xhr.setRequestHeader("X-CSRFToken", csrftoken)
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
-    xhr.send(`code=${editor.getValue()}`)
+    fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": csrftoken
+        },
+        body: JSON.stringify({
+            code: editor.getValue(),
+        })
+    })
+    .then(response => {
+        if (response.status !== 201){
+            throw new Error("Something went wrong on api server!");
+        }
+    })
+
 }
 
 // trimiterea codului catre server de catre student
@@ -142,11 +153,22 @@ function studentSendCode(){
             }
             const url = window.location.href
             const csrftoken = getCookie("csrftoken")
-            const xhr = new XMLHttpRequest()
-            xhr.open("POST", url, true)
-            xhr.setRequestHeader("X-CSRFToken", csrftoken)
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
-            xhr.send(`versionId=${versionId}&code=${editor.getValue()}`)
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": csrftoken
+                },
+                body: JSON.stringify({
+                    versionId: versionId,
+                    code: editor.getValue(),
+                })
+            })
+            .then(response => {
+                if (response.status !== 201){
+                    throw new Error("Something went wrong on api server!");
+                }
+            })
         }
     })
 }

@@ -1,38 +1,40 @@
-let consoleContainer = document.querySelector('.console_html');
-let consoleHeader = document.querySelector('.console_html_header');
-let consoleHeaderButton = consoleHeader.querySelector('button');
-let output = document.querySelector('.html_output');
+let consoleContainer = document.querySelector('.console_Js');
+let consoleHeader = document.querySelector('.console_Js_header');
+let consoleHeaderButton = consoleHeader.querySelectorAll('button');
+let output = document.querySelector('.js_output');
+let outputHtml = document.querySelector('.html_output_js').contentWindow;
+// let outputBody = outputHtml.contentWindow.document.body;
 
-let outputBody = output.contentWindow.document.body;
-let css = "";
-let js = "";
-
-output.contentWindow.log = function(message) {
-  outputBody.innerHTML += `<div>${message}</div>` ;
+outputHtml.console.log = function(message) {
+    output.innerHTML += `<div>${message}</div>` ;
 };
 
-output.contentWindow.error = function(message) {
-  outputBody.innerHTML += `<div style="color:red;">${message}</div>` ;
+outputHtml.console.error = function(message) {
+    output.innerHTML += `<div style="color:red;">${message}</div>` ;
 };
 
 function runCode(button){
   button.addEventListener('click', function(){
-    if (consoleContainer.style.display === 'none') {
-      consoleContainer.style.display = 'block';
-      try{
-        outputBody.innerHTML = css + editor.getValue() + js;
-        output.contentWindow.eval(js.split('<script>')[1].split('</script>')[0]);
-      } catch (error) {
-        outputBody.innerHTML += `<div style="color:red;">${error}</div>` ;
-      }
-      
-    } else {
-      consoleContainer.style.display = 'none';
-    }
+        consoleContainer.style.display = 'block';
+
+        try {
+          outputHtml.eval(editor.getValue());
+        } catch (error) {
+          output.innerHTML += `<div style="color:red;">${error}</div>` ;
+        }
   });
 }
 
-runCode(consoleHeaderButton);
+runCode(consoleHeaderButton[0]);
+
+consoleHeaderButton[1].addEventListener('click', function() {
+    output.innerHTML = "";
+});
+
+consoleHeaderButton[2].addEventListener('click', function() {
+    consoleContainer.style.display = 'none';
+});
+
   
 let dragItem = consoleHeader;
 let active = false;
@@ -111,37 +113,14 @@ let files = getFiles();
 
 if (files) {
   files.then(function(data){
-    let cssfile= data.css;
-    let jsfile = data.js;
-    if (cssfile) {
-      let style = `
-        <style>
-          ${cssfile.code}
-        </style>
-      `
-      css = style;
-    } 
-    if (jsfile) {
-      let script = `
-        <script>
-          ${jsfile.code}
-        </script>
-      `
-      js = script;
+
+    let htmlfile= data.html;
+    if (htmlfile) {
+      outputHtml.document.body.innerHTML = htmlfile.code;
     }
   });
   
 }else {
-  console.log('error');
 }
 
 
-editor.on('change', function(){
-  try {
-    outputBody.innerHTML = css + editor.getValue() + js;
-    output.contentWindow.eval(js.split('<script>')[1].split('</script>')[0]);
-  } catch (error) {
-    outputBody.innerHTML += `<div style="color:red;">${error}</div>` ;
-  }
-  
-});

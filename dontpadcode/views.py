@@ -29,7 +29,45 @@ def home(request):
 
 # view-ul pentru o noua ruta
 def new_file(request, slug):
-    
+    file = request.GET.get("file")
+
+    #verificam daca exista fisierul
+    if file:
+        extensions = ["js", "css", "html"]
+        jsfile = None
+        cssFile = None
+        htmlFile = None
+
+        for extension in extensions:
+            try:
+                fileId = DontpadURL.objects.filter(slug = file + "." + extension)[0].id
+                dbfile = DontpadCode.objects.filter(slug_id = fileId).values().order_by("-id")[0]
+                if extension == "js":
+                    jsfile = dbfile
+                elif extension == "css":
+                    cssFile = dbfile
+                elif extension == "html":
+                    htmlFile = dbfile
+            except:
+                pass
+
+        if jsfile and cssFile and htmlFile:
+            return HttpResponse(json.dumps({"js":jsfile, "css":cssFile, "html":htmlFile}), status = 200)
+        elif jsfile and cssFile:
+            return HttpResponse(json.dumps({"js":jsfile, "css":cssFile}), status = 200) 
+        elif jsfile and htmlFile:
+            return HttpResponse(json.dumps({"js":jsfile, "html":htmlFile}), status = 200)
+        elif cssFile and htmlFile:
+            return HttpResponse(json.dumps({"css":cssFile, "html":htmlFile}), status = 200)
+        elif jsfile:
+            return HttpResponse(json.dumps({"js":jsfile}), status = 200)
+        elif cssFile:
+            return HttpResponse(json.dumps({"css":cssFile}), status = 200)
+        elif htmlFile:
+            return HttpResponse(json.dumps({"html":htmlFile}), status = 200)
+        else:
+            return HttpResponse(status = 404)
+
     template_name = "filepath/file.html"
 
     #luam pathul si-l verificam in baza de date 
@@ -78,18 +116,18 @@ def new_file(request, slug):
 
     #metoda prin care salvam un nou code
     if request.method == "POST":
+        response = json.loads(request.body)["code"]
         if request.user.is_professor:
-            DontpadCode.objects.create(slug_id=obj[0].id,code = request.POST["code"])
+            DontpadCode.objects.create(slug_id=obj[0].id,code = response)
         else:
-            versionId = request.POST["versionId"]
-            print(versionId)
+            versionId = json.loads(request.body)["versionId"]
             
             DontpadUserCode.objects.create(
                                     slug_id=obj[0].id,
-                                    code = request.POST["code"],
+                                    code = response,
                                     user_id = request.user.id,
                                     proffesor_code_id = versionId)
-        return HttpResponse(status = 200)
+        return HttpResponse(status = 201)
 
     response = render(request, template_name, context)
     return response
@@ -129,7 +167,6 @@ def comment(request, slug):
 
         if user.get("proffesor"):
             proffesorCode = DontpadCode.objects.filter(id = int(user["proffesor"])).first()
-            print(proffesorCode)
             DontpadComment.objects.create(
                                     slug_id = obj, 
                                     comment = json.loads(request.body)["comment"], 
