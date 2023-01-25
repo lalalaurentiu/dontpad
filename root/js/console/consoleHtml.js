@@ -24,90 +24,14 @@ function runCode(button){
         output.contentWindow.eval(js.split('<script>')[1].split('</script>')[0]);
       } catch (error) {
         outputBody.innerHTML += `<div style="color:red;">${error}</div>` ;
-      }
-      
+      };
     } else {
       consoleContainer.style.display = 'none';
-    }
+    };
   });
 }
 
 runCode(consoleHeaderButton);
-  
-let dragItem = consoleHeader;
-let active = false;
-let currentX;
-let currentY;
-let initialX;
-let initialY;
-let xOffset = 0;
-let yOffset = 0;
-let body = document.querySelector('body');
-
-document.addEventListener("touchstart", dragStart, false);
-document.addEventListener("touchend", dragEnd, false);
-document.addEventListener("touchmove", drag, false);
-
-document.addEventListener("mousedown", dragStart, false);
-document.addEventListener("mouseup", dragEnd, false);
-document.addEventListener("mousemove", drag, false);
-
-function dragStart(e) {
-  if (e.type === "touchstart") {
-    initialX = e.touches[0].clientX - xOffset;
-    initialY = e.touches[0].clientY - yOffset;
-  } else {
-    initialX = e.clientX - xOffset;
-    initialY = e.clientY - yOffset;
-  }
-
-  if (e.target === dragItem) {
-    active = true;
-  }
-}
-
-function dragEnd(e) {
-  initialX = currentX;
-  initialY = currentY;
-
-  active = false;
-}
-
-function drag(e) {
-  if (active) {
-    e.preventDefault();
-  
-    if (e.type === "touchmove") {
-      currentX = e.touches[0].clientX - initialX;
-      currentY = e.touches[0].clientY - initialY;
-    } else {
-      currentX = e.clientX - initialX;
-      currentY = e.clientY - initialY;
-    }
-
-    xOffset = currentX;
-    yOffset = currentY;
-
-    setTranslate(currentX, currentY, consoleContainer);
-  }
-}
-
-function setTranslate(xPos, yPos, el) {
-  el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
-}
-
-async function getFiles(){
-  let file = window.location.pathname.split('/')[1].split('.')[0];
-  let response = await fetch("?file=" + file);
-  if (response.status === 200) {
-    let data = await response.json();
-    return data;
-  }
-  return false;
-}
-
-
-let files = getFiles();
 
 if (files) {
   files.then(function(data){
@@ -122,19 +46,16 @@ if (files) {
       css = style;
     } 
     if (jsfile) {
-      let script = `
+      js = `
         <script>
           ${jsfile.code}
         </script>
       `
-      js = script;
     }
   });
-  
-}else {
+  }else {
   console.log('error');
 }
-
 
 editor.on('change', function(){
   try {
@@ -142,6 +63,7 @@ editor.on('change', function(){
     output.contentWindow.eval(js.split('<script>')[1].split('</script>')[0]);
   } catch (error) {
     outputBody.innerHTML += `<div style="color:red;">${error}</div>` ;
-  }
-  
+  };
 });
+
+dragItem = consoleHeader;
