@@ -1,97 +1,100 @@
-
 .navbar {
-    background-color: #231c14;
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .navbar a {
-    float: left;
-    font-size: 16px;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    color: #fbec5d;
-  }
-  
-  .navbar + .dropdown {
-    float: left;
-  }
-  
-  .dropdown .dropbtn, 
-  .navbar div button {
-    font-size: 16px;  
-    border: none;
-    outline: none;
-    color: white;
-    padding: 14px 16px;
-    background-color: inherit;
-    font-family: inherit;
-    margin: 0;
-    cursor: pointer;
-    color: #fbec5d;
-  }
-  
-  .navbar a:hover, .dropdown:hover .dropbtn {
-    background-color: red ;
-  }
+  background-color: #231c14;
+  display: flex;
+  justify-content: space-between;
+}
 
-  #send:hover ,#differences:hover, form:hover,.navbar div button:hover{
-    background-color: red !important;
-  }
-  .brand:hover{
-    background-color: transparent !important;
-  }
-  
-  .navbar-dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    transform: translateX(calc(-100% + 76px));
-    overflow-y: auto;
-    max-height: 300px;
-  }
-  
-  .navbar-dropdown-content a {
-    float: none;
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-    cursor: pointer;
-  }
-  
-  .navbar-dropdown-content a:hover {
-    background-color: #ddd;
-  }
-  
-  .dropdown:hover .navbar-dropdown-content {
-    display: block;
-  }
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  color: #fbec5d;
+}
 
-  .run{
-    position: relative;
-    padding: 10px 10px;
-    cursor: pointer;
-  }
+.navbar + .dropdown {
+  float: left;
+}
 
-  #messageBtn:after{
-    content:attr(value);
-    font-size:10px;
-    background: yellowgreen;
-    border-radius:10px;
-    padding:3px 8px;
-    position:relative;
-    left:-8px;
-    top:-17px;
-    opacity:0.8;
-    }
+.dropdown .dropbtn,
+.navbar div button {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+  cursor: pointer;
+  color: #fbec5d;
+}
 
-.no-after::after{
+.navbar a:hover,
+.dropdown:hover .dropbtn {
+  background-color: red;
+}
+
+#send:hover,
+#differences:hover,
+form:hover,
+.navbar div button:hover {
+  background-color: red !important;
+}
+.brand:hover {
+  background-color: transparent !important;
+}
+
+.navbar-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  transform: translateX(calc(-100% + 76px));
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+.navbar-dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  cursor: pointer;
+}
+
+.navbar-dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .navbar-dropdown-content {
+  display: block;
+}
+
+.run {
+  position: relative;
+  padding: 10px 10px;
+  cursor: pointer;
+}
+
+#messageBtn:after {
+  content: attr(value);
+  font-size: 10px;
+  background: yellowgreen;
+  border-radius: 10px;
+  padding: 3px 8px;
+  position: relative;
+  left: -8px;
+  top: -17px;
+  opacity: 0.8;
+}
+
+.no-after::after {
   display: none;
 }

@@ -37,141 +37,137 @@ let buttonVersionIcon = `
 </svg>
 `;
 
-function createVersions(lst, target, code, editor){
-    
-    let versionsContainer = document.createElement("div")
-        versionsContainer.setAttribute("class", "version")
+function createVersions(lst, target, code, editor) {
+  let versionsContainer = document.createElement("div");
+  versionsContainer.setAttribute("class", "version");
 
-    let inputContainer = document.createElement("input")
-        inputContainer.setAttribute("type", "radio")
-        inputContainer.setAttribute("name", "version")
-        inputContainer.setAttribute("value", `${code}`)
-        inputContainer.setAttribute("checked", "checked")
-        inputContainer.setAttribute("id", `version${lst.length + 1}`)
+  let inputContainer = document.createElement("input");
+  inputContainer.setAttribute("type", "radio");
+  inputContainer.setAttribute("name", "version");
+  inputContainer.setAttribute("value", `${code}`);
+  inputContainer.setAttribute("checked", "checked");
+  inputContainer.setAttribute("id", `version${lst.length + 1}`);
 
-    versionsContainer.appendChild(inputContainer)
+  versionsContainer.appendChild(inputContainer);
 
-    let labelContainer = document.createElement("label")
-        labelContainer.setAttribute("for", `version${lst.length + 1}`)
-        labelContainer.innerHTML = versionIcon
+  let labelContainer = document.createElement("label");
+  labelContainer.setAttribute("for", `version${lst.length + 1}`);
+  labelContainer.innerHTML = versionIcon;
 
-    let versionNumber = document.querySelectorAll(".version")
+  let versionNumber = document.querySelectorAll(".version");
 
-    let versionNumberContainer = document.createElement("span")
-        versionNumberContainer.innerHTML = `V${versionNumber.length + 1}`
+  let versionNumberContainer = document.createElement("span");
+  versionNumberContainer.innerHTML = `V${versionNumber.length + 1}`;
 
-    versionsContainer.appendChild(labelContainer)
-    versionsContainer.appendChild(versionNumberContainer)
-    target.prepend(versionsContainer)
+  versionsContainer.appendChild(labelContainer);
+  versionsContainer.appendChild(versionNumberContainer);
+  target.prepend(versionsContainer);
 
-    this.addEventListener("change", function(e){
-        if(e.target.checked){
-            editor.setValue(e.target.value);
-        } 
-    })
+  this.addEventListener("change", function (e) {
+    if (e.target.checked) {
+      editor.setValue(e.target.value);
+    }
+  });
 }
 
-function createUserVersion (obj, lst, ){
-    let parrent = document.getElementById(`version${obj.parrentId}`).parentElement
-    console.log(obj)
-    let studentVersion
-    if (parrent.querySelector(".studentVersion")){
-        studentVersion = parrent.querySelector(".studentVersion");
-    } else {
-        studentVersion = document.createElement("div")
-        studentVersion.setAttribute("class", "studentVersion")
-        studentVersion.setAttribute("style", "display:none;")
-        let showStudentVersion = document.createElement("button")
-        showStudentVersion.setAttribute("class", "showStudentVersion")
-        showStudentVersion.innerHTML = buttonVersionIcon
-        parrent.appendChild(showStudentVersion)
-        parrent.appendChild(studentVersion)
-    }
-    let studentVersionContainer = document.createElement("div")
-        studentVersionContainer.setAttribute("class", "tooltip")
-        studentVersionContainer.setAttribute("style", "left:10px;")
-    let input = document.createElement("input")
-        input.setAttribute("type", "radio")
-        input.setAttribute("name", "version")
-        input.setAttribute("value", `${obj.code}`)
-        input.setAttribute("id", `studentVersion${obj.elementId}`)
-        input.setAttribute("checked", "checked")
+function createUserVersion(obj, lst) {
+  let parrent = document.getElementById(
+    `version${obj.parrentId}`
+  ).parentElement;
+  console.log(obj);
+  let studentVersion;
+  if (parrent.querySelector(".studentVersion")) {
+    studentVersion = parrent.querySelector(".studentVersion");
+  } else {
+    studentVersion = document.createElement("div");
+    studentVersion.setAttribute("class", "studentVersion");
+    studentVersion.setAttribute("style", "display:none;");
+    let showStudentVersion = document.createElement("button");
+    showStudentVersion.setAttribute("class", "showStudentVersion");
+    showStudentVersion.innerHTML = buttonVersionIcon;
+    parrent.appendChild(showStudentVersion);
+    parrent.appendChild(studentVersion);
+  }
+  let studentVersionContainer = document.createElement("div");
+  studentVersionContainer.setAttribute("class", "tooltip");
+  studentVersionContainer.setAttribute("style", "left:10px;");
+  let input = document.createElement("input");
+  input.setAttribute("type", "radio");
+  input.setAttribute("name", "version");
+  input.setAttribute("value", `${obj.code}`);
+  input.setAttribute("id", `studentVersion${obj.elementId}`);
+  input.setAttribute("checked", "checked");
 
-    let label = document.createElement("label")
-        label.setAttribute("for", `studentVersion${obj.elementId}`)
-        label.innerHTML = versionIcon
+  let label = document.createElement("label");
+  label.setAttribute("for", `studentVersion${obj.elementId}`);
+  label.innerHTML = versionIcon;
 
-    let user = document.createElement("span")
-        user.setAttribute("class", "tooltipText")
-        user.innerHTML = obj.user
-    
-    studentVersionContainer.prepend(label)
-    studentVersionContainer.prepend(input)
-    studentVersionContainer.append(user)
-    studentVersion.prepend(studentVersionContainer)
-    lst.push(input)
-    reload()
+  let user = document.createElement("span");
+  user.setAttribute("class", "tooltipText");
+  user.innerHTML = obj.user;
+
+  studentVersionContainer.prepend(label);
+  studentVersionContainer.prepend(input);
+  studentVersionContainer.append(user);
+  studentVersion.prepend(studentVersionContainer);
+  lst.push(input);
+  reload();
 }
 
 let versions = [...document.querySelectorAll('input[name="version"]')];
-versions.push = function(){
-    Array.prototype.push.apply(this, arguments);
-    arguments[0].addEventListener("change", function(e){
-        if(e.target.checked){
-            editor.setValue(e.target.value);
-        }
-    })
-}
+versions.push = function () {
+  Array.prototype.push.apply(this, arguments);
+  arguments[0].addEventListener("change", function (e) {
+    if (e.target.checked) {
+      editor.setValue(e.target.value);
+    }
+  });
+};
 
-versions.forEach(version => {
-    version.addEventListener('change', (e) => {
-        if(e.target.checked){
-            editor.setValue(e.target.value);
-        } 
-    })
+versions.forEach((version) => {
+  version.addEventListener("change", (e) => {
+    if (e.target.checked) {
+      editor.setValue(e.target.value);
+    }
+  });
 });
 
 let reload = () => {
-    let userVersion = document.querySelectorAll('.version');  
-    userVersion.forEach((element) => {
-
-        try{
-            let studentVersion = element.querySelector('.studentVersion');
-            let showStudentVersion = element.querySelector('.showStudentVersion');
-            showStudentVersion.replaceWith(showStudentVersion.cloneNode(true));
-            showStudentVersion = element.querySelector('.showStudentVersion');
-            showStudentVersion.addEventListener("click", () => {
-                console.log("reload")
-                if (studentVersion.style.display == "none") {
-                    userVersion.forEach((element) => {
-                        try{
-                            element.querySelector('.studentVersion').style.display = "none";
-                            element.querySelector('.showStudentVersion').style.display = "none";
-                        } catch(e){
-                            // console.log(e)
-                        }
-                    })
-                    showStudentVersion.removeAttribute("style");
-                    let position = showStudentVersion.getBoundingClientRect();
-                    studentVersion.style.top = position.top - 30 + "px";
-                    studentVersion.style.left = position.left - 5 + "px";
-                    studentVersion.style.display = "block";
-                } else {
-                    studentVersion.style.display = "none";
-                    userVersion.forEach((element) => {
-                        try{
-                            element.querySelector('.showStudentVersion').removeAttribute("style");
-                        } catch(e){
-                            // console.log(e)
-                        }
-                    })
-                }
-            })
-        } catch(e){
-            // console.log(e)
+  let userVersion = document.querySelectorAll(".version");
+  userVersion.forEach((element) => {
+    try {
+      let studentVersion = element.querySelector(".studentVersion");
+      let showStudentVersion = element.querySelector(".showStudentVersion");
+      showStudentVersion.replaceWith(showStudentVersion.cloneNode(true));
+      showStudentVersion = element.querySelector(".showStudentVersion");
+      showStudentVersion.addEventListener("click", () => {
+        console.log("reload");
+        if (studentVersion.style.display == "none") {
+          userVersion.forEach((element) => {
+            try {
+              element.querySelector(".studentVersion").style.display = "none";
+              element.querySelector(".showStudentVersion").style.display =
+                "none";
+            } catch (e) {}
+          });
+          showStudentVersion.removeAttribute("style");
+          let position = showStudentVersion.getBoundingClientRect();
+          studentVersion.style.top = position.top - 30 + "px";
+          studentVersion.style.left = position.left - 5 + "px";
+          studentVersion.style.display = "block";
+        } else {
+          studentVersion.style.display = "none";
+          userVersion.forEach((element) => {
+            try {
+              element
+                .querySelector(".showStudentVersion")
+                .removeAttribute("style");
+            } catch (e) {}
+          });
         }
-        
-    });
+      });
+    } catch (e) {}
+  });
 };
 
-reload()
+reload();
