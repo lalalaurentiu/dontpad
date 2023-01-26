@@ -1,19 +1,19 @@
-body{
-    background-color: #231c14;
-    color: white;
+body {
+  background-color: #231c14;
+  color: white;
 }
-h1{
-    text-align: center;
+h1 {
+  text-align: center;
 }
-.actionContainer{
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 5px;
-    transform: translateX(-50%);
-    z-index: 10;
-    margin-bottom: 10px;
+.actionContainer {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5px;
+  transform: translateX(-50%);
+  z-index: 10;
+  margin-bottom: 10px;
 }

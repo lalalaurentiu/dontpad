@@ -1,10 +1,10 @@
-body{
-    background-color: #231c14;
-    color: white;
+body {
+  background-color: #231c14;
+  color: white;
 }
-.CodeMirror{
-    border: 1px solid white;
+.CodeMirror {
+  border: 1px solid white;
 }
-form > div{
-    margin: 10px;
+form > div {
+  margin: 10px;
 }

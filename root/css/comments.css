@@ -1,82 +1,80 @@
-
 #emojiButton,
 #gifButton {
-    background-color: transparent;
-    font-size: 11px;
-    padding: 0;
-    margin: 0;
-    cursor: pointer;
-    display: flex;
+  background-color: transparent;
+  font-size: 11px;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  display: flex;
 }
 
 #gifButton {
-    color: black;
+  color: black;
 }
 
 #emojis,
 #gifs {
-    position: relative;
-    top: 100%;
-    width: 300px;
-    height: 300px;
-    background-color: white;
-    display: block;
-    white-space: normal;
-    overflow: auto;
-    border-radius: 10px;
+  position: relative;
+  top: 100%;
+  width: 300px;
+  height: 300px;
+  background-color: white;
+  display: block;
+  white-space: normal;
+  overflow: auto;
+  border-radius: 10px;
 }
 
-.gif{
-    width: 130px;
-    height: 130px;
-    margin: 5px;
-    border-radius: 10px;
-    cursor: pointer;
+.gif {
+  width: 130px;
+  height: 130px;
+  margin: 5px;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
-.emoji{
-    width: 30px;
-    height: 30px;
-    margin: 5px;
-    cursor: pointer;
+.emoji {
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+  cursor: pointer;
 }
 
-#sendComment{
-    background-color: transparent;
-    color: inherit;
-    border: 0;
-    margin: 0;
-    padding: 0;
-    outline: none;
-    cursor: pointer;
-    transform: rotate(45deg);
+#sendComment {
+  background-color: transparent;
+  color: inherit;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  cursor: pointer;
+  transform: rotate(45deg);
 }
 
-#commentInputContainer{
-    display: flex;
-    align-items: center;
+#commentInputContainer {
+  display: flex;
+  align-items: center;
 }
 
-#commentInputContainer > input{
-    background-color: transparent;
-    color: inherit;
-    border: 0;
+#commentInputContainer > input {
+  background-color: transparent;
+  color: inherit;
+  border: 0;
 }
 
-
-#commentInputContainer > input:focus{
-    outline: none;
+#commentInputContainer > input:focus {
+  outline: none;
 }
 
 .before-line {
-    z-index: 10 !important;
+  z-index: 10 !important;
 }
 
 .comment {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
-.comment span{
-    margin: 0 5px;
+.comment span {
+  margin: 0 5px;
 }

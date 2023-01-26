@@ -56,7 +56,6 @@ audio.addEventListener("play", function() {
                 if (item.time * 100 > currentTime + 200) {
                     writeText(item.text, videoCm, item.time * 100 - currentTime , item.from.line, item.from.ch , item.to.line, item.to.ch);
                     console.log("play mode ", item.time * 100 - currentTime);
-                    
                 }
             });
         });
@@ -68,15 +67,13 @@ audio.addEventListener("play", function() {
             });
         });
     }
-    
 });
 // functia pentru pauza
 audio.addEventListener("pause", function() {
     console.log("pause");
     intervals.forEach((item, i) => {
         clearInterval(item);
-    }
-    );
+    });
 });
 
 // functia pentru derulare 
@@ -94,7 +91,6 @@ audio.addEventListener("seeked", function() {
         });
     });
 });
-
 
 // functia pentru stop
 audio.addEventListener("ended", function() {
