@@ -277,72 +277,9 @@ HEADE.appendChild(LINK);
 
 let headerRunButtonCode = document.querySelector(".run");
 
-const cookie = document.cookie.split(";")[0].split(",");
-cookie.forEach((item) => {
-  if (item.split("=")[0] === "theme") {
-    let theme = themes.find((theme) => theme.name === item.split("=")[1]);
-    LINK.href = theme.url;
-    editor.setOption("theme", theme.name);
-    document.querySelector(".navbar").style.background = theme.background;
-    document.querySelector(".navbar").style.borderBottom = theme.border;
-    document.querySelector(".navbar a").style.color = theme.color;
-    document.querySelector(".dropbtn").style.color = theme.color;
-    document.querySelector(".versioning-container").style.background =
-      theme.background;
-    document.querySelector(".versioning-container").style.color = theme.color;
-    document.querySelector(".contextMenu").style.borderColor = theme.color;
-    document.querySelector(".contextMenu").style.background = theme.background;
-    document.querySelector(".contextMenu").style.color = theme.color;
-
-    headerRunButtonCode.style.color = theme.color;
-
-    document.querySelector(".console").style.background = theme.background;
-    document.querySelector(".console").style.color = theme.color;
-    document.querySelector(".console").style.borderColor = theme.color;
-
-    try {
-      sentCode.style.background = theme.background;
-      sentCode.style.color = theme.color;
-      sentCode.style.borderColor = theme.color;
-
-      screenRecorder.style.background = theme.background;
-      screenRecorder.style.color = theme.color;
-      screenRecorder.style.borderColor = theme.color;
-
-      document.querySelector(".codeRecorder").style.background =
-        theme.background;
-      document.querySelector(".codeRecorder").style.color = theme.color;
-      document.querySelector(".codeRecorder").style.borderColor = theme.color;
-    } catch (error) {}
-
-    differencesButton.style.background = theme.background;
-    differencesButton.style.color = theme.color;
-    differencesButton.style.borderColor = theme.color;
-    document.querySelector("form").style.background = theme.background;
-    document.querySelector("form").style.color = theme.color;
-    document.querySelector("form").style.borderColor = theme.color;
-
-    document.querySelector("#messageBtn").style.background = theme.background;
-    document.querySelector("#messageBtn").style.color = theme.color;
-    document.querySelector("#messageBtn").style.borderColor = theme.color;
-  }
-});
-
-themes.forEach((theme) => {
-  let a = document.createElement("a");
-  a.setAttribute("value", theme.name);
-  a.innerText = theme.name;
-  navbar_dropdown_content.appendChild(a);
-});
-
-navbar_dropdown_content.addEventListener("click", (e) => {
-  let theme = themes.find(
-    (theme) => theme.name === e.target.getAttribute("value")
-  );
+function setTheme(theme) {
   LINK.href = theme.url;
-  document.cookie = `theme=${theme.name}, background=${theme.background}, color=${theme.color}, border=${theme.border}`;
-
-  editor.setOption("theme", e.target.getAttribute("value"));
+  editor.setOption("theme", theme.name);
   document.querySelector(".navbar").style.background = theme.background;
   document.querySelector(".navbar").style.borderBottom = theme.border;
   document.querySelector(".navbar a").style.color = theme.color;
@@ -384,6 +321,27 @@ navbar_dropdown_content.addEventListener("click", (e) => {
   document.querySelector("#messageBtn").style.background = theme.background;
   document.querySelector("#messageBtn").style.color = theme.color;
   document.querySelector("#messageBtn").style.borderColor = theme.color;
+}
+
+const cookie = document.cookie.split(";")[0].split(",");
+cookie.forEach((item) => {
+  if (item.split("=")[0] === "theme") {
+    let theme = themes.find((theme) => theme.name === item.split("=")[1]);
+    setTheme(theme);
+  }
 });
 
-// runCode(headerRunButtonCode)
+themes.forEach((theme) => {
+  let a = document.createElement("a");
+  a.setAttribute("value", theme.name);
+  a.innerText = theme.name;
+  navbar_dropdown_content.appendChild(a);
+});
+
+navbar_dropdown_content.addEventListener("click", (e) => {
+  let theme = themes.find(
+    (theme) => theme.name === e.target.getAttribute("value")
+  );
+  document.cookie = `theme=${theme.name}, background=${theme.background}, color=${theme.color}, border=${theme.border}`;
+  setTheme(theme);
+});
