@@ -33,7 +33,6 @@ def home(request):
 
 # view-ul pentru o noua ruta
 
-@xframe_options_sameorigin
 def new_file(request, slug):
     print(request)
     file = request.GET.get("file")
@@ -363,6 +362,24 @@ def getVideoCode(request, slug, slugVideo):
 
     if formatType == "json":
         return HttpResponse(json.dumps(video.json), content_type="application/json")
+
+    response = render(request, template_name, context)
+    return response
+
+#view-ul afisarea pagini in i frame
+@xframe_options_sameorigin
+def iframe(request, slug):
+    extensions = ["html", "css", "js"]
+    context = {}
+    
+    for extension in extensions:
+        try:
+            id = DontpadURL.objects.filter(slug=slug.split(".")[0] + "." + extension)[0].id
+            context[extension] = DontpadCode.objects.filter(slug_id=id)
+        except:
+            context[extension] = None
+
+    template_name = "filepath/iframe.html"
 
     response = render(request, template_name, context)
     return response
