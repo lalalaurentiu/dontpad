@@ -6,6 +6,7 @@ from .forms import *
 import json
 from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView
+from django.views.decorators.clickjacking import xframe_options_sameorigin
 
 
 def send_whatsapp(image_url, number, message=" ", name=" "):
@@ -32,8 +33,9 @@ def home(request):
 
 # view-ul pentru o noua ruta
 
-
+@xframe_options_sameorigin
 def new_file(request, slug):
+    print(request)
     file = request.GET.get("file")
 
     # verificam daca exista fisierul
