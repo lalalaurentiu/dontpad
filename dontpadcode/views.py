@@ -34,7 +34,6 @@ def home(request):
 # view-ul pentru o noua ruta
 
 def new_file(request, slug):
-    print(request)
     file = request.GET.get("file")
 
     # verificam daca exista fisierul
