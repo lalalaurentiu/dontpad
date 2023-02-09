@@ -64,7 +64,32 @@ if (files) {
   console.log("error");
 }
 
+function resetiframe() {
+  let iframe = document.createElement("iframe");
+  iframe.setAttribute("class", "html_output");
+  iframe.setAttribute("frameborder", "0");
+  iframe.setAttribute("width", "100%");
+  iframe.setAttribute("height", "100%");
+  output.replaceWith(iframe);
+  output = document.querySelector(".html_output");
+  outputBody = output.contentWindow.document.body;
+  output.contentWindow.log = function (message) {
+    outputBody.innerHTML += `<div>${message}</div>`;
+  };
+  output.contentWindow.error = function (message) {
+    outputBody.innerHTML += `<div style="color:red;">${message}</div>`;
+  };
+
+  try {
+    outputBody.innerHTML = css + editor.getValue() + js;
+    output.contentWindow.eval(js.split("<script>")[1].split("</script>")[0]);
+  } catch (error) {
+    outputBody.innerHTML += `<div style="color:red;">${error}</div>`;
+  }
+}
+
 editor.on("change", function () {
+  resetiframe();
   try {
     outputBody.innerHTML = css + editor.getValue() + js;
     output.contentWindow.eval(js.split("<script>")[1].split("</script>")[0]);

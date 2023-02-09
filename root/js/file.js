@@ -42,7 +42,7 @@ let modes = {
     ide: "/static/js/console/consoleHtml.js",
   },
 
-  css: { mode: "text/x-gss", path: "/static/js/mode/css.js" },
+  css: { mode: "text/x-gss", path: "/static/js/mode/css.js", ide: "/static/js/console/consoleCss.js" },
 };
 
 function createHeaderScript(path) {
