@@ -21,6 +21,9 @@ class DontpadCode(models.Model):
         DontpadURL, on_delete=models.CASCADE, related_name="url")
     code = models.TextField()
 
+    class Meta:
+        ordering = ["-id"]
+
     def get_absolute_url(self):
         return reverse("iframe", kwargs={"slug": self.slug.slug})
 

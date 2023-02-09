@@ -53,6 +53,11 @@ if (files) {
           ${jsfile.code}
         </script>
       `;
+    } else {
+      js = `
+        <script>
+        </script>
+      `;
     }
   });
 } else {

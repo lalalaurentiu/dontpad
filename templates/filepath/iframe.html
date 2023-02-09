@@ -7,22 +7,13 @@
         <title>Document</title>
 
         <style>
-            {% for file in css %}
-                {{file.code | safe}}
-            {% endfor %}
+            {{css.code | safe}}
         </style>
     </head>
     <body>
-        {% for file in html %}
-
-            {{ file.code | safe }}
-
-        {% endfor %}
-
+        {{ html.code | safe }}
         <script>
-            {% for file in js %}
-                {{ file.code | safe}}
-            {% endfor %}
+            {{ js.code | safe }}
         </script>
     </body>
 </html>

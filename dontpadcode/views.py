@@ -375,7 +375,7 @@ def iframe(request, slug):
     for extension in extensions:
         try:
             id = DontpadURL.objects.filter(slug=slug.split(".")[0] + "." + extension)[0].id
-            context[extension] = DontpadCode.objects.filter(slug_id=id)
+            context[extension] = DontpadCode.objects.filter(slug_id=id)[0]
         except:
             context[extension] = None
 
