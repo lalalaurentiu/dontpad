@@ -385,7 +385,7 @@ i {
     height: 100% !important;
   }
   .fullscreen {
-   display: none;
+   display: none !important;
   }
 }
 
