@@ -7,7 +7,15 @@
   right: 0;
   z-index: 40;
   overflow: auto;
+  -ms-overflow-style: none; 
+  scrollbar-width: none;
 }
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.console_html::-webkit-scrollbar {
+  display: none;
+}
+
 .console_html_header {
   background-color: #333;
   color: #fff;
@@ -21,4 +29,46 @@
   position: sticky;
   top: 0;
   z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.console_html_header > div > button {
+  color: rgb(46, 46, 46);
+  border: none;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 5px;
+  border-radius: 50%;
+}
+
+.close{
+  background-color: rgb(255, 68, 68);
+}
+
+.fullscreen{
+  background-color: rgb(18, 150, 11);
+}
+
+.close:hover {
+  background-color: rgb(255, 0, 0);
+}
+
+.fullscreen:hover {
+  background-color: rgb(0, 255, 0);
+}
+
+.console_html_header > div > input{
+  background-color: #fff;
+  color: #333;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 5px;
+  border-radius: 10px;
+  height: 30px;
+  align-self: center;
 }

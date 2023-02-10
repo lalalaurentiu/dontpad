@@ -378,9 +378,14 @@ i {
     display: none;
   }
   .console,
-  .console_html {
+  .console_html,
+  .console_css,
+  .console_Js {
     width: 100% !important;
     height: 100% !important;
+  }
+  .fullscreen {
+   display: none;
   }
 }
 
