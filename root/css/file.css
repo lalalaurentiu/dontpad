@@ -37,6 +37,10 @@ textarea {
   top: 0 !important;
 }
 
+.CodeMirror-hscrollbar {
+  display: none !important;
+}
+
 .modified {
   position: absolute;
   background-color: #000;
@@ -54,9 +58,6 @@ textarea {
   height: calc(100vh - 46px);
 }
 
-button {
-  margin: 10px;
-}
 code {
   display: block;
 }
@@ -367,7 +368,7 @@ i {
 }
 
 /* media queys */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
   .actionContainer {
     display: block;
   }
@@ -384,7 +385,9 @@ i {
     width: 100% !important;
     height: 100% !important;
   }
-  .fullscreen {
+  .fullscreen,
+  .console-run,
+  .clear {
    display: none !important;
   }
 }

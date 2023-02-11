@@ -1,5 +1,5 @@
 let consoleContainer = document.querySelector(".console");
-let consoleHeader = document.getElementById("console_header");
+let consoleHeader = document.querySelector(".console_header");
 let consoleHeaderButtons = consoleHeader.querySelectorAll("button");
 let output = document.querySelector(".output");
 
@@ -68,4 +68,16 @@ consoleHeaderButtons[2].addEventListener("click", function () {
   consoleContainer.style.display = "none";
 });
 
+consoleHeaderButtons[3].addEventListener("click", function () {
+  if (consoleContainer.style.width === "100%") {
+    consoleContainer.style.width = "50%";
+    consoleContainer.style.height = "80vh";
+  } else {
+    consoleContainer.style.width = "100%";
+    consoleContainer.style.height = "100%";
+  }
+});
+
 dragItem = consoleHeader;
+
+consoleHeader.querySelector("input").value = window.location.pathname;

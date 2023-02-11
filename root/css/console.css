@@ -1,0 +1,142 @@
+.console_html,
+.console_css,
+.console_Js {
+  position: absolute;
+  background-color: white;
+  width: 50%;
+  height: 80vh;
+  top: 0;
+  right: 0;
+  z-index: 40;
+  overflow: auto;
+  -ms-overflow-style: none; 
+  scrollbar-width: none;
+}
+
+.console {
+  position: absolute;
+  background-color: #000;
+  top: 0;
+  right: 0;
+  font-family: monospace;
+  font-size: 12px;
+  padding: 10px;
+  width: 50%;
+  height: 80vh;
+  overflow: auto;
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 5px;
+  padding: 0;
+  z-index: 40;
+  color: white;
+  -ms-overflow-style: none; 
+  scrollbar-width: none;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.console::-webkit-scrollbar,
+.console_html::-webkit-scrollbar,
+.console_css::-webkit-scrollbar,
+.console_Js::-webkit-scrollbar {
+  display: none;
+}
+
+.console_header,
+.console_html_header,
+.console_css_header,
+.console_Js_header {
+  position: sticky;
+  background-color: #333;
+  color: #fff;
+  padding: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  border-bottom: 1px solid rgb(255, 255, 255);
+  display: flex;
+  justify-content: end;
+  cursor: move;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.console_header > div > button,
+.console_html_header > div > button,
+.console_css_header > div > button,
+.console_Js_header > div > button {
+  color: rgb(46, 46, 46);
+  border: none;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 5px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
+}
+
+.close{
+  background-color: rgb(255, 68, 68);
+}
+
+.fullscreen{
+  background-color: rgb(18, 150, 11);
+}
+
+.console-run{
+  background-color: rgb(0, 255, 255);
+}
+
+.clear{
+  background-color: rgb(255, 255, 0);
+}
+
+.close:hover {
+  background-color: rgb(255, 0, 0);
+}
+
+.fullscreen:hover {
+  background-color: rgb(0, 255, 0);
+}
+
+.console-run:hover {
+  background-color: rgb(255, 255, 255);
+}
+
+.clear:hover {
+  background-color: rgb(255, 255, 255);
+}
+
+.console_header > div > input,
+.console_html_header > div > input,
+.console_css_header > div > input,
+.console_Js_header > div > input {
+  background-color: #fff;
+  color: #333;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 5px;
+  border-radius: 10px;
+  height: 30px;
+  align-self: center;
+}
+
+.output {
+  padding: 5px;
+}
+#Run {
+  position: absolute;
+  background-color: rgb(37, 171, 24);
+  bottom: 10%;
+  right: 5%;
+  font-family: monospace;
+  cursor: pointer;
+}

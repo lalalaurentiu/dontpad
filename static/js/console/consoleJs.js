@@ -33,6 +33,16 @@ consoleHeaderButton[2].addEventListener("click", function () {
   consoleContainer.style.display = "none";
 });
 
+consoleHeaderButton[3].addEventListener("click", function () {
+  if (consoleContainer.style.width === "100%") {
+    consoleContainer.style.width = "50%";
+    consoleContainer.style.height = "80vh";
+  } else {
+    consoleContainer.style.width = "100%";
+    consoleContainer.style.height = "100%";
+  }
+});
+
 if (files) {
   files.then(function (data) {
     let htmlfile = data.html;
@@ -44,3 +54,5 @@ if (files) {
 }
 
 dragItem = consoleHeader;
+
+consoleHeader.querySelector("input").value = window.location.pathname;
