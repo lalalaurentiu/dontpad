@@ -1,6 +1,6 @@
 let consoleContainer = document.querySelector(".console_css");
 let consoleHeader = document.querySelector(".console_css_header");
-let consoleHeaderButton = consoleHeader.querySelector("button");
+let consoleHeaderButton = consoleHeader.querySelectorAll("button");
 let output = document.querySelector(".css_output");
 
 let outputBody = output.contentWindow.document.body;
@@ -17,7 +17,17 @@ function runCode(button) {
   });
 }
 
-runCode(consoleHeaderButton);
+runCode(consoleHeaderButton[0]);
+
+consoleHeaderButton[1].addEventListener("click", function () {
+  if (consoleContainer.style.width === "100%") {
+    consoleContainer.style.width = "50%";
+    consoleContainer.style.height = "80vh";
+  } else {
+    consoleContainer.style.width = "100%";
+    consoleContainer.style.height = "100%";
+  }
+});
 
 if (files) {
   files.then(function (data) {
@@ -33,3 +43,5 @@ editor.on("change", function () {
 });
 
 dragItem = consoleHeader;
+
+consoleHeader.querySelector("input").value = window.location.pathname;
