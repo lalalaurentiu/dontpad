@@ -246,6 +246,7 @@ socket.onmessage = (e) => {
     chatLogContainer.appendChild(chatMessageContainer);
 
     let breakContainer = document.createElement("div");
+    breakContainer.style.whiteSpace = "nowrap";
     let chatMessage = document.createElement("span");
     chatMessage.setAttribute("class", "chat-message");
     chatMessage.innerHTML = "<i></i>" + data.message;
