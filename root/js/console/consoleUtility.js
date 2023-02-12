@@ -72,3 +72,25 @@ async function getFiles() {
 
 let files = getFiles();
 
+files.then((data) => {
+  if (data) {
+    if (window.location.pathname.split("/")[1].split(".")[1] !== "py" && window.location.pathname.split("/")[1].split(".")[1] !== undefined) {
+      let pathname = window.location.pathname.split("/")[1].split(".")[0];
+      let versionContainer = document.querySelector(".versioning-container");
+      let path = document.createElement("div");
+      path.setAttribute("class", "path");
+      path.innerHTML = "Files:";
+
+      for (key in data) {
+        let anchor = document.createElement("a");
+        anchor.setAttribute("href", "/" + pathname + "." + key);
+        if (key === window.location.pathname.split("/")[1].split(".")[1]) {
+          anchor.setAttribute("class", "path-active");
+        }
+        anchor.innerHTML = pathname + "." + key;
+        path.appendChild(anchor);
+      }
+      versionContainer.appendChild(path);
+    }
+  }
+});
