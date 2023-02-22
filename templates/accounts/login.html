@@ -24,12 +24,13 @@
                 {% csrf_token %}
                 <div>
                     {{ form.username }}
-                    {{ form.email.errors }}
                 </div>
                 <div>
                     {{ form.password }}
-                    {{ form.password.errors }}
                 </div>
+                {% if form.errors %}
+                    <p class="error">Username or password is incorrect</p>
+                {% endif %}
                 <div>
                     <button type="submit">Login</button>
                 </div>
