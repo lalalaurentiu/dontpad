@@ -40,6 +40,13 @@
                 <div>
                     <button type="submit">Register</button>
                 </div>
+                {% if form.errors %}
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <p class="error">{{ error }}</p>
+                        {% endfor %}
+                    {% endfor %}
+                {% endif %}
             </form>
         </div>
     </div>

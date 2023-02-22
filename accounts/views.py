@@ -11,8 +11,8 @@ def register(request):
         if form.is_valid():
             form.save()
             return redirect('accounts:login')
-        else:
-            form = CustomUserCreationForm()
+    else:
+        form = CustomUserCreationForm()
 
     context = {
         'form': form
