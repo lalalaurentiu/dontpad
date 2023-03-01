@@ -97,6 +97,7 @@ let editor = CodeMirror.fromTextArea(document.getElementById("code"), {
   theme: "abbott",
   autoCloseBrackets: true,
   styleSelectedText: true,
+  autocorrect: true,
 });
 let mode = getExtension(modes);
 try {
