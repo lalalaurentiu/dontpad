@@ -114,7 +114,6 @@ editor.on("change", function () {
   resetiframe();
   let cur = editor.getCursor();
   let token = editor.getTokenAt(cur);
-  console.log(token.type);
   if (token.type === "tag bracket" || token.type === "attribute")  {
     CodeMirror.commands.autocomplete(editor, () => {}, { completeSingle: false });
   } 
