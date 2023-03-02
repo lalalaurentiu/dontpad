@@ -56,3 +56,39 @@ if (files) {
 dragItem = consoleHeader;
 
 consoleHeader.querySelector("input").value = window.location.pathname;
+
+function getAllHints(e) {
+  var hints = CodeMirror.hint.javascript(e);
+  var anyHints = CodeMirror.hint.anyword(e);
+
+  anyHints.list.forEach(function(hint) {
+      if (hints.list.indexOf(hint) == -1)
+          hints.list.push(hint);
+  })
+
+  console.log(hints);
+
+  if (hints) {
+      CodeMirror.on(hints, "pick", function(word) {
+          if (word.charAt(word.length - 1) == ')')
+              editor.execCommand("goCharLeft");
+      });
+  }
+  return hints;
+}
+
+function showAllHints() {
+  editor.showHint({
+      hint: getAllHints,
+      completeSingle: false
+  });
+}
+
+editor.on("change", function () {
+  let cur = editor.getCursor();
+  let token = editor.getTokenAt(cur);
+  console.log(token.type);
+  if (token.type === "variable" || token.type === "property" || token.type === "def") {
+    showAllHints();
+  } 
+});
