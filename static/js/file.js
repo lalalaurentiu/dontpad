@@ -98,6 +98,7 @@ let editor = CodeMirror.fromTextArea(document.getElementById("code"), {
   autoCloseBrackets: true,
   styleSelectedText: true,
   autocorrect: true,
+  autoCloseTags: true,
 });
 let mode = getExtension(modes);
 try {
