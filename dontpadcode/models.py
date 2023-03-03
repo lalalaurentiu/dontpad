@@ -24,6 +24,9 @@ class DontpadCode(models.Model):
     class Meta:
         ordering = ["-id"]
 
+    def __str__(self):
+        return self.slug.slug
+
     def get_absolute_url(self):
         return reverse("iframe", kwargs={"slug": self.slug.slug})
 
@@ -41,6 +44,9 @@ class DontpadUserCode(models.Model):
 
     class Meta:
         ordering = ["-id"]
+
+    def __str__(self):
+        return self.slug.slug
 
 
 # modelul pentru comentarii

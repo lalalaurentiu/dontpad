@@ -66,7 +66,8 @@ function createFooterScript(path) {
 function getExtension(mod) {
   let url = window.location.pathname;
   let extension = url.split(".").pop().split("/")[0];
-  if (extension === "") {
+  console.log(extension);
+  if (extension !== "py" && extension !== "js" && extension !== "html" && extension !== "css") {
     return "text";
   } else {
     createHeaderScript(mod[extension].path);
