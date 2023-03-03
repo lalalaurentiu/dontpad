@@ -87,8 +87,12 @@ function showAllHints() {
 editor.on("change", function () {
   let cur = editor.getCursor();
   let token = editor.getTokenAt(cur);
-  console.log(token.type);
-  if (token.type === "variable" || token.type === "property" || token.type === "def") {
+
+  if (token.type === "variable" || token.type === "property") {
     showAllHints();
-  } 
+  } else if (token.type !== null){
+    editor.showHint({
+      completeSingle: false,
+    });
+  }
 });

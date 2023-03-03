@@ -81,3 +81,40 @@ consoleHeaderButtons[3].addEventListener("click", function () {
 dragItem = consoleHeader;
 
 consoleHeader.querySelector("input").value = window.location.pathname;
+
+function getAllHints(e) {
+  var hints = CodeMirror.hint.python(e);
+  var anyHints = CodeMirror.hint.anyword(e);
+
+  anyHints.list.forEach(function(hint) {
+      if (hints.list.indexOf(hint) == -1)
+          hints.list.push(hint);
+  })
+
+  if (hints) {
+      CodeMirror.on(hints, "pick", function(word) {
+          if (word.charAt(word.length - 1) == ')'){
+              editor.execCommand("goCharRight");
+          }
+      });
+  }
+  return hints;
+}
+
+function showAllHints() {
+  editor.showHint({
+      hint: getAllHints,
+      completeSingle: false
+  });
+}
+
+editor.on("change", function () {
+  let cur = editor.getCursor();
+  let token = editor.getTokenAt(cur);
+
+  if (token.type === "property"  || token.type === "variable" ) {
+    showAllHints();
+  } else {
+    editor.showHint();
+  }
+});
