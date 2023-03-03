@@ -98,24 +98,13 @@ function resetiframe() {
   }
 }
 
-CodeMirror.commands.autocomplete = function (cm, hint, options) {
-  if (!hint) hint = CodeMirror.hint.html;
-  if (hint.async) {
-    hint(cm, options, function (data) {
-      cm.showHint(options, data);
-    });
-  } else {
-    return cm.showHint(options, hint(cm, options));
-  }
-};
-
-
 editor.on("change", function () {
   resetiframe();
   let cur = editor.getCursor();
   let token = editor.getTokenAt(cur);
-  if (token.type === "tag bracket" || token.type === "attribute")  {
-    CodeMirror.commands.autocomplete(editor, () => {}, { completeSingle: false });
+
+  if (token.type !== null)  {
+    editor.showHint({ completeSingle: false });
   } 
   try {
     outputBody.innerHTML = css + editor.getValue() + js;

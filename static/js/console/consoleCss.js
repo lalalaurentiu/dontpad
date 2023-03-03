@@ -41,8 +41,9 @@ if (files) {
 editor.on("change", function () {
   let cur = editor.getCursor();
   let token = editor.getTokenAt(cur);
-  if (token.type === "property" || token.type === "property error" || token.type === "atom") {
-    CodeMirror.commands.autocomplete(editor, null, { completeSingle: false });
+
+  if (token.type !== null) {
+    editor.showHint({ completeSingle: false });
   }
   CodeMirror.commands.autocomplete(editor, null, { completeSingle: false });
     outputBody.innerHTML = `<style>${editor.getValue()}</style>` + html;
